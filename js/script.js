@@ -1,5 +1,6 @@
 /**
- * RAHALA THROUGH HISTORY (رحّالة عبر التاريخ)
+ *   
+ * س (رحّالة عبر التاريخ)
  * Official Website JavaScript
  * Features: Dark/Light Mode, Full Bilingual i18n (AR/EN), Scroll Animations,
  * Filter Tabs, Destination Modal, Mobile Drawer, WhatsApp Integration.
@@ -634,7 +635,7 @@ const destinationDetails = {
   "islamic-cairo": {
     titleAr: "القاهرة الإسلامية | جوهرة العمارة والتراث",
     titleEn: "Islamic Cairo | Jewel of Medieval Architecture",
-    img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80",
+    img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80",
     tagAr: "عمارة وتراث",
     tagEn: "Architecture & Heritage",
     descAr: "شارع المعز لدين الله الفاطمي وخان الخليلي، حيث تتجمع أعظم مجموعة من الآثار الإسلامية في العالم، من مساجد ومضائف ومدارس وبوابات أثرية تعود للعصور الفاطمية والمملوكية.",
@@ -1377,7 +1378,7 @@ const defaultBlogPosts = [
     authorEn: "Rahala Editorial Team",
     readTimeAr: "6 دقائق قراءة",
     readTimeEn: "6 min read",
-    img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80",
+    img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80",
     titleAr: "شارع المعز: أعظم متحف مفتوح للعمارة الإسلامية في العالم",
     titleEn: "Al-Mu'izz Street: The World's Greatest Islamic Open-Air Museum",
     excerptAr: "جولة تاريخية في قلب القاهرة الفاطمية بين باب الفتوح وباب زويلة، حيث تتجمع أعظم نماذج الزخرفة الإسلامية، والمقرنصات، ومآذن العصور المتعاقبة.",
