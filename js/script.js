@@ -1694,7 +1694,25 @@ function renderBookBlogGrid(activeCategory = 'all') {
   const container = document.getElementById('book-blog-grid');
   if (!container) return;
   const isAr = currentLang === 'ar';
-  const posts = getBookBlogPosts().filter(post => activeCategory === 'all' || post.category === activeCategory);
+
+  // Show loading state
+  container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);"><p>${isAr ? 'جاري تحميل المكتبة...' : 'Loading library...'}</p></div>`;
+
+  // Load published books from Firebase, fall back to local
+  DataService.getPublishedBooks().then(firebaseBooks => {
+    const localBooks = getBookBlogPosts();
+    const localIds = new Set(localBooks.map(b => b.id));
+    const merged = [...firebaseBooks];
+    localBooks.forEach(b => { if (!localIds.has(b.id)) merged.push(b); });
+    const posts = merged.filter(post => activeCategory === 'all' || post.category === activeCategory);
+    renderBookBlogCards(container, posts, isAr);
+  }).catch(() => {
+    const posts = getBookBlogPosts().filter(post => activeCategory === 'all' || post.category === activeCategory);
+    renderBookBlogCards(container, posts, isAr);
+  });
+}
+
+function renderBookBlogCards(container, posts, isAr) {
   container.innerHTML = posts.length ? posts.map(post => {
     const category = getBookBlogCategoryInfo(post.category, currentLang);
     const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
@@ -2282,7 +2300,8 @@ function initAdminDashboard() {
     const records = allContent().filter(record => (activeType === 'all' || record.type === activeType) && `${record.title} ${record.detail}`.toLowerCase().includes(query));
     recordsEl.innerHTML = records.length ? records.map(record => {
       const pdfBadge = record.type === 'book' && record.pdfUrl ? ' <span style="color:#22c55e;font-size:.7rem;font-weight:700;">📄 PDF</span>' : '';
-      return `<article class="admin-record"><img class="admin-record__thumb" src="${escapeHtml(record.image || 'images/logo.jpg')}" alt=""><div><span class="admin-record__type">${typeLabels[record.type] || 'محتوى'}</span><h4>${escapeHtml(record.title)}${pdfBadge}</h4><p>${escapeHtml(record.detail)} · ${escapeHtml(record.status)}</p></div><div class="admin-record__actions"><button type="button" data-admin-edit="${escapeHtml(record.id)}">تعديل</button><button type="button" class="is-danger" data-admin-delete="${escapeHtml(record.id)}">حذف</button></div></article>`;
+      const pubBadge = record.type === 'book' ? (JSON.parse(localStorage.getItem('rahala_published_books_cache') || '[]').some(b => b.id === record.id) ? ' <span style="color:#22c55e;font-size:.7rem;font-weight:700;">✓ منشور</span>' : ' <span style="color:var(--text-muted);font-size:.7rem;">(محلي فقط)</span>') : '';
+      return `<article class="admin-record"><img class="admin-record__thumb" src="${escapeHtml(record.image || 'images/logo.jpg')}" alt=""><div><span class="admin-record__type">${typeLabels[record.type] || 'محتوى'}</span><h4>${escapeHtml(record.title)}${pdfBadge}${pubBadge}</h4><p>${escapeHtml(record.detail)} · ${escapeHtml(record.status)}</p></div><div class="admin-record__actions"><button type="button" data-admin-edit="${escapeHtml(record.id)}">تعديل</button><button type="button" class="is-danger" data-admin-delete="${escapeHtml(record.id)}">حذف</button></div></article>`;
     }).join('') : '<div class="admin-empty">لا يوجد محتوى مطابق للبحث.</div>';
     applyAdminRBAC();
   }
@@ -2342,7 +2361,7 @@ function initAdminDashboard() {
     document.getElementById('admin-content-view').prepend(form);
     initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
-    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; };
+    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; const actionsEl = form.querySelector('.admin-form-actions'); let pubBtn = document.getElementById('admin-book-publish'); let unpubBtn = document.getElementById('admin-book-unpublish'); let pubStatus = document.getElementById('admin-book-publish-status'); if (isBook && !pubBtn) { pubStatus = document.createElement('div'); pubStatus.id = 'admin-book-publish-status'; pubStatus.className = 'form-pdf-status'; pubBtn = document.createElement('button'); pubBtn.type = 'button'; pubBtn.id = 'admin-book-publish'; pubBtn.className = 'btn btn--success btn--sm'; pubBtn.textContent = 'نشر في المكتبة العامة'; unpubBtn = document.createElement('button'); unpubBtn.type = 'button'; unpubBtn.id = 'admin-book-unpublish'; unpubBtn.className = 'btn btn--danger btn--sm'; unpubBtn.textContent = 'إلغاء النشر'; unpubBtn.hidden = true; actionsEl.insertBefore(pubBtn, actionsEl.firstChild); actionsEl.insertBefore(unpubBtn, pubBtn.nextSibling); actionsEl.insertBefore(pubStatus, unpubBtn.nextSibling); if (editingId) { DataService.isBookPublished(editingId).then(pub => { if (pubBtn) { pubBtn.hidden = pub; unpubBtn.hidden = !pub; pubStatus.innerHTML = pub ? '<span style="color:#22c55e;">✓ منشور في المكتبة العامة</span>' : ''; } }); } pubBtn.addEventListener('click', async () => { if (!hasPermission('content.publish')) { showToast('ليس لديك صلاحية النشر'); return; } pubBtn.disabled = true; pubBtn.textContent = 'جاري النشر...'; try { const bookData = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: document.getElementById('admin-form-image').value.trim() || 'images/logo.jpg', titleAr: document.getElementById('admin-form-title').value.trim(), titleEn: document.getElementById('admin-form-title').value.trim(), excerptAr: document.getElementById('admin-form-detail').value.trim(), excerptEn: document.getElementById('admin-form-detail').value.trim(), contentAr: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, contentEn: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, pdfUrl: pendingPdfData || '' }; await DataService.publishBook(bookData, bookData.img, bookData.pdfUrl); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#22c55e;">✓ تم النشر بنجاح — ظاهر للزوار الآن</span>'; showToast('تم نشر الكتاب في المكتبة العامة'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ في النشر: ' + err.message); } finally { pubBtn.disabled = false; pubBtn.textContent = 'نشر في المكتبة العامة'; } }); unpubBtn.addEventListener('click', async () => { if (!confirm('هل تريد إلغاء نشر هذا الكتاب؟ لن يظهر للزوار.')) return; unpubBtn.disabled = true; try { await DataService.unpublishBook(editingId); unpubBtn.hidden = true; pubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:var(--text-muted);">غير منشور</span>'; showToast('تم إلغاء النشر'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ: ' + err.message); } finally { unpubBtn.disabled = false; } }); } else if (!isBook && pubBtn) { pubBtn.remove(); unpubBtn.remove(); pubStatus.remove(); } };
     document.getElementById('admin-form-type').addEventListener('change', updateBookFields);
     if (record?.category) document.getElementById('admin-book-category').value = record.category;
     updateBookFields();

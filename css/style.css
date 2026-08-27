@@ -338,6 +338,25 @@ button {
   width: 100%;
 }
 
+.btn--success {
+  background: #22c55e;
+  color: #fff;
+  border: 1px solid #22c55e;
+}
+.btn--success:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+.btn--danger {
+  background: #ef4444;
+  color: #fff;
+  border: 1px solid #ef4444;
+}
+.btn--danger:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
 .btn-arrow {
   width: 18px;
   height: 18px;
