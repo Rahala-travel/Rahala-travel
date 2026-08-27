@@ -71,6 +71,7 @@
           <li class="nav__item"><a href="#blog" class="nav__link nav__link--highlight" data-i18n="nav_blog">المدونة</a></li>
           <li class="nav__item"><a href="#book-blog" class="nav__link" data-i18n="book_blog_nav">الكتب</a></li>
           <li class="nav__item"><a href="#latest-posts" class="nav__link" data-i18n="nav_latest_posts">أحدث المقالات</a></li>
+          <li class="nav__item"><a href="#book-blog" class="nav__link" data-i18n="nav_library">المكتبة</a></li>
           <li class="nav__item"><a href="#experiences" class="nav__link" data-i18n="nav_experiences">تجاربنا</a></li>
           <li class="nav__item"><a href="#why-us" class="nav__link" data-i18n="nav_why_us">لماذا رحّالة</a></li>
           <li class="nav__item"><a href="#timeline" class="nav__link" data-i18n="nav_timeline">المسيرة</a></li>
@@ -96,6 +97,15 @@
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
           </svg>
           <span data-i18n="nav_blog">المدونة</span>
+        </a>
+
+        <!-- Header Library Button -->
+        <a href="#book-blog" class="btn btn--header-library" aria-label="Visit Library / زيارة المكتبة" title="مكتبة رحّالة عبر التاريخ / Library">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"></path>
+            <line x1="9" y1="2" x2="9" y2="22"></line>
+          </svg>
+          <span data-i18n="nav_library">المكتبة</span>
         </a>
 
         <!-- Language Switcher -->
@@ -169,6 +179,7 @@
       <li><a href="#blog" class="mobile-nav__link mobile-nav__link--blog" data-i18n="nav_blog">المدونة</a></li>
       <li><a href="#book-blog" class="mobile-nav__link" data-i18n="book_blog_nav">الكتب</a></li>
       <li><a href="#latest-posts" class="mobile-nav__link" data-i18n="nav_latest_posts">أحدث المقالات</a></li>
+      <li><a href="#book-blog" class="mobile-nav__link" data-i18n="nav_library">المكتبة</a></li>
       <li><a href="#about" class="mobile-nav__link" data-i18n="nav_about">من نحن</a></li>
       <li><a href="#services" class="mobile-nav__link" data-i18n="nav_services">خدماتنا</a></li>
       <li><a href="#destinations" class="mobile-nav__link" data-i18n="nav_destinations">وجهاتنا</a></li>
@@ -228,7 +239,7 @@
           <!-- Badge -->
           <div class="hero__badge">
             <span class="badge-dot"></span>
-            <span class="badge-text" data-i18n="hero_badge">شركة سياحة وتوعية أثرية • تأسست 2023
+            <span class="badge-text" data-i18n="hero_badge">شركة سياحة وتوعية أثرية • تأسست 2022
               
             </span>
           </div>
@@ -284,7 +295,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               </div>
               <div class="stat-card__details">
-                <span class="stat-card__title" data-i18n="stat_3_title">تأسست 25 سبتمبر 2023</span>
+                <span class="stat-card__title" data-i18n="stat_3_title">تأسست 25 سبتمبر 2022</span>
                 <span class="stat-card__sub" data-i18n="stat_3_sub">انطلاقة برؤية متجددة</span>
               </div>
             </div>
@@ -322,7 +333,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                   </div>
                   <div>
-                    <strong class="badge-year">25.09.2023</strong>
+                    <strong class="badge-year">25.09.2022</strong>
                     <span class="badge-label" data-i18n="about_badge_label">تاريخ التأسيس</span>
                   </div>
                 </div>
@@ -348,7 +359,7 @@
             </h2>
             
             <p class="about__lead" data-i18n="about_lead">
-              رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2023، تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.
+              رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2022 تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.
             </p>
 
             <p class="about__text" data-i18n="about_text_p1">
@@ -997,16 +1008,7 @@
             </button>
           </div>
 
-          <!-- Add / Publish New Article Action Button -->
-          <div class="blog-actions">
-            <button type="button" class="btn btn--publish" id="open-publish-btn" aria-label="Add and Publish New Article">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              <span data-i18n="btn_publish_article">إضافة ونشر مقال جديد</span>
-            </button>
-          </div>
+          <!-- ADMIN ONLY: Publish button moved to Admin Dashboard -->
 
         </div>
 
@@ -1032,7 +1034,7 @@
             <button type="button" class="blog-filter-btn" data-book-category="history"><span class="filter-icon">🏛️</span><span data-i18n="book_blog_history">كتب الحضارات والتاريخ</span></button>
             <button type="button" class="blog-filter-btn" data-book-category="miscellaneous"><span class="filter-icon">✦</span><span data-i18n="book_blog_miscellaneous">كتب متنوعة</span></button>
           </div>
-          <div class="blog-actions"><button type="button" class="btn btn--publish" id="open-book-publish-btn"><span>＋</span><span data-i18n="book_blog_publish">نشر كتاب أو مقال</span></button></div>
+          <!-- ADMIN ONLY: Publish button moved to Admin Dashboard -->
         </div>
         <div class="blog__grid" id="book-blog-grid"></div>
       </div>
@@ -1449,7 +1451,7 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span data-i18n="footer_est">تأسست: 25 سبتمبر 2023</span>
+              <span data-i18n="footer_est">تأسست: 25 سبتمبر 2022</span>
             </li>
           </ul>
         </div>
@@ -1502,21 +1504,7 @@
     </div>
   </div>
 
-  <div class="modal modal--publish" id="book-publish-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal__overlay" id="book-publish-modal-overlay"></div>
-    <div class="modal__dialog modal__dialog--publish">
-      <button type="button" class="modal__close" id="book-publish-modal-close" aria-label="Close publish modal">&times;</button>
-      <div class="publish-modal__header"><div class="publish-icon">✦</div><div><h3 class="publish-modal__title" data-i18n="book_blog_publish_title">نشر كتاب أو مقال جديد</h3><p class="publish-modal__sub" data-i18n="book_blog_publish_sub">أضف المحتوى وسيظهر فور نشره في تصنيفه.</p></div></div>
-      <form class="publish-form" id="book-publish-form">
-        <div class="form-group"><label class="form-label" for="book-pub-title" data-i18n="pub_label_title">العنوان *</label><input id="book-pub-title" class="form-input" required></div>
-        <div class="form-row-2"><div class="form-group"><label class="form-label" for="book-pub-category" data-i18n="book_blog_category">التصنيف *</label><select id="book-pub-category" class="form-select" required><option value="scientific" data-i18n="book_blog_scientific">كتب علمية</option><option value="history" data-i18n="book_blog_history">كتب الحضارات والتاريخ</option><option value="miscellaneous" data-i18n="book_blog_miscellaneous">كتب متنوعة</option></select></div><div class="form-group"><label class="form-label" for="book-pub-author" data-i18n="pub_label_author">اسم الكاتب</label><input id="book-pub-author" class="form-input" value="رحّالة عبر التاريخ"></div></div>
-        <div class="form-group"><label class="form-label" for="book-pub-image" data-i18n="pub_label_image">رابط صورة الغلاف (URL) *</label><input id="book-pub-image" class="form-input" type="url" required></div>
-        <div class="form-group"><label class="form-label" for="book-pub-excerpt" data-i18n="pub_label_excerpt">الملخص *</label><textarea id="book-pub-excerpt" class="form-textarea" rows="2" required></textarea></div>
-        <div class="form-group"><label class="form-label" for="book-pub-content" data-i18n="pub_label_content">النص الكامل *</label><textarea id="book-pub-content" class="form-textarea" rows="7" required></textarea></div>
-        <div class="publish-form__actions"><button type="submit" class="btn btn--primary btn--lg btn--full"><span data-i18n="book_blog_publish_submit">نشر المحتوى</span></button></div>
-      </form>
-    </div>
-  </div>
+  <!-- ADMIN ONLY: Book publish modal moved to Admin Dashboard -->
 
   <!-- ARTICLE READER MODAL (Full Story View) -->
   <div class="modal modal--article" id="article-modal" aria-hidden="true" role="dialog" aria-modal="true">
@@ -1570,112 +1558,59 @@
     </div>
   </div>
 
-  <!-- PUBLISH NEW ARTICLE MODAL -->
-  <div class="modal modal--publish" id="publish-modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal__overlay" id="publish-modal-overlay"></div>
-    <div class="modal__dialog modal__dialog--publish">
-      <button type="button" class="modal__close" id="publish-modal-close" aria-label="Close publish modal">&times;</button>
-      
-      <div class="publish-modal__header">
-        <div class="publish-icon">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </div>
-        <div>
-          <h3 class="publish-modal__title" data-i18n="pub_modal_title">إضافة ونشر مقال جديد في المدونة</h3>
-          <p class="publish-modal__sub" data-i18n="pub_modal_sub">املأ تفاصيل المقال وسينشر مباشرة في المدونة وأحدث المقالات.</p>
+  <!-- ADMIN ONLY: Article publish modal moved to Admin Dashboard -->
+
+  <!-- PDF BOOK READER MODAL -->
+  <div class="modal modal--pdf-reader" id="pdf-reader-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__overlay" id="pdf-reader-overlay"></div>
+    <div class="modal__dialog modal__dialog--pdf-reader">
+      <div class="pdf-reader__header">
+        <h3 class="pdf-reader__title" id="pdf-reader-title"></h3>
+        <div class="pdf-reader__header-actions">
+          <a class="btn btn--primary btn--sm" id="pdf-reader-download" href="#" download>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="book_pdf_download">تحميل PDF</span>
+          </a>
+          <button type="button" class="modal__close" id="pdf-reader-close" aria-label="Close PDF reader">&times;</button>
         </div>
       </div>
-
-      <form class="publish-form" id="publish-form">
-        
-        <!-- Title Input -->
-        <div class="form-group">
-          <label for="pub-title" class="form-label" data-i18n="pub_label_title">عنوان المقال *</label>
-          <input type="text" id="pub-title" class="form-input" placeholder="اكتب عنوان المقال الجذاب هنا..." required>
-        </div>
-
-        <!-- Category & Author Row -->
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="pub-category" class="form-label" data-i18n="pub_label_cat">التصنيف التاريخي *</label>
-            <select id="pub-category" class="form-select" required>
-              <option value="ancient" data-i18n="cat_opt_ancient">🏛️ مصر القديمة (Ancient Egypt)</option>
-              <option value="islamic" data-i18n="cat_opt_islamic">🕌 مصر الإسلامية (Islamic Egypt)</option>
-              <option value="coptic" data-i18n="cat_opt_coptic">⛪ مصر القبطية (Coptic Egypt)</option>
-              <option value="modern" data-i18n="cat_opt_modern">🏙️ مصر الحديثة (Modern Egypt)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="pub-author" class="form-label" data-i18n="pub_label_author">اسم الكاتب</label>
-            <input type="text" id="pub-author" class="form-input" value="رحّالة عبر التاريخ">
-          </div>
-        </div>
-
-        <!-- Featured Image URL & Presets -->
-        <div class="form-group">
-          <label for="pub-image" class="form-label" data-i18n="pub_label_image">رابط صورة الغلاف (URL) *</label>
-          <input type="url" id="pub-image" class="form-input" placeholder="https://images.unsplash.com/..." required value="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80">
-          
-          <!-- Quick Image Presets -->
-          <div class="image-presets">
-            <span class="presets-label" data-i18n="pub_presets_label">أو اختر صورة جاهزة:</span>
-            <div class="presets-grid">
-              <button type="button" class="preset-img-btn active" data-img-url="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80" title="الأهرامات / Ancient Egypt">
-                <img src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=120&q=80" alt="Pyramids">
-              </button>
-              <button type="button" class="preset-img-btn" data-img-url="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80" title="شارع المعز / Islamic Egypt">
-                <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=120&q=80" alt="Islamic Cairo">
-              </button>
-              <button type="button" class="preset-img-btn" data-img-url="https://images.unsplash.com/photo-1579606032822-1f7df2bcefa8?auto=format&fit=crop&w=1000&q=80" title="مصر القديمة / Coptic Egypt">
-                <img src="https://images.unsplash.com/photo-1579606032822-1f7df2bcefa8?auto=format&fit=crop&w=120&q=80" alt="Old Cairo">
-              </button>
-              <button type="button" class="preset-img-btn" data-img-url="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80" title="قناة السويس وبورسعيد / Modern Egypt">
-                <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=120&q=80" alt="Port Said">
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Excerpt -->
-        <div class="form-group">
-          <label for="pub-excerpt" class="form-label" data-i18n="pub_label_excerpt">ملخص المقال (يظهر في بطاقة المدونة) *</label>
-          <textarea id="pub-excerpt" class="form-textarea" rows="2" placeholder="اكتب ملخصاً موجزاً ومشوّقاً للمقال..." required></textarea>
-        </div>
-
-        <!-- Full Content -->
-        <div class="form-group">
-          <label for="pub-content" class="form-label" data-i18n="pub_label_content">نص المقال الكامل *</label>
-          <textarea id="pub-content" class="form-textarea" rows="7" placeholder="اكتب نص المقال الكامل هنا. يمكنك كتابة عدة فقرات تفصيلية..." required></textarea>
-        </div>
-
-        <!-- Submit & Actions -->
-        <div class="publish-form__actions">
-          <button type="submit" class="btn btn--primary btn--lg btn--full">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            <span data-i18n="pub_btn_submit">نشر المقال على الفور</span>
-          </button>
-        </div>
-
-      </form>
-
+      <div class="pdf-reader__body">
+        <iframe id="pdf-reader-iframe" title="PDF Viewer" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
   <!-- ADMIN CONTENT DASHBOARD -->
   <div class="admin-shell" id="admin-shell" aria-hidden="true" role="dialog" aria-modal="true" aria-label="لوحة إدارة محتوى الموقع">
     <div class="admin-shell__overlay" id="admin-overlay"></div>
+    <section class="admin-login" id="admin-login" aria-labelledby="admin-login-title" hidden>
+      <button type="button" class="admin-close" id="admin-login-close" aria-label="إغلاق تسجيل الدخول">×</button>
+      <p class="admin-eyebrow">RAHALA / ADMIN</p>
+      <h2 id="admin-login-title">تسجيل دخول الإدارة</h2>
+      <p class="admin-login__subtitle">أدخل بيانات الدخول للوصول إلى لوحة التحكم.</p>
+      <form id="admin-login-form" novalidate>
+        <label class="form-label" for="admin-username">اسم المستخدم</label>
+        <select class="form-select" id="admin-username" name="username" required>
+          <option value="" disabled selected>اختر المستخدم...</option>
+        </select>
+        <label class="form-label" for="admin-password">كلمة المرور</label>
+        <input class="form-input" id="admin-password" name="password" type="password" autocomplete="current-password" required>
+        <p class="admin-login__error" id="admin-login-error" role="alert" hidden>اسم المستخدم أو كلمة المرور غير صحيحة.</p>
+        <button class="btn btn--primary" type="submit">دخول لوحة التحكم</button>
+      </form>
+    </section>
     <div class="admin-dashboard">
       <aside class="admin-sidebar">
         <div class="admin-brand">
           <span class="admin-brand__mark">RH</span>
-          <div><strong>استوديو رحّالة</strong><small>إدارة المحتوى</small></div>
+          <div><strong>استوديو رحّالة</strong><small id="admin-user-label">إدارة المحتوى</small></div>
         </div>
         <nav class="admin-nav" aria-label="أقسام لوحة التحكم">
           <button type="button" class="admin-nav__item is-active" data-admin-view="overview"><span>◈</span> نظرة عامة</button>
-          <button type="button" class="admin-nav__item" data-admin-view="content"><span>▤</span> المحتوى</button>
-          <button type="button" class="admin-nav__item" data-admin-view="sections"><span>◫</span> أقسام الموقع</button>
-          <button type="button" class="admin-nav__item" data-admin-view="settings"><span>⚙</span> إعدادات الموقع</button>
+          <button type="button" class="admin-nav__item" data-admin-view="content" data-rbac-content><span>▤</span> المحتوى</button>
+          <button type="button" class="admin-nav__item" data-admin-view="sections" data-rbac-sections><span>◫</span> أقسام الموقع</button>
+          <button type="button" class="admin-nav__item" data-admin-view="settings" data-rbac-settings><span>⚙</span> إعدادات الموقع</button>
+          <button type="button" class="admin-nav__item" data-admin-view="users" data-rbac-users><span>♟</span> إدارة المستخدمين</button>
         </nav>
         <button type="button" class="admin-sidebar__back" id="admin-back">← العودة للموقع</button>
       </aside>
@@ -1693,7 +1628,7 @@
             <article class="admin-stat"><span>أقسام نشطة</span><strong id="admin-active-sections">0</strong><small>من واجهة الموقع</small></article>
           </div>
           <div class="admin-overview-grid">
-            <div class="admin-panel"><div class="admin-panel__heading"><h3>إجراءات سريعة</h3><span>QUICK ACTIONS</span></div><div class="admin-quick-actions"><button type="button" data-admin-create="post">＋ مقال جديد</button><button type="button" data-admin-create="book">＋ كتاب أو مقال معرفي</button><button type="button" data-admin-create="trip">＋ رحلة جديدة</button><button type="button" data-admin-create="announcement">＋ إعلان جديد</button></div></div>
+            <div class="admin-panel" data-rbac-overview><div class="admin-panel__heading"><h3>إجراءات سريعة</h3><span>QUICK ACTIONS</span></div><div class="admin-quick-actions" data-rbac-content><button type="button" data-admin-create="post">＋ مقال جديد</button><button type="button" data-admin-create="book">＋ كتاب أو مقال معرفي</button><button type="button" data-admin-create="trip">＋ رحلة جديدة</button><button type="button" data-admin-create="announcement">＋ إعلان جديد</button></div></div>
             <div class="admin-panel admin-panel--note"><span class="admin-note__icon">✦</span><div><h3>مساحة عمل محلية</h3><p>التغييرات تحفظ على هذا المتصفح فوراً وتنعكس على الصفحة العامة عند تحديثها.</p></div></div>
           </div>
         </div>
@@ -1703,6 +1638,11 @@
           <div class="admin-toolbar"><div class="admin-tabs"><button type="button" class="admin-tab is-active" data-admin-type="all">الكل</button><button type="button" class="admin-tab" data-admin-type="post">المقالات</button><button type="button" class="admin-tab" data-admin-type="book">الكتب والمحتوى المعرفي</button><button type="button" class="admin-tab" data-admin-type="trip">الرحلات</button><button type="button" class="admin-tab" data-admin-type="announcement">الإعلانات</button></div><button type="button" class="btn btn--primary admin-add-btn" id="admin-add-record">＋ إضافة محتوى</button></div>
           <label class="admin-search"><span>⌕</span><input id="admin-search-input" type="search" placeholder="ابحث في المحتوى..." aria-label="البحث في المحتوى"></label>
           <div class="admin-records" id="admin-records"></div>
+
+          <div class="admin-ticker-section">
+            <div class="admin-ticker-heading"><div><h3>شريط الأخبار (News Ticker)</h3><p class="admin-muted">إدارة عناصر شريط الأخبار المتحرك في أعلى الصفحة. التغييرات تظهر فوراً.</p></div><button type="button" class="btn btn--primary btn--sm" id="admin-add-ticker">＋ إضافة خبر</button></div>
+            <div class="admin-ticker-list" id="admin-ticker-list"></div>
+          </div>
         </div>
 
         <div class="admin-view" id="admin-sections-view" hidden>
@@ -1713,6 +1653,14 @@
           <div class="admin-panel admin-settings-panel">
             <div class="admin-panel__heading"><div><h3>إعدادات الموقع</h3><p class="admin-muted">عدّل النصوص والصور والوجهات. تحفظ التغييرات على هذا المتصفح وتظهر فوراً.</p></div><span>SITE EDITOR</span></div>
             <div id="admin-settings-content"></div>
+          </div>
+        </div>
+
+        <div class="admin-view" id="admin-users-view" hidden data-rbac-users>
+          <div class="admin-panel">
+            <div class="admin-panel__heading"><div><h3>إدارة المستخدمين</h3><p class="admin-muted">إضافة وتعديل وحذف مستخدمي لوحة التحكم.</p></div><span>USER MANAGEMENT</span></div>
+            <button type="button" class="btn btn--primary btn--sm" id="admin-add-user" style="margin-bottom:.8rem;">＋ إضافة مستخدم جديد</button>
+            <div id="admin-users-list"></div>
           </div>
         </div>
 

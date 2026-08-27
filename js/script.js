@@ -26,6 +26,7 @@ const translations = {
     nav_destinations: "وجهاتنا",
     nav_experiences: "تجاربنا",
     nav_latest_posts: "أحدث المقالات",
+    nav_library: "المكتبة",
     nav_blog: "المدونة",
     nav_why_us: "لماذا رحّالة",
     nav_timeline: "المسيرة",
@@ -61,6 +62,11 @@ const translations = {
     book_blog_publish_title: "نشر كتاب أو مقال جديد",
     book_blog_publish_sub: "أضف المحتوى وسيظهر فور نشره في تصنيفه.",
     book_blog_publish_submit: "نشر المحتوى",
+    book_pdf_upload: "ملف PDF الكتاب",
+    book_pdf_upload_hint: "ارفع ملف PDF للكتاب (الحد الأقصى ~5MB)",
+    book_pdf_download: "تحميل PDF",
+    book_pdf_read: "قراءة",
+    book_pdf_no_file: "لم يتم رفع ملف PDF",
     btn_read_post: "اقرأ المقال بالكامل",
     article_share_label: "مشاركة المقال أو الاستفسار:",
     article_share_btn: "تواصل معنا حول هذا المقال عبر واتساب",
@@ -81,7 +87,7 @@ const translations = {
     cat_opt_modern: "🏙️ مصر الحديثة (Modern Egypt)",
 
     // Hero
-    hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2023",
+    hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2022",
     hero_title: "اكتشف مصر من خلال التاريخ",
     hero_desc: "رحّالة عبر التاريخ تقدم تجارب سياحية مميزة تربط الإنسان بتاريخ مصر وآثارها وثقافتها وتراثها.",
     hero_cta_primary: "استكشف تجاربنا",
@@ -90,13 +96,13 @@ const translations = {
     stat_1_sub: "تأصيل للمعرفة التاريخية",
     stat_2_title: "استكشاف وتوثيق",
     stat_2_sub: "وجهات مصرية فريدة",
-    stat_3_title: "تأسست 25 سبتمبر 2023",
+    stat_3_title: "تأسست 25 سبتمبر 2022",
     stat_3_sub: "انطلاقة برؤية متجددة",
 
     // About Us
     about_tag: "عن رحّالة عبر التاريخ",
     about_title: "رحلة تتجاوز المكان.. لنروي قصة الحضارة",
-    about_lead: "رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2023، تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.",
+    about_lead: "رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2022 تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.",
     about_text_p1: "تأسست الشركة انطلاقاً من إيمان عميق بأن السياحة ليست مجرد زيارة مواقع، بل هي جسر معرفي حي يربط الإنسان بعراقة الماضي. نحن نجمع بين شغف الاستكشاف، والدقة التاريخية، والتوعية الأثرية، لنقدم للمسافر تجربة حقيقية تمنحه فهماً أعمق لحضارة مصر الخالدة.",
     about_badge_label: "تاريخ التأسيس",
     pillar_1_title: "شغف بالتاريخ المصري",
@@ -253,7 +259,7 @@ const translations = {
     timeline_tag: "مسيرة الشركة",
     timeline_title: "خطوات واثقة وتطلعات مستقبلية",
     timeline_subtitle: "منذ انطلاقتنا الرسمية في القاهرة، نرسم مساراً واضحاً نحو الريادة في السياحة التاريخية والتوعية الأثرية.",
-    tl_date_1: "25 سبتمبر 2023",
+    tl_date_1: "25 سبتمبر 2022",
     tl_1_title: "التأسيس الرسمي لشركة رحّالة عبر التاريخ",
     tl_1_desc: "انطلاق شركة \"رحّالة عبر التاريخ\" كشركة سياحة وتوعية أثرية بمدينة نصر في القاهرة، بهدف تقديم تجارب نوعية تربط الزوار بالحضارة المصرية.",
     tl_date_future: "مرحلة قادمة",
@@ -313,7 +319,7 @@ const translations = {
     footer_links_title: "روابط سريعة",
     footer_services_title: "خدماتنا",
     footer_contact_title: "معلومات الاتصال",
-    footer_est: "تأسست: 25 سبتمبر 2023",
+    footer_est: "تأسست: 25 سبتمبر 2022",
     footer_rights: "جميع الحقوق محفوظة.",
     footer_slogan: "رحّالة عبر التاريخ — سافر، اكتشف، وعش الحكاية.",
 
@@ -336,6 +342,7 @@ const translations = {
     nav_destinations: "Destinations",
     nav_experiences: "Experiences",
     nav_latest_posts: "Latest Posts",
+    nav_library: "Library",
     nav_blog: "Blog",
     nav_why_us: "Why Rahala",
     nav_timeline: "Timeline",
@@ -371,6 +378,11 @@ const translations = {
     book_blog_publish_title: "Publish a New Book or Article",
     book_blog_publish_sub: "Add your content and it will appear in its category once published.",
     book_blog_publish_submit: "Publish Content",
+    book_pdf_upload: "Book PDF File",
+    book_pdf_upload_hint: "Upload a PDF file for the book (max ~5MB)",
+    book_pdf_download: "Download PDF",
+    book_pdf_read: "Read",
+    book_pdf_no_file: "No PDF file uploaded",
     btn_read_post: "Read Full Article",
     article_share_label: "Share or Inquire about this Article:",
     article_share_btn: "Connect with Us on WhatsApp",
@@ -391,7 +403,7 @@ const translations = {
     cat_opt_modern: "🏙️ Modern Egypt (مصر الحديثة)",
 
     // Hero
-    hero_badge: "Tourism Company & Archaeological Awareness • Est. 2023",
+    hero_badge: "Tourism Company & Archaeological Awareness • Est. 2022",
     hero_title: "Discover Egypt Through History",
     hero_desc: "Rahala Through History creates unique tourism experiences that connect people with Egypt's history, archaeology, culture, and heritage.",
     hero_cta_primary: "Explore Our Experiences",
@@ -400,13 +412,13 @@ const translations = {
     stat_1_sub: "Deepening Historical Knowledge",
     stat_2_title: "Exploration & Discovery",
     stat_2_sub: "Unique Egyptian Destinations",
-    stat_3_title: "Established Sept 25, 2023",
+    stat_3_title: "Established Sept 25, 2022",
     stat_3_sub: "Driven by Heritage & Passion",
 
     // About Us
     about_tag: "About Rahala Through History",
     about_title: "A Journey Beyond Destinations.. Living the Story",
-    about_lead: "Rahala Through History is a tourism company established on September 25, 2023, dedicated to creating memorable journeys across Egypt while promoting awareness of the country's archaeological, historical, and cultural heritage.",
+    about_lead: "Rahala Through History is a tourism company established on September 25, 2022, dedicated to creating memorable journeys across Egypt while promoting awareness of the country's archaeological, historical, and cultural heritage.",
     about_text_p1: "Founded on the core belief that travel is more than visiting landmarks; it is a vital bridge connecting people to the richness of history. We merge genuine passion for exploration with authentic historical accuracy and archaeological appreciation.",
     about_badge_label: "Date of Establishment",
     pillar_1_title: "Passion for Egyptian History",
@@ -563,7 +575,7 @@ const translations = {
     timeline_tag: "Company Milestones",
     timeline_title: "Firm Steps & Forward-Looking Vision",
     timeline_subtitle: "From our official launch in Cairo, we are steadily advancing toward leadership in cultural and archaeological tourism.",
-    tl_date_1: "September 25, 2023",
+    tl_date_1: "September 25, 2022",
     tl_1_title: "Official Foundation of Rahala Through History",
     tl_1_desc: "Rahala Through History was established as a tourism and archaeological awareness company based in Nasr City, Cairo, to connect travelers with Egypt's heritage.",
     tl_date_future: "Upcoming Milestone",
@@ -623,7 +635,7 @@ const translations = {
     footer_links_title: "Quick Links",
     footer_services_title: "Our Services",
     footer_contact_title: "Contact Info",
-    footer_est: "Established: September 25, 2023",
+    footer_est: "Established: September 25, 2022",
     footer_rights: "All Rights Reserved.",
     footer_slogan: "Rahala Through History — Travel, Discover, Experience the Story.",
 
@@ -1372,7 +1384,7 @@ const defaultBlogPosts = [
   {
     id: "pyramids-engineering",
     category: "ancient",
-    date: "2023-10-15",
+    date: "2022-10-15",
     authorAr: "فريق رحّالة عبر التاريخ",
     authorEn: "Rahala Editorial Team",
     readTimeAr: "5 دقائق قراءة",
@@ -1404,7 +1416,7 @@ const defaultBlogPosts = [
   {
     id: "al-muizz-street",
     category: "islamic",
-    date: "2023-11-20",
+    date: "2022-11-20",
     authorAr: "فريق رحّالة عبر التاريخ",
     authorEn: "Rahala Editorial Team",
     readTimeAr: "6 دقائق قراءة",
@@ -1436,7 +1448,7 @@ const defaultBlogPosts = [
   {
     id: "hanging-church",
     category: "coptic",
-    date: "2023-12-18",
+    date: "2022-12-18",
     authorAr: "فريق رحّالة عبر التاريخ",
     authorEn: "Rahala Editorial Team",
     readTimeAr: "4 دقائق قراءة",
@@ -1500,7 +1512,7 @@ const defaultBlogPosts = [
   {
     id: "valley-of-kings",
     category: "ancient",
-    date: "2023-11-02",
+    date: "2022-11-02",
     authorAr: "فريق رحّالة عبر التاريخ",
     authorEn: "Rahala Editorial Team",
     readTimeAr: "5 دقائق قراءة",
@@ -1532,7 +1544,7 @@ const defaultBlogPosts = [
   {
     id: "mamluk-citadels",
     category: "islamic",
-    date: "2023-12-05",
+    date: "2022-12-05",
     authorAr: "فريق رحّالة عبر التاريخ",
     authorEn: "Rahala Editorial Team",
     readTimeAr: "4 دقائق قراءة",
@@ -1686,10 +1698,15 @@ function renderBookBlogGrid(activeCategory = 'all') {
   container.innerHTML = posts.length ? posts.map(post => {
     const category = getBookBlogCategoryInfo(post.category, currentLang);
     const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
-    const excerpt = isAr ? post.excerptAr : (post.excerptEn || post.excerptAr);
-    return `<article class="blog-card" data-book-post-id="${escapeContentHtml(post.id)}"><div class="blog-card__media"><img src="${escapeContentHtml(post.img || 'images/logo.jpg')}" alt="${escapeContentHtml(title)}" loading="lazy"><span class="article-badge ${category.badgeClass}"><span>${category.icon}</span><span>${category.label}</span></span></div><div class="blog-card__body"><div><div class="blog-card__meta"><span class="blog-card__meta-item">${escapeContentHtml(post.authorAr || 'رحّالة عبر التاريخ')}</span></div><h3 class="blog-card__title">${escapeContentHtml(title)}</h3><p class="blog-card__excerpt">${escapeContentHtml(excerpt)}</p></div><div class="blog-card__btn"><span>${isAr ? 'اقرأ المحتوى بالكامل' : 'Read Full Content'}</span></div></div></article>`;
+    const hasPdf = post.pdfUrl && post.pdfUrl.length > 10;
+    const pdfId = escapeContentHtml(post.id);
+    if (hasPdf) {
+      return `<article class="book-pdf-card" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span class="book-pdf-card__ext">PDF</span></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-pdf-open="${pdfId}" title="${isAr ? 'اقرأ في المتصفح' : 'Read in Browser'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><a class="book-pdf-card__btn book-pdf-card__btn--download" href="${escapeContentHtml(post.pdfUrl)}" download="${escapeContentHtml(title)}.pdf" title="${isAr ? 'تحميل PDF' : 'Download PDF'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${isAr ? 'تحميل' : 'Download'}</span></a></div></article>`;
+    }
+    return `<article class="book-pdf-card book-pdf-card--no-pdf" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon book-pdf-card__icon--text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-book-post-id="${pdfId}" title="${isAr ? 'اقرأ المحتوى' : 'Read Content'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button></div></article>`;
   }).join('') : `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><p>${isAr ? 'لا توجد منشورات في هذا التصنيف حالياً.' : 'No published content in this category yet.'}</p></div>`;
-  container.querySelectorAll('[data-book-post-id]').forEach(card => card.addEventListener('click', () => openArticleReader(card.dataset.bookPostId, getBookBlogPosts(), true)));
+  container.querySelectorAll('[data-pdf-open]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); openPdfReader(btn.dataset.pdfOpen); }));
+  container.querySelectorAll('.book-pdf-card--no-pdf [data-book-post-id]').forEach(card => card.addEventListener('click', () => openArticleReader(card.dataset.bookPostId, getBookBlogPosts(), true)));
 }
 
 function initBookBlog() {
@@ -1699,27 +1716,7 @@ function initBookBlog() {
     button.classList.add('active');
     renderBookBlogGrid(button.dataset.bookCategory || 'all');
   }));
-  const modal = document.getElementById('book-publish-modal');
-  const form = document.getElementById('book-publish-form');
-  const close = () => { modal?.classList.remove('is-open'); modal?.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
-  document.getElementById('open-book-publish-btn')?.addEventListener('click', () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; });
-  document.getElementById('book-publish-modal-close')?.addEventListener('click', close);
-  document.getElementById('book-publish-modal-overlay')?.addEventListener('click', close);
-  form?.addEventListener('submit', event => {
-    event.preventDefault();
-    const title = document.getElementById('book-pub-title').value.trim();
-    const category = document.getElementById('book-pub-category').value;
-    const author = document.getElementById('book-pub-author').value.trim() || 'رحّالة عبر التاريخ';
-    const img = document.getElementById('book-pub-image').value.trim();
-    const excerpt = document.getElementById('book-pub-excerpt').value.trim();
-    const content = document.getElementById('book-pub-content').value.trim();
-    const formattedContent = content.split('\n\n').filter(Boolean).map(paragraph => `<p>${escapeContentHtml(paragraph).replace(/\n/g, '<br>')}</p>`).join('');
-    const posts = getBookBlogPosts();
-    posts.unshift({ id: `book-post-${Date.now()}`, category, date: new Date().toISOString().slice(0, 10), authorAr: author, authorEn: author, img, titleAr: title, titleEn: title, excerptAr: excerpt, excerptEn: excerpt, contentAr: formattedContent, contentEn: formattedContent });
-    saveBookBlogPosts(posts);
-    renderBookBlogGrid(document.querySelector('[data-book-category].active')?.dataset.bookCategory || 'all');
-    form.reset(); close(); showToast(currentLang === 'ar' ? 'تم نشر المحتوى بنجاح!' : 'Content published successfully!');
-  });
+  // Book publish controls moved to Admin Dashboard only
 }
 
 // Category Helper
@@ -1991,124 +1988,45 @@ function initArticleReaderModal() {
 }
 
 // --------------------------------------------------------------------------
-// 18. PUBLISH NEW ARTICLE MODAL & FORM CONTROLLER
+// 17b. PDF BOOK READER MODAL
 // --------------------------------------------------------------------------
-function initPublishArticleModal() {
-  const modal = document.getElementById('publish-modal');
-  const openBtn = document.getElementById('open-publish-btn');
-  const closeBtn = document.getElementById('publish-modal-close');
-  const overlay = document.getElementById('publish-modal-overlay');
-  const form = document.getElementById('publish-form');
-  const imgInput = document.getElementById('pub-image');
-  const presetBtns = document.querySelectorAll('.preset-img-btn');
-
-  function openPublish() {
-    if (modal) {
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closePublish() {
-    if (modal) {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-  }
-
-  if (openBtn) openBtn.addEventListener('click', openPublish);
-  if (closeBtn) closeBtn.addEventListener('click', closePublish);
-  if (overlay) overlay.addEventListener('click', closePublish);
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
-      closePublish();
-    }
-  });
-
-  // Preset Image Picker buttons
-  presetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      presetBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const url = btn.getAttribute('data-img-url');
-      if (imgInput && url) {
-        imgInput.value = url;
-      }
-    });
-  });
-
-  // Handle Form Submit
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const title = document.getElementById('pub-title').value.trim();
-      const category = document.getElementById('pub-category').value;
-      const author = document.getElementById('pub-author').value.trim() || 'رحّالة عبر التاريخ';
-      const img = document.getElementById('pub-image').value.trim();
-      const excerpt = document.getElementById('pub-excerpt').value.trim();
-      const content = document.getElementById('pub-content').value.trim();
-
-      if (!title || !excerpt || !content || !img) {
-        alert(currentLang === 'ar' ? 'يرجى إكمال جميع الحقول المطلوبة لنشر المقال.' : 'Please fill in all required fields to publish the article.');
-        return;
-      }
-
-      // Convert paragraphs in content to HTML paragraphs
-      const formattedContent = content
-        .split('\n\n')
-        .filter(p => p.trim())
-        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
-        .join('');
-
-      // Create new article object
-      const newPost = {
-        id: 'post-' + Date.now(),
-        category: category,
-        date: new Date().toISOString().split('T')[0],
-        authorAr: author,
-        authorEn: author,
-        readTimeAr: '4 دقائق قراءة',
-        readTimeEn: '4 min read',
-        img: img,
-        titleAr: title,
-        titleEn: title,
-        excerptAr: excerpt,
-        excerptEn: excerpt,
-        contentAr: formattedContent,
-        contentEn: formattedContent
-      };
-
-      // Prepend to posts list & save to localStorage
-      const posts = getBlogPosts();
-      posts.unshift(newPost);
-      saveBlogPosts(posts);
-
-      // Re-render Latest Posts and Blog
-      renderLatestPosts();
-      
-      const activeFilterBtn = document.querySelector('.blog-filter-btn.active');
-      const activeCat = activeFilterBtn ? activeFilterBtn.getAttribute('data-blog-category') : 'all';
-      renderBlogGrid(activeCat);
-
-      // Reset form and close modal
-      form.reset();
-      closePublish();
-
-      // Show Toast Notification
-      showToast(currentLang === 'ar' ? 'تم نشر المقال بنجاح وإضافته إلى المدونة!' : 'Article published successfully and added to the Blog!');
-
-      // Scroll to blog smoothly
-      const blogSection = document.getElementById('blog');
-      if (blogSection) {
-        blogSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
+function openPdfReader(postId) {
+  const post = getBookBlogPosts().find(p => p.id === postId);
+  if (!post || !post.pdfUrl) return;
+  const isAr = currentLang === 'ar';
+  const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
+  const modal = document.getElementById('pdf-reader-modal');
+  const viewer = document.getElementById('pdf-reader-iframe');
+  const titleEl = document.getElementById('pdf-reader-title');
+  const downloadBtn = document.getElementById('pdf-reader-download');
+  if (!modal || !viewer) return;
+  viewer.src = post.pdfUrl;
+  titleEl.textContent = title;
+  downloadBtn.href = post.pdfUrl;
+  downloadBtn.download = title + '.pdf';
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
 }
+
+function initPdfReaderModal() {
+  const modal = document.getElementById('pdf-reader-modal');
+  const closeBtn = document.getElementById('pdf-reader-close');
+  const overlay = document.getElementById('pdf-reader-overlay');
+  const viewer = document.getElementById('pdf-reader-iframe');
+  function closePdf() {
+    if (modal) { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+    if (viewer) viewer.src = '';
+  }
+  if (closeBtn) closeBtn.addEventListener('click', closePdf);
+  if (overlay) overlay.addEventListener('click', closePdf);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closePdf(); });
+}
+
+// --------------------------------------------------------------------------
+// 18. PUBLISH ARTICLE MODAL — ADMIN ONLY (moved to Admin Dashboard)
+// --------------------------------------------------------------------------
+// Public publish modal removed. Publishing is only available inside the Admin Panel.
 
 // --------------------------------------------------------------------------
 // 19. TOAST NOTIFICATION HELPER
@@ -2134,13 +2052,27 @@ function initBlogEngine() {
   renderBlogGrid('all');
   initBlogCategories();
   initArticleReaderModal();
-  initPublishArticleModal();
+  initPdfReaderModal();
   initBookBlog();
 }
 
 // --------------------------------------------------------------------------
 // 21. NEWS TICKER ENGINE
 // --------------------------------------------------------------------------
+const tickerStorageKey = 'rahala_ticker_items';
+const defaultTickerItems = [
+  { id: 'tick-1', textAr: 'مرحباً بكم في رحّالة عبر التاريخ — شركة سياحة وتوعية أثرية', textEn: 'Welcome to Rahala Through History — Tourism & Archaeological Awareness', badgeAr: 'جديد', badgeEn: 'New', badgeType: 'new', enabled: true },
+  { id: 'tick-2', textAr: 'استكشف أهرامات الجيزة مع جولاتنا التاريخية المتخصصة', textEn: 'Explore the Pyramids of Giza with our specialized historical tours', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-3', textAr: 'رحلات تعليمية للمدارس والجامعات — تواصل معنا اليوم', textEn: 'Educational trips for schools & universities — Contact us today', badgeAr: 'ساخن', badgeEn: 'Hot', badgeType: 'hot', enabled: true },
+  { id: 'tick-4', textAr: 'أحدث مقالاتنا: اكتشف تاريخ مصر القديمة والإسلامية والقبطية والحديثة', textEn: 'Latest articles: Ancient, Islamic, Coptic & Modern Egypt — explore now', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-5', textAr: 'احجز رحلتك الآن عبر واتساب: 01016643479', textEn: 'Book your trip via WhatsApp: 01016643479', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-6', textAr: 'جولات ثقافية وأثرية في القاهرة التاريخية وأسوان والأقصر', textEn: 'Cultural & archaeological tours in Historic Cairo, Aswan & Luxor', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-7', textAr: 'نحن نؤمن أن السفر جسرٌ معرفي يربطك بأعماق الحضارة المصرية', textEn: 'We believe travel is a bridge connecting you to the depths of Egyptian civilization', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-8', textAr: 'تأسست رحّالة عبر التاريخ في سبتمبر 2022 بشغف أصيل للتراث', textEn: 'Rahala Through History was founded in September 2022 with genuine heritage passion', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+];
+function getTickerItems() { const saved = localStorage.getItem(tickerStorageKey); if (saved) return JSON.parse(saved); localStorage.setItem(tickerStorageKey, JSON.stringify(defaultTickerItems)); return defaultTickerItems.map(i => ({ ...i })); }
+function saveTickerItems(items) { localStorage.setItem(tickerStorageKey, JSON.stringify(items)); }
+
 function initNewsTicker() {
   const ticker = document.getElementById('news-ticker');
   const track  = document.getElementById('ticker-track');
@@ -2154,32 +2086,18 @@ function initNewsTicker() {
     return;
   }
 
-  // Bilingual ticker items
-  const tickerItems = {
-    ar: [
-      { text: 'مرحباً بكم في رحّالة عبر التاريخ — شركة سياحة وتوعية أثرية', badge: 'جديد', badgeType: 'new', isNew: true },
-      { text: 'استكشف أهرامات الجيزة مع جولاتنا التاريخية المتخصصة', badge: null },
-      { text: 'رحلات تعليمية للمدارس والجامعات — تواصل معنا اليوم', badge: 'ساخن', badgeType: 'hot' },
-      { text: 'أحدث مقالاتنا: اكتشف تاريخ مصر القديمة والإسلامية والقبطية والحديثة', badge: null },
-      { text: 'احجز رحلتك الآن عبر واتساب: 01016643479', badge: null },
-      { text: 'جولات ثقافية وأثرية في القاهرة التاريخية وأسوان والأقصر', badge: null },
-      { text: 'نحن نؤمن أن السفر جسرٌ معرفي يربطك بأعماق الحضارة المصرية', badge: null },
-      { text: 'تأسست رحّالة عبر التاريخ في سبتمبر 2023 بشغف أصيل للتراث', badge: null },
-    ],
-    en: [
-      { text: 'Welcome to Rahala Through History — Tourism & Archaeological Awareness', badge: 'New', badgeType: 'new', isNew: true },
-      { text: 'Explore the Pyramids of Giza with our specialized historical tours', badge: null },
-      { text: 'Educational trips for schools & universities — Contact us today', badge: 'Hot', badgeType: 'hot' },
-      { text: 'Latest articles: Ancient, Islamic, Coptic & Modern Egypt — explore now', badge: null },
-      { text: 'Book your trip via WhatsApp: 01016643479', badge: null },
-      { text: 'Cultural & archaeological tours in Historic Cairo, Aswan & Luxor', badge: null },
-      { text: 'We believe travel is a bridge connecting you to the depths of Egyptian civilization', badge: null },
-      { text: 'Rahala Through History was founded in September 2023 with genuine heritage passion', badge: null },
-    ]
-  };
+  function getVisibleItems(lang) {
+    const items = getTickerItems();
+    return items.filter(i => i.enabled).map(i => ({
+      text: lang === 'en' ? i.textEn : i.textAr,
+      badge: lang === 'en' ? (i.badgeEn || null) : (i.badgeAr || null),
+      badgeType: i.badgeType || undefined,
+      isNew: i.badgeType === 'new',
+    }));
+  }
 
   function buildItems(lang) {
-    const items = tickerItems[lang] || tickerItems['ar'];
+    const items = getVisibleItems(lang);
     return items.map(item => {
       const badgeHtml = item.badge
         ? `<span class="ticker__item-badge ticker__item-badge--${item.badgeType || ''}">${item.badge}</span>`
@@ -2190,27 +2108,74 @@ function initNewsTicker() {
   }
 
   function renderTicker(lang) {
-    // Double the items for seamless infinite scroll
     const single = buildItems(lang);
     track.innerHTML = single + single;
   }
 
-  // Initial render
   renderTicker(currentLang);
-
-  // Re-render on language change
-  const origSetLang = window.__setLanguageOrig;
-  // Hook into setLanguage by storing a callback
   window.__tickerLangCallback = renderTicker;
 
-  // Close button
   closeBtn.addEventListener('click', () => {
     ticker.classList.add('is-hidden');
     document.body.classList.add('ticker-dismissed');
     sessionStorage.setItem('rahala_ticker_dismissed', '1');
   });
+}
 
-  // Pause on hover (already handled by CSS)
+// --------------------------------------------------------------------------
+// 21b. IMAGE UPLOAD HELPERS
+// --------------------------------------------------------------------------
+function compressImage(file, maxWidth, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function imageUploadHTML(inputId, previewId, currentSrc, label) {
+  return `<div class="img-upload-row"><div class="img-upload-preview" id="${previewId}">${currentSrc ? `<img src="${currentSrc}" alt="preview">` : '<span class="img-upload-placeholder">—</span>'}</div><label class="img-upload-btn" for="${inputId}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>${label || 'رفع صورة'}</span></label><input type="file" id="${inputId}" accept="image/jpeg,image/jpg,image/png,image/webp" class="img-upload-input" hidden></div>`;
+}
+
+function initImageUpload(inputId, previewId, onChange) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  if (!input) return;
+  input.addEventListener('change', async () => {
+    const file = input.files[0];
+    if (!file) return;
+    if (!['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type)) {
+      showToast(currentLang === 'ar' ? 'الصيغة غير مدعومة — استخدم JPG أو PNG أو WEBP' : 'Unsupported format — use JPG, PNG, or WEBP');
+      input.value = '';
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      showToast(currentLang === 'ar' ? 'الملف أكبر من 8MB' : 'File is larger than 8MB');
+      input.value = '';
+      return;
+    }
+    try {
+      const dataUrl = await compressImage(file, 1200, 0.82);
+      if (preview) preview.innerHTML = `<img src="${dataUrl}" alt="preview">`;
+      if (onChange) onChange(dataUrl);
+    } catch (e) {
+      showToast(currentLang === 'ar' ? 'خطأ في قراءة الصورة' : 'Error reading image');
+    }
+    input.value = '';
+  });
 }
 
 // --------------------------------------------------------------------------
@@ -2258,10 +2223,19 @@ function applyImageSettings(images) {
 function initAdminDashboard() {
   const shell = document.getElementById('admin-shell');
   const recordsEl = document.getElementById('admin-records');
-  if (!shell || !recordsEl) return;
+  const login = document.getElementById('admin-login');
+  const loginForm = document.getElementById('admin-login-form');
+  const loginError = document.getElementById('admin-login-error');
+  const dashboard = shell?.querySelector('.admin-dashboard');
+  if (!shell || !recordsEl || !login || !loginForm || !dashboard) return;
 
   const storageKey = 'rahala_admin_records';
   const sectionKey = 'rahala_admin_sections';
+  const authKey = 'rahala_admin_authenticated';
+  const usersStorageKey = 'rahala_admin_users';
+  const defaultUsers = { 'admin': { password: 'M252525s', role: 'super_admin', displayName: 'المدير الرئيسي' }, 'mo': { password: 'M123456m*s', role: 'content_manager', displayName: 'مدير المحتوى' } };
+  const rolePermissions = { super_admin: { label: 'مدير النظام', permissions: ['*'] }, content_manager: { label: 'مدير محتوى', permissions: ['content.view', 'content.create', 'content.edit', 'content.delete', 'content.publish', 'books.view', 'books.create', 'books.edit', 'books.delete', 'books.publish', 'images.upload', 'files.upload.pdf', 'categories.manage'] } };
+  let currentLoggedUser = null;
   let activeType = 'all';
   let editingId = null;
 
@@ -2277,6 +2251,12 @@ function initAdminDashboard() {
     ['why-us', 'لماذا رحّالة', 'نقاط التميز'], ['timeline', 'المسيرة', 'خط زمني للشركة'], ['contact', 'تواصل معنا', 'بيانات التواصل']
   ];
 
+  function getUsers() { const saved = localStorage.getItem(usersStorageKey); if (saved) { const users = JSON.parse(saved); if (users['admain']) { users['admin'] = users['admain']; delete users['admain']; localStorage.setItem(usersStorageKey, JSON.stringify(users)); } return users; } localStorage.setItem(usersStorageKey, JSON.stringify(defaultUsers)); return { ...defaultUsers }; }
+  function saveUsers(users) { localStorage.setItem(usersStorageKey, JSON.stringify(users)); }
+  function getCurrentUser() { if (!currentLoggedUser) return null; const users = getUsers(); return users[currentLoggedUser] ? { username: currentLoggedUser, ...users[currentLoggedUser] } : null; }
+  function hasPermission(permission) { const user = getCurrentUser(); if (!user) return false; const rolePerms = rolePermissions[user.role]; if (!rolePerms) return false; return rolePerms.permissions.includes('*') || rolePerms.permissions.includes(permission); }
+  function isSuperAdmin() { const user = getCurrentUser(); return user && user.role === 'super_admin'; }
+
   function getRecords() {
     const saved = localStorage.getItem(storageKey);
     return saved ? JSON.parse(saved) : defaultRecords.slice();
@@ -2288,7 +2268,7 @@ function initAdminDashboard() {
   }
   function escapeHtml(value) { return String(value || '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char])); }
   function allContent() {
-    return getBlogPosts().map(post => ({ id: post.id, type: 'post', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img })).concat(getBookBlogPosts().map(post => ({ id: post.id, type: 'book', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img, category: post.category }))).concat(getRecords());
+    return getBlogPosts().map(post => ({ id: post.id, type: 'post', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img })).concat(getBookBlogPosts().map(post => ({ id: post.id, type: 'book', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img, category: post.category, pdfUrl: post.pdfUrl || '' }))).concat(getRecords());
   }
   function refreshStats() {
     const records = allContent();
@@ -2300,7 +2280,11 @@ function initAdminDashboard() {
   function renderRecords() {
     const query = (document.getElementById('admin-search-input').value || '').toLowerCase();
     const records = allContent().filter(record => (activeType === 'all' || record.type === activeType) && `${record.title} ${record.detail}`.toLowerCase().includes(query));
-    recordsEl.innerHTML = records.length ? records.map(record => `<article class="admin-record"><img class="admin-record__thumb" src="${escapeHtml(record.image || 'images/logo.jpg')}" alt=""><div><span class="admin-record__type">${typeLabels[record.type] || 'محتوى'}</span><h4>${escapeHtml(record.title)}</h4><p>${escapeHtml(record.detail)} · ${escapeHtml(record.status)}</p></div><div class="admin-record__actions"><button type="button" data-admin-edit="${escapeHtml(record.id)}">تعديل</button><button type="button" class="is-danger" data-admin-delete="${escapeHtml(record.id)}">حذف</button></div></article>`).join('') : '<div class="admin-empty">لا يوجد محتوى مطابق للبحث.</div>';
+    recordsEl.innerHTML = records.length ? records.map(record => {
+      const pdfBadge = record.type === 'book' && record.pdfUrl ? ' <span style="color:#22c55e;font-size:.7rem;font-weight:700;">📄 PDF</span>' : '';
+      return `<article class="admin-record"><img class="admin-record__thumb" src="${escapeHtml(record.image || 'images/logo.jpg')}" alt=""><div><span class="admin-record__type">${typeLabels[record.type] || 'محتوى'}</span><h4>${escapeHtml(record.title)}${pdfBadge}</h4><p>${escapeHtml(record.detail)} · ${escapeHtml(record.status)}</p></div><div class="admin-record__actions"><button type="button" data-admin-edit="${escapeHtml(record.id)}">تعديل</button><button type="button" class="is-danger" data-admin-delete="${escapeHtml(record.id)}">حذف</button></div></article>`;
+    }).join('') : '<div class="admin-empty">لا يوجد محتوى مطابق للبحث.</div>';
+    applyAdminRBAC();
   }
   function renderSections() {
     const sections = getSections();
@@ -2312,8 +2296,10 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-destination-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>تعديل الوجهة</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">الاسم بالعربية</label><input class="form-input" name="titleAr" required value="${escapeHtml(data.titleAr)}"></div><div class="form-group"><label class="form-label">Name in English</label><input class="form-input" name="titleEn" required value="${escapeHtml(data.titleEn)}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">الوصف بالعربية</label><textarea class="form-textarea" name="descAr" rows="3">${escapeHtml(data.descAr)}</textarea></div><div class="form-group"><label class="form-label">Description in English</label><textarea class="form-textarea" name="descEn" rows="3">${escapeHtml(data.descEn)}</textarea></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">التصنيف بالعربية</label><input class="form-input" name="tagAr" value="${escapeHtml(data.tagAr)}"></div><div class="form-group"><label class="form-label">Category in English</label><input class="form-input" name="tagEn" value="${escapeHtml(data.tagEn)}"></div></div><div class="form-group"><label class="form-label">رابط صورة الوجهة</label><input class="form-input" name="image" type="url" value="${escapeHtml(getSiteSettings().images[`destination:${id}`] || '')}"></div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" data-destination-cancel>إلغاء</button><button class="btn btn--primary" type="submit">حفظ الوجهة</button></div>`;
+    const destImgSrc = getSiteSettings().images[`destination:${id}`] || '';
+    form.innerHTML = `<h3>تعديل الوجهة</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">الاسم بالعربية</label><input class="form-input" name="titleAr" required value="${escapeHtml(data.titleAr)}"></div><div class="form-group"><label class="form-label">Name in English</label><input class="form-input" name="titleEn" required value="${escapeHtml(data.titleEn)}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">الوصف بالعربية</label><textarea class="form-textarea" name="descAr" rows="3">${escapeHtml(data.descAr)}</textarea></div><div class="form-group"><label class="form-label">Description in English</label><textarea class="form-textarea" name="descEn" rows="3">${escapeHtml(data.descEn)}</textarea></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">التصنيف بالعربية</label><input class="form-input" name="tagAr" value="${escapeHtml(data.tagAr)}"></div><div class="form-group"><label class="form-label">Category in English</label><input class="form-input" name="tagEn" value="${escapeHtml(data.tagEn)}"></div></div><div class="form-group"><label class="form-label">رابط صورة الوجهة</label><input class="form-input" name="image" type="url" value="${escapeHtml(destImgSrc)}" placeholder="https://...">${imageUploadHTML('dest-form-upload-' + id, 'dest-form-preview-' + id, destImgSrc, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" data-destination-cancel>إلغاء</button><button class="btn btn--primary" type="submit">حفظ الوجهة</button></div>`;
     document.getElementById('admin-settings-content').prepend(form);
+    initImageUpload('dest-form-upload-' + id, 'dest-form-preview-' + id, dataUrl => { form.querySelector('[name="image"]').value = dataUrl; });
     form.querySelector('[data-destination-cancel]').onclick = () => form.remove();
     form.onsubmit = event => {
       event.preventDefault();
@@ -2327,11 +2313,22 @@ function initAdminDashboard() {
     const settings = getSiteSettings();
     const textRows = Object.keys(translations.ar).map(key => `<div class="admin-copy-row"><code>${escapeHtml(key)}</code><textarea data-copy-key="${escapeHtml(key)}" data-copy-lang="ar" rows="2">${escapeHtml(translations.ar[key])}</textarea><textarea data-copy-key="${escapeHtml(key)}" data-copy-lang="en" rows="2">${escapeHtml(translations.en[key] || '')}</textarea></div>`).join('');
     const currentImage = key => settings.images[key] || (key === 'logo' ? document.querySelector('.brand-logo__img')?.src : key === 'hero' ? document.querySelector('.hero__img')?.src : key === 'cta' ? document.querySelector('.cta-section__bg img')?.src : document.querySelector(`[data-dest-id="${key.slice(12)}"] img`)?.src) || '';
-    const imageRows = [['logo', 'الشعار'], ['hero', 'صورة الواجهة الرئيسية'], ['cta', 'صورة الدعوة الأخيرة']].concat(Object.keys(destinationDetails).map(id => [`destination:${id}`, `صورة ${destinationDetails[id].titleAr.split('|')[0].trim()}`])).map(([key, label]) => `<label class="admin-image-row"><span>${escapeHtml(label)}</span><input class="form-input" type="url" data-image-key="${escapeHtml(key)}" value="${escapeHtml(currentImage(key))}" placeholder="https://..."></label>`).join('');
+    const imageRows = [['logo', 'الشعار'], ['hero', 'صورة الواجهة الرئيسية'], ['cta', 'صورة الدعوة الأخيرة']].concat(Object.keys(destinationDetails).map(id => [`destination:${id}`, `صورة ${destinationDetails[id].titleAr.split('|')[0].trim()}`])).map(([key, label]) => {
+      const safeKey = key.replace(/[^a-zA-Z0-9_-]/g, '_');
+      const src = currentImage(key);
+      return `<div class="admin-image-row-group"><label class="admin-image-row"><span>${escapeHtml(label)}</span><input class="form-input" type="url" data-image-key="${escapeHtml(key)}" value="${escapeHtml(src)}" placeholder="https://..."></label>${imageUploadHTML('settings-upload-' + safeKey, 'settings-preview-' + safeKey, src, 'رفع')}</div>`;
+    }).join('');
     const destinationRows = Object.keys(destinationDetails).map(id => `<article class="admin-destination-row"><div><strong>${escapeHtml(destinationDetails[id].titleAr)}</strong><small>${escapeHtml(destinationDetails[id].descAr.slice(0, 90))}...</small></div><button type="button" class="btn btn--secondary btn--sm" data-edit-destination="${escapeHtml(id)}">تعديل</button></article>`).join('');
     document.getElementById('admin-settings-content').innerHTML = `<div class="admin-settings-section"><div class="admin-panel__heading"><h3>الوجهات</h3><span>${Object.keys(destinationDetails).length} DESTINATIONS</span></div><div class="admin-destination-list">${destinationRows}</div></div><div class="admin-settings-section"><div class="admin-panel__heading"><h3>الصور</h3><span>IMAGE COLLECTION</span></div><div class="admin-image-list">${imageRows}</div></div><div class="admin-settings-section"><div class="admin-panel__heading"><div><h3>كل نصوص الواجهة</h3><p class="admin-muted">العربية ثم الإنجليزية لكل مفتاح ترجمة.</p></div><button type="button" class="btn btn--primary btn--sm" id="admin-save-copy">حفظ النصوص</button></div><div class="admin-copy-head"><span>KEY</span><span>العربية</span><span>ENGLISH</span></div><div class="admin-copy-list">${textRows}</div></div>`;
     document.querySelectorAll('[data-edit-destination]').forEach(button => button.onclick = () => openDestinationForm(button.dataset.editDestination));
     document.querySelectorAll('[data-image-key]').forEach(input => input.onchange = () => { const next = getSiteSettings(); next.images[input.dataset.imageKey] = input.value.trim(); localStorage.setItem(siteSettingsKey, JSON.stringify(next)); applyImageSettings(next.images); showToast('تم حفظ الصورة'); });
+    [['logo', 'الشعار'], ['hero', 'صورة الواجهة الرئيسية'], ['cta', 'صورة الدعوة الأخيرة']].concat(Object.keys(destinationDetails).map(id => [`destination:${id}`, `صورة ${destinationDetails[id].titleAr.split('|')[0].trim()}`])).forEach(([key]) => {
+      const safeKey = key.replace(/[^a-zA-Z0-9_-]/g, '_');
+      initImageUpload('settings-upload-' + safeKey, 'settings-preview-' + safeKey, dataUrl => {
+        const urlInput = document.querySelector(`[data-image-key="${key}"]`);
+        if (urlInput) { urlInput.value = dataUrl; urlInput.dispatchEvent(new Event('change')); }
+      });
+    });
     document.getElementById('admin-save-copy').onclick = () => { const next = getSiteSettings(); document.querySelectorAll('[data-copy-key]').forEach(input => next.translations[`${input.dataset.copyLang}:${input.dataset.copyKey}`] = input.value); localStorage.setItem(siteSettingsKey, JSON.stringify(next)); applySiteSettings(); if (window.__setLanguage) window.__setLanguage(currentLang); showToast('تم حفظ نصوص الواجهة'); };
   }
 
@@ -2341,22 +2338,42 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-record-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}"></div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
+    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
     document.getElementById('admin-content-view').prepend(form);
+    initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
-    const updateBookCategory = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; };
-    document.getElementById('admin-form-type').addEventListener('change', updateBookCategory);
+    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; };
+    document.getElementById('admin-form-type').addEventListener('change', updateBookFields);
     if (record?.category) document.getElementById('admin-book-category').value = record.category;
-    updateBookCategory();
+    updateBookFields();
     document.getElementById('admin-form-cancel').onclick = () => form.remove();
+    let pendingPdfData = record?.pdfUrl || null;
+    const pdfInput = document.getElementById('admin-book-pdf');
+    const pdfStatus = document.getElementById('admin-book-pdf-status');
+    if (record?.pdfUrl) { pdfStatus.innerHTML = '<span style="color:var(--primary-blue);">✓ ملف PDF مرفق مسبقاً</span>'; }
+    if (pdfInput) {
+      pdfInput.addEventListener('change', () => {
+        const file = pdfInput.files[0];
+        if (!file) return;
+        if (file.type !== 'application/pdf') { pdfStatus.innerHTML = '<span style="color:#ef4444;">الملف يجب أن يكون PDF</span>'; pdfInput.value = ''; return; }
+        if (file.size > 5 * 1024 * 1024) { pdfStatus.innerHTML = '<span style="color:#ef4444;">الملف أكبر من 5MB — يرجى اختيار ملف أصغر</span>'; pdfInput.value = ''; return; }
+        pdfStatus.innerHTML = '<span style="color:var(--text-muted);">جاري قراءة الملف...</span>';
+        const reader = new FileReader();
+        reader.onload = () => { pendingPdfData = reader.result; pdfStatus.innerHTML = `<span style="color:#22c55e;">✓ تم رفع: ${escapeHtml(file.name)} (${(file.size / 1024 / 1024).toFixed(1)}MB)</span>`; };
+        reader.onerror = () => { pdfStatus.innerHTML = '<span style="color:#ef4444;">خطأ في قراءة الملف</span>'; };
+        reader.readAsDataURL(file);
+      });
+    }
     form.onsubmit = event => {
       event.preventDefault();
+      if (!hasPermission('content.create') && !editingId) { showToast('ليس لديك صلاحية إنشاء محتوى'); return; }
+      if (!hasPermission('content.edit') && editingId) { showToast('ليس لديك صلاحية التعديل'); return; }
       const values = { type: document.getElementById('admin-form-type').value, title: document.getElementById('admin-form-title').value.trim(), detail: document.getElementById('admin-form-detail').value.trim(), image: document.getElementById('admin-form-image').value.trim() };
       if (!values.title) return;
       if (values.type === 'book') {
         const posts = getBookBlogPosts();
         const post = posts.find(item => item.id === editingId);
-        const saved = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>` };
+        const saved = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>`, pdfUrl: pendingPdfData || '' };
         if (post) Object.assign(post, saved); else posts.unshift(saved);
         saveBookBlogPosts(posts); renderBookBlogGrid('all');
       } else if (values.type === 'post') {
@@ -2371,17 +2388,159 @@ function initAdminDashboard() {
       form.remove(); renderRecords(); refreshStats(); showToast('تم حفظ التغييرات بنجاح');
     };
   }
-  function openDashboard() { shell.classList.add('is-open'); shell.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; refreshStats(); renderRecords(); renderSections(); renderSettings(); }
-  function closeDashboard() { shell.classList.remove('is-open'); shell.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+  function renderUsers() {
+    const users = getUsers();
+    const el = document.getElementById('admin-users-list');
+    if (!el) return;
+    const roleLabels = { super_admin: 'مدير النظام', content_manager: 'مدير محتوى' };
+    el.innerHTML = Object.keys(users).map(username => {
+      const user = users[username];
+      const isSelf = username === currentLoggedUser;
+      return `<article class="admin-user-row"><div class="admin-user-info"><strong>${escapeHtml(username)}</strong><span class="admin-user-role-badge ${user.role === 'super_admin' ? 'admin-user-role-badge--admin' : 'admin-user-role-badge--cm'}">${roleLabels[user.role] || user.role}</span><small>${escapeHtml(user.displayName || '')}</small></div><div class="admin-user-actions">${!isSelf ? `<button type="button" class="btn btn--secondary btn--sm" data-edit-user="${escapeHtml(username)}">تعديل</button><button type="button" class="btn btn--danger btn--sm" data-delete-user="${escapeHtml(username)}">حذف</button>` : '<span class="admin-user-self">هذا هو حسابك الحالي</span>'}</div></article>`;
+    }).join('');
+  }
+  function openUserForm(editUsername) {
+    const users = getUsers();
+    const existing = document.getElementById('admin-user-form');
+    if (existing) existing.remove();
+    const record = editUsername ? users[editUsername] : null;
+    const form = document.createElement('form');
+    form.id = 'admin-user-form'; form.className = 'admin-record-form';
+    form.innerHTML = `<h3>${record ? 'تعديل المستخدم' : 'إضافة مستخدم جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم المستخدم *</label><input class="form-input" id="admin-user-username" required value="${escapeHtml(editUsername || '')}" ${record ? 'readonly style="opacity:.6;cursor:not-allowed;"' : ''}></div><div class="form-group"><label class="form-label">الاسم المعروض</label><input class="form-input" id="admin-user-display" value="${escapeHtml(record?.displayName || '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">كلمة المرور ${record ? '(اترُها فارغة لعدم التغيير)' : '*'}"</label><input class="form-input" type="password" id="admin-user-password" ${record ? '' : 'required'} autocomplete="new-password"></div><div class="form-group"><label class="form-label">الدور</label><select class="form-select" id="admin-user-role"><option value="content_manager" ${record?.role === 'content_manager' ? 'selected' : ''}>مدير محتوى</option><option value="super_admin" ${record?.role === 'super_admin' ? 'selected' : ''}>مدير النظام</option></select></div></div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" data-user-cancel>إلغاء</button><button class="btn btn--primary" type="submit">حفظ المستخدم</button></div>`;
+    document.getElementById('admin-users-list').prepend(form);
+    form.querySelector('[data-user-cancel]').onclick = () => form.remove();
+    form.onsubmit = event => {
+      event.preventDefault();
+      const username = document.getElementById('admin-user-username').value.trim();
+      const displayName = document.getElementById('admin-user-display').value.trim();
+      const password = document.getElementById('admin-user-password').value;
+      const role = document.getElementById('admin-user-role').value;
+      if (!username) return showToast('اسم المستخدم مطلوب');
+      if (!record && !password) return showToast('كلمة المرور مطلوبة');
+      if (password && password.length < 6) return showToast('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+      const allUsers = getUsers();
+      if (!record && allUsers[username]) return showToast('اسم المستخدم موجود مسبقاً');
+      allUsers[username] = { password: password || record.password, role, displayName };
+      saveUsers(allUsers);
+      form.remove(); renderUsers(); showToast(record ? 'تم تحديث المستخدم' : 'تمت إضافة المستخدم');
+    };
+  }
+
+  // ── NEWS TICKER ADMIN ──
+
+  function renderTickerAdmin() {
+    const items = getTickerItems();
+    const el = document.getElementById('admin-ticker-list');
+    if (!el) return;
+    if (!items.length) { el.innerHTML = '<div class="admin-empty">لا توجد عناصر في شريط الأخبار.</div>'; return; }
+    el.innerHTML = items.map((item, idx) => {
+      const badge = item.badgeAr ? `<span class="ticker-badge ticker-badge--${item.badgeType || 'default'}">${escapeHtml(item.badgeAr)}</span>` : '';
+      return `<article class="admin-ticker-row ${item.enabled ? '' : 'admin-ticker-row--disabled'}" data-ticker-id="${escapeHtml(item.id)}"><div class="admin-ticker-info"><span class="admin-ticker-drag" title="سحب للترتيب">⠿</span><div class="admin-ticker-text"><strong>${escapeHtml(item.textAr)}</strong><small>${escapeHtml(item.textEn)}</small></div>${badge}</div><div class="admin-ticker-actions"><button type="button" class="admin-ticker-toggle ${item.enabled ? 'admin-ticker-toggle--on' : ''}" data-ticker-toggle="${escapeHtml(item.id)}" title="${item.enabled ? 'تعطيل' : 'تفعيل'}">${item.enabled ? '●' : '○'}</button><button type="button" class="btn btn--secondary btn--sm" data-ticker-up="${escapeHtml(item.id)}" title="تحريك لأعلى" ${idx === 0 ? 'disabled' : ''}>▲</button><button type="button" class="btn btn--secondary btn--sm" data-ticker-down="${escapeHtml(item.id)}" title="تحريك للأسفل" ${idx === items.length - 1 ? 'disabled' : ''}>▼</button><button type="button" class="btn btn--secondary btn--sm" data-ticker-edit="${escapeHtml(item.id)}">تعديل</button><button type="button" class="btn btn--danger btn--sm" data-ticker-delete="${escapeHtml(item.id)}">حذف</button></div></article>`;
+    }).join('');
+  }
+
+  function openTickerForm(editId) {
+    const items = getTickerItems();
+    const existing = document.getElementById('admin-ticker-form');
+    if (existing) existing.remove();
+    const record = editId ? items.find(i => i.id === editId) : null;
+    const form = document.createElement('form');
+    form.id = 'admin-ticker-form'; form.className = 'admin-record-form';
+    form.innerHTML = `<h3>${record ? 'تعديل الخبر' : 'إضافة خبر جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النص بالعربية *</label><input class="form-input" id="ticker-text-ar" required value="${escapeHtml(record?.textAr || '')}" placeholder="أدخل الخبر بالعربية"></div><div class="form-group"><label class="form-label">English Text *</label><input class="form-input" id="ticker-text-en" required value="${escapeHtml(record?.textEn || '')}" placeholder="Enter news in English"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">شارة بالعربية (اختياري)</label><input class="form-input" id="ticker-badge-ar" value="${escapeHtml(record?.badgeAr || '')}" placeholder="مثلاً: جديد"></div><div class="form-group"><label class="form-label">Badge in English (optional)</label><input class="form-input" id="ticker-badge-en" value="${escapeHtml(record?.badgeEn || '')}" placeholder="e.g. New"></div></div><div class="form-group"><label class="form-label">نوع الشارة</label><select class="form-select" id="ticker-badge-type"><option value="" ${!record?.badgeType ? 'selected' : ''}>بدون شارة</option><option value="new" ${record?.badgeType === 'new' ? 'selected' : ''}>جديد (New) — أخضر</option><option value="hot" ${record?.badgeType === 'hot' ? 'selected' : ''}>ساخن (Hot) — أحمر</option></select></div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" data-ticker-cancel>إلغاء</button><button class="btn btn--primary" type="submit">حفظ الخبر</button></div>`;
+    document.getElementById('admin-ticker-list').prepend(form);
+    form.querySelector('[data-ticker-cancel]').onclick = () => form.remove();
+    form.onsubmit = event => {
+      event.preventDefault();
+      const textAr = document.getElementById('ticker-text-ar').value.trim();
+      const textEn = document.getElementById('ticker-text-en').value.trim();
+      const badgeAr = document.getElementById('ticker-badge-ar').value.trim();
+      const badgeEn = document.getElementById('ticker-badge-en').value.trim();
+      const badgeType = document.getElementById('ticker-badge-type').value;
+      if (!textAr || !textEn) return showToast('النص مطلوب بالعربية والإنجليزية');
+      const allItems = getTickerItems();
+      if (record) { Object.assign(record, { textAr, textEn, badgeAr, badgeEn, badgeType }); }
+      else { allItems.unshift({ id: 'tick-' + Date.now(), textAr, textEn, badgeAr, badgeEn, badgeType, enabled: true }); }
+      saveTickerItems(allItems); form.remove(); renderTickerAdmin(); refreshTickerFrontend(); showToast(record ? 'تم تحديث الخبر' : 'تمت إضافة الخبر');
+    };
+  }
+
+  function refreshTickerFrontend() { if (window.__tickerLangCallback) window.__tickerLangCallback(currentLang); }
+
+  function populateUserSelect() {
+    const sel = document.getElementById('admin-username');
+    if (!sel) return;
+    const users = getUsers();
+    sel.innerHTML = '<option value="" disabled selected>اختر المستخدم...</option>';
+    Object.keys(users).forEach(username => {
+      const opt = document.createElement('option');
+      opt.value = username;
+      opt.textContent = users[username].displayName ? `${users[username].displayName} (${username})` : username;
+      sel.appendChild(opt);
+    });
+  }
+
+  function showLogin() { currentLoggedUser = null; login.hidden = false; dashboard.hidden = true; loginForm.reset(); loginError.hidden = true; populateUserSelect(); document.getElementById('admin-username').focus(); applyAdminRBAC(); }
+  function showDashboard() { login.hidden = true; dashboard.hidden = false; applyAdminRBAC(); refreshStats(); renderRecords(); renderSections(); renderSettings(); renderUsers(); renderTickerAdmin(); }
+  function openDashboard() { shell.classList.add('is-open'); shell.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; const stored = sessionStorage.getItem(authKey); if (stored && getUsers()[stored]) { currentLoggedUser = stored; showDashboard(); } else { showLogin(); } }
+  function closeDashboard() { shell.classList.remove('is-open'); shell.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; sessionStorage.removeItem(authKey); currentLoggedUser = null; }
+  loginForm.addEventListener('submit', event => { event.preventDefault(); const formData = new FormData(loginForm); const username = formData.get('username'); const password = formData.get('password'); const users = getUsers(); if (!username) { loginError.hidden = false; loginError.textContent = 'يرجى اختيار اسم المستخدم.'; return; } loginError.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة.'; if (users[username] && users[username].password === password) { sessionStorage.setItem(authKey, username); currentLoggedUser = username; showDashboard(); } else { loginError.hidden = false; document.getElementById('admin-password').select(); } });
+  function applyAdminRBAC() {
+    const user = getCurrentUser();
+    const sa = user && user.role === 'super_admin';
+    const roleLabels = { super_admin: 'مدير النظام', content_manager: 'مدير محتوى' };
+    const label = document.getElementById('admin-user-label');
+    if (label && user) label.textContent = `${roleLabels[user.role] || user.role} — ${user.displayName || user.username}`;
+    document.querySelectorAll('[data-rbac-users]').forEach(el => el.hidden = !sa);
+    document.querySelectorAll('[data-rbac-settings]').forEach(el => el.hidden = !sa);
+    document.querySelectorAll('[data-rbac-sections]').forEach(el => el.hidden = !sa);
+    document.querySelectorAll('[data-rbac-overview]').forEach(el => el.hidden = false);
+    document.querySelectorAll('[data-rbac-content]').forEach(el => el.hidden = false);
+    const canCreate = hasPermission('content.create');
+    const addBtn = document.getElementById('admin-add-record');
+    if (addBtn) addBtn.hidden = !canCreate;
+    document.querySelectorAll('[data-admin-create]').forEach(btn => btn.hidden = !canCreate);
+    document.querySelectorAll('.admin-record__actions button[data-admin-edit]').forEach(btn => btn.hidden = !hasPermission('content.edit'));
+    document.querySelectorAll('.admin-record__actions button[data-admin-delete]').forEach(btn => btn.hidden = !hasPermission('content.delete'));
+  }
   document.getElementById('admin-toggle').addEventListener('click', openDashboard);
-  document.getElementById('admin-close').addEventListener('click', closeDashboard); document.getElementById('admin-back').addEventListener('click', closeDashboard); document.getElementById('admin-overlay').addEventListener('click', closeDashboard);
-  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); const view = button.dataset.adminView; document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'sections' ? 'أقسام الموقع' : 'إعدادات الموقع'; }));
+  document.getElementById('admin-login-close').addEventListener('click', closeDashboard); document.getElementById('admin-close').addEventListener('click', closeDashboard); document.getElementById('admin-back').addEventListener('click', closeDashboard); document.getElementById('admin-overlay').addEventListener('click', closeDashboard);
+  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { const view = button.dataset.adminView; if (view === 'settings' && !isSuperAdmin()) return; if (view === 'sections' && !isSuperAdmin()) return; if (view === 'users' && !isSuperAdmin()) return; document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'sections' ? 'أقسام الموقع' : view === 'users' ? 'إدارة المستخدمين' : 'إعدادات الموقع'; }));
   document.querySelectorAll('[data-admin-create]').forEach(button => button.addEventListener('click', () => { document.querySelector('[data-admin-view="content"]').click(); openForm(button.dataset.adminCreate); }));
   document.getElementById('admin-add-record').addEventListener('click', () => { const selectedType = document.querySelector('[data-admin-type].is-active')?.dataset.adminType || activeType; openForm(selectedType === 'all' ? 'post' : selectedType); });
   document.querySelectorAll('[data-admin-type]').forEach(button => button.addEventListener('click', () => { activeType = button.dataset.adminType; document.querySelectorAll('[data-admin-type]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); renderRecords(); }));
   document.getElementById('admin-search-input').addEventListener('input', renderRecords);
-  recordsEl.addEventListener('click', event => { const id = event.target.dataset.adminEdit || event.target.dataset.adminDelete; if (!id) return; const record = allContent().find(item => item.id === id); if (event.target.dataset.adminEdit) openForm(record.type, record); else if (confirm('هل تريد حذف هذا المحتوى؟')) { if (record.type === 'post') saveBlogPosts(getBlogPosts().filter(item => item.id !== id)); else if (record.type === 'book') saveBookBlogPosts(getBookBlogPosts().filter(item => item.id !== id)); else saveRecords(getRecords().filter(item => item.id !== id)); renderBookBlogGrid('all'); renderRecords(); refreshStats(); showToast('تم حذف المحتوى'); } });
-  document.getElementById('admin-section-list').addEventListener('change', event => { const id = event.target.dataset.adminSection; if (!id) return; const sections = getSections(); sections[id] = event.target.checked; localStorage.setItem(sectionKey, JSON.stringify(sections)); const section = document.getElementById(id); if (section) section.hidden = !event.target.checked; refreshStats(); });
+  recordsEl.addEventListener('click', event => { const id = event.target.dataset.adminEdit || event.target.dataset.adminDelete; if (!id) return; const record = allContent().find(item => item.id === id); if (event.target.dataset.adminEdit) { if (!hasPermission('content.edit')) { showToast('ليس لديك صلاحية التعديل'); return; } openForm(record.type, record); } else if (event.target.dataset.adminDelete) { if (!hasPermission('content.delete')) { showToast('ليس لديك صلاحية الحذف'); return; } if (confirm('هل تريد حذف هذا المحتوى؟')) { if (record.type === 'post') saveBlogPosts(getBlogPosts().filter(item => item.id !== id)); else if (record.type === 'book') saveBookBlogPosts(getBookBlogPosts().filter(item => item.id !== id)); else saveRecords(getRecords().filter(item => item.id !== id)); renderBookBlogGrid('all'); renderRecords(); refreshStats(); showToast('تم حذف المحتوى'); } } });
+  document.getElementById('admin-section-list').addEventListener('change', event => { if (!isSuperAdmin()) { showToast('ليس لديك صلاحية تغيير الأقسام'); event.target.checked = !event.target.checked; return; } const id = event.target.dataset.adminSection; if (!id) return; const sections = getSections(); sections[id] = event.target.checked; localStorage.setItem(sectionKey, JSON.stringify(sections)); const section = document.getElementById(id); if (section) section.hidden = !event.target.checked; refreshStats(); });
   sectionNames.forEach(([id]) => { const sections = getSections(); const section = document.getElementById(id); if (section) section.hidden = sections[id] === false; });
+  document.getElementById('admin-add-user').addEventListener('click', () => openUserForm());
+  document.getElementById('admin-users-list').addEventListener('click', event => {
+    if (event.target.dataset.editUser) openUserForm(event.target.dataset.editUser);
+    else if (event.target.dataset.deleteUser) {
+      const uname = event.target.dataset.deleteUser;
+      if (uname === currentLoggedUser) return showToast('لا يمكنك حذف حسابك الحالي');
+      if (confirm(`هل تريد حذف المستخدم "${uname}"؟`)) {
+        const users = getUsers(); delete users[uname]; saveUsers(users); renderUsers(); showToast('تم حذف المستخدم');
+      }
+    }
+  });
+  document.getElementById('admin-add-ticker').addEventListener('click', () => openTickerForm());
+  document.getElementById('admin-ticker-list').addEventListener('click', event => {
+    if (event.target.dataset.tickerEdit) openTickerForm(event.target.dataset.tickerEdit);
+    else if (event.target.dataset.tickerDelete) {
+      if (confirm('هل تريد حذف هذا الخبر؟')) {
+        const items = getTickerItems().filter(i => i.id !== event.target.dataset.tickerDelete);
+        saveTickerItems(items); renderTickerAdmin(); refreshTickerFrontend(); showToast('تم حذف الخبر');
+      }
+    } else if (event.target.dataset.tickerToggle) {
+      const items = getTickerItems(); const item = items.find(i => i.id === event.target.dataset.tickerToggle);
+      if (item) { item.enabled = !item.enabled; saveTickerItems(items); renderTickerAdmin(); refreshTickerFrontend(); }
+    } else if (event.target.dataset.tickerUp) {
+      const items = getTickerItems(); const idx = items.findIndex(i => i.id === event.target.dataset.tickerUp);
+      if (idx > 0) { [items[idx - 1], items[idx]] = [items[idx], items[idx - 1]]; saveTickerItems(items); renderTickerAdmin(); refreshTickerFrontend(); }
+    } else if (event.target.dataset.tickerDown) {
+      const items = getTickerItems(); const idx = items.findIndex(i => i.id === event.target.dataset.tickerDown);
+      if (idx < items.length - 1) { [items[idx], items[idx + 1]] = [items[idx + 1], items[idx]]; saveTickerItems(items); renderTickerAdmin(); refreshTickerFrontend(); }
+    }
+  });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && shell.classList.contains('is-open')) closeDashboard(); });
 }
