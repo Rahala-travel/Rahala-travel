@@ -88,10 +88,10 @@ const DataService = (() => {
   async function publishBook(bookData) {
     if (!isReady()) throw new Error('Firebase غير متاح — تحقق من إعدادات Anonymous Auth في Firebase Console');
     const bookId = bookData.id || 'book-' + Date.now();
-    const safeData = { ...bookData, id: bookId, publishedAt: Date.now(), published: true };
-    if (safeData.img && safeData.img.startsWith('data:')) safeData.img = '';
-    if (safeData.pdfUrl && safeData.pdfUrl.startsWith('data:')) safeData.pdfUrl = '';
+    const safeData = { id: bookId, titleAr: bookData.titleAr || '', titleEn: bookData.titleEn || '', category: bookData.category || 'miscellaneous', date: bookData.date || '', authorAr: bookData.authorAr || '', authorEn: bookData.authorEn || '', img: '', pdfUrl: '', excerptAr: bookData.excerptAr || '', excerptEn: bookData.excerptEn || '', publishedAt: Date.now(), published: true };
+    console.log('[DataService] Writing to Firebase...', bookId, 'size:', JSON.stringify(safeData).length);
     await withTimeout(db.ref(`publishedBooks/${bookId}`).set(safeData), 15000);
+    console.log('[DataService] Write OK!');
     saveLocalCache(safeData);
     return safeData;
   }

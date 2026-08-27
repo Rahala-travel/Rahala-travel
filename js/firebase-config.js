@@ -4,7 +4,7 @@
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCm-mPiRQurhGX_lc1DewDISzDMlwhC0lA",
   authDomain: "rhala-a3d4c.firebaseapp.com",
-  databaseURL: "https://rhala-a3d4c-default-rtdb.firebaseio.com",
+  databaseURL: "https://rhala-a3d4c-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "rhala-a3d4c",
   storageBucket: "rhala-a3d4c.firebasestorage.app",
   messagingSenderId: "1022944188862",
