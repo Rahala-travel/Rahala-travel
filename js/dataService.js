@@ -78,21 +78,15 @@ const DataService = (() => {
     }
   }
 
-  async function publishBook(bookData, imageFile, pdfFile) {
+  async function publishBook(bookData) {
     if (!isReady()) throw new Error('Firebase غير متاح. تحقق من الاتصال بالإنترنت.');
     const bookId = bookData.id || 'book-' + Date.now();
-    let imageUrl = bookData.img || '';
-    let pdfUrl = bookData.pdfUrl || '';
-    if (imageFile && imageFile.startsWith('data:')) {
-      imageUrl = await uploadFile(`publishedBooks/${bookId}/image.jpg`, imageFile);
-    }
-    if (pdfFile && pdfFile.startsWith('data:')) {
-      pdfUrl = await uploadFile(`publishedBooks/${bookId}/document.pdf`, pdfFile);
-    }
-    const publishedBook = { ...bookData, id: bookId, img: imageUrl, pdfUrl: pdfUrl, publishedAt: Date.now(), published: true };
-    await db.ref(`publishedBooks/${bookId}`).set(publishedBook);
-    saveLocalCache(publishedBook);
-    return publishedBook;
+    const safeData = { ...bookData, id: bookId, publishedAt: Date.now(), published: true };
+    if (safeData.img && safeData.img.startsWith('data:')) safeData.img = '';
+    if (safeData.pdfUrl && safeData.pdfUrl.startsWith('data:')) safeData.pdfUrl = '';
+    await db.ref(`publishedBooks/${bookId}`).set(safeData);
+    saveLocalCache({ ...bookData, id: bookId, publishedAt: Date.now(), published: true });
+    return safeData;
   }
 
   async function unpublishBook(bookId) {
