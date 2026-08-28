@@ -2294,7 +2294,7 @@ body:not(.ticker-dismissed) .header {
 .modal--article .modal__dialog--article {
   max-width: 820px;
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .article-modal__header {

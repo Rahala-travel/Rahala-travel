@@ -1382,279 +1382,89 @@ function initCurrentYear() {
 // Default Rich Articles Data across 4 Categories
 const defaultBlogPosts = [
   {
-    id: "pyramids-engineering",
+    id: "egyptian-army-old-kingdom",
     category: "ancient",
-    date: "2022-10-15",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "5 دقائق قراءة",
-    readTimeEn: "5 min read",
-    img: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "أسرار بناء الأهرامات وعمارة الخلود في مصر القديمة",
-    titleEn: "Secrets of the Pyramids and the Architecture of Eternity",
-    excerptAr: "كيف استطاع المهندس المصري القديم تشييد عجيبة الدنيا الوحيدة الباقية؟ رحلة علمية في أسرار الهندسة، ومصادر الحجر الجيري، والتنظيم البشري الفريد لهرم خوفو الأكبر.",
-    excerptEn: "How did ancient Egyptian architects erect the only surviving wonder of the ancient world? A scientific inquiry into geometry, limestone sourcing, and workforce mastery.",
+    date: "2024-05-15",
+    authorAr: "عفاف محمد البقاشي",
+    authorEn: "Afaf Mohamed El-Bakashi",
+    readTimeAr: "8 دقائق قراءة",
+    readTimeEn: "8 min read",
+    img: "images/army-egypt-article.jpg",
+    titleAr: "الحروب والجيش في مصر القديمة — حكاية القوة والصمود عبر التاريخ (عصر الدولة القديمة)",
+    titleEn: "Wars and the Army in Ancient Egypt — A Tale of Power and Resilience (Old Kingdom Era)",
+    excerptAr: "تُعد الحضارة المصرية القديمة واحدة من أقدم الحضارات التي عرفت نظاماً سياسياً وإدارياً وعسكرياً متطوراً. لم يكن الجيش المصري مجرد قوة تُستخدم في الحروب، بل كان مؤسسة مهمة من مؤسسات الدولة؛ حيث ارتبط بحماية حدود البلاد والدفاع عنها.",
+    excerptEn: "The ancient Egyptian civilization stands as one of the earliest to develop an advanced political, administrative and military system. The Egyptian army was not merely a force used in warfare, but an important institution of the state linked to protecting and defending the nation's borders.",
     contentAr: `
-      <p>تظل أهرامات الجيزة، وعلى رأسها الهرم الأكبر للملك خوفو، واحدة من أعظم المعجزات المعمارية والهندسية التي عرفتها البشرية على مر العصور. بني هذا الصرح الشامخ قبل أكثر من 4500 عام ليكون مقبرة ملكية ورمزاً للخلود والارتقاء إلى السماء وفق المعتقدات المصرية القديمة.</p>
-      
-      <blockquote>"إن عمارة الأهرامات لم تكن مجرد تكديس للأحجار، بل كانت منظومة متكاملة تجمع بين الفلك، والرياضيات، والتنظيم الاجتماعي الفائق."</blockquote>
-      
-      <p>تشير أحدث الاكتشافات الأثرية إلى أن بناء الهرم الأكبر استلزم أكثر من 2.3 مليون كتلة حجرية، بمتوسط وزن 2.5 طن للكتلة الواحدة. واستخدم العمال المصريون القدماء تقنيات انحدار مائي ومنحدرات رملية وجيرية محكمة لنقل وتثبيت هذه الكتل بدقة متناهية لا تتجاوز فيها الفجوات بين الأحجار أجزاء من المليمتر.</p>
-      
-      <p>كما تكشف قرية العمال بناة الأهرام التي تم العثور عليها في هضبة الجيزة عن مستوى الرعاية الطبية والغذائية الرفيعة التي حظي بها هؤلاء البناة الأحرار، مما ينفي تماماً الخرافات القديمة حول السخرة أو الكائنات الفضائية، ويثبت عبقرية العقل والتنظيم المصري القديم.</p>
+      <p><strong>بقلم: عفاف محمد البقاشي</strong></p>
+      <p>تُعد الحضارة المصرية القديمة واحدة من أقدم الحضارات التي عرفت نظاماً سياسياً وإدارياً وعسكرياً متطوراً. لم يكن الجيش المصري مجرد قوة تُستخدم في الحروب، بل كان مؤسسة مهمة من مؤسسات الدولة؛ حيث ارتبط بحماية حدود البلاد والدفاع عنها، ثم تطور مع الوقت ليصبح أداة رئيسة لتأمين المصالح المصرية وتوسيع نفوذ الدولة خارج وادي النيل.</p>
+      <p>وقد اختلفت طبيعة الجيش المصري باختلاف الظروف السياسية والتاريخية التي مرت بها البلاد؛ ففي الفترات التي تمتعت فيها مصر بالاستقرار الداخلي، اعتمد الجيش بدقة على حماية الحدود وتأمين المناطق الحيوية، بينما زاد دوره بصورة كبيرة خلال فترات الصراع والتوسع.</p>
+      <h3>نشأة الجيش المصري وتطوره</h3>
+      <p>لم يظهر الجيش المصري بصورة منتظمة فجأة، وإنما مر بمراحل تطور ارتبطت بنشأة الدولة المصرية نفسها. فمع توحيد البلاد وقيم الدولة المركزية، أصبح من الضروري وجود قوة قادرة على حماية السلطة وتأمين الحدود. وكانت جغرافية مصر عاملاً مهماً في تشكيل نظامها العسكري، مما جعل حماية المداخل الطبيعية للبلاد أمراً أساسياً.</p>
+      <h3>العناصر الرئيسية في الجيش:</h3>
+      <ul>
+        <li>جنود التعبئة الذين يتم استدعاؤهم عند الحاجة.</li>
+        <li>القوات المرتبطة بحكام الأقاليم لحفظ الأمن المحلي.</li>
+      </ul>
+      <p>ومع تطور الإدارة المركزية، ازدادت قدرة الدولة على تنظيم القوات وتوفير الأسلحة والمؤن. ولم تكن الحروب ظاهرة ثابتة في كل العصور، بل كانت تزداد أو تقل وفقاً لحالة الدولة وعلاقتها بجيرانها.</p>
+      <h3>تنظيم الجيش والقيادة العسكرية</h3>
+      <p>كان الملك في قمة السلطة العسكرية في الدولة، والمسؤول الأول عن اتخاذ القرارات المتعلقة بالحملات العسكرية، بينما تولى كبار القادة والموظفين تنفيذ هذه الأوامر. وقد ظهر عدد من المناصب والألقاب العسكرية التي تدل على مستوى عالٍ من التنظيم الإداري.</p>
+      <p>ولم يكن الجيش منفصلاً عن مؤسسات الدولة الأخرى، بل كان مرتبطاً بالوزير والإدارة الملكية. وكان "بيت الأسلحة" من المؤسسات المهمة في الإدارة العسكرية منذ الأسرة الثالثة؛ حيث تولى الشؤون الإمدادية للجيش. وفي الأسرة الخامسة، ظهر تنظيم عسكري يراعي تقسيم الوجهين البحري والقبلي لتنظيم الموارد. كما كان بناء السفن جزءاً أصيلاً من النشاط العسكري لنقل الجنود والمعدات عبر النيل، وقد أسند الملوك — مثل الملك بيبي الأول — إدارة هذه الحملات وتجهيزها إلى حكام الأقاليم والقادة الموثوقين (مثل القائد "وني")، مما يوضح ارتباط النشاط العسكري بالخبرات الإدارية في الأقاليم.</p>
+      <h3>الأسلحة ووسائل النقل</h3>
+      <p>استخدم الجيش المصري في عصر الدولة القديمة مجموعة من الأسلحة التي تناسبت مع طبيعة القتال آنذاك، ومن أهمها:</p>
+      <ul>
+        <li>القوس والسهام: من أهم أسلحة الرماية للقتال من مسافات بعيدة.</li>
+        <li>الرماح: استخدمت في القتال المباشر واختراق صفوف الأعداء.</li>
+        <li>العصي والمشاوك: أسلحة بسيطة للقتال القريب.</li>
+        <li>الفؤوس والخناجر: استخدمت في الاشتباكات التلاحمية.</li>
+        <li>الدروع: خشبية أو مغطاة بالجلود لحماية الجنود.</li>
+        <li>السفن الحربية والنهرية: لعبت دوراً محورياً في نقل القوات، والمؤن، والذخائر.</li>
+      </ul>
+      <h3>دور الجيش في حماية حدود مصر</h3>
+      <p>كان الهدف الأساسي للجيش هو حماية حدود البلاد. ورغم أن الموقع الجغرافي وفر حماية طبيعية بالصحاري والبحر المتوسط، إلا أن التهديدات الحدودية كانت قائمة، وتجلت في ثلاث مناطق رئيسية:</p>
+      <ul>
+        <li>الحدود الجنوبية: مناطق النوبة وتأمين الشلالات.</li>
+        <li>الحدود الشرقية: المناطق الصحراوية وسيناء لتأمين مناجم التلبيس والمواد الخام.</li>
+        <li>الحدود الغربية: المناطق التي تسكنها الجماعات الليبية.</li>
+      </ul>
+      <h3>الحملات في بلاد النوبة</h3>
+      <p>كانت بلاد النوبة من أهم المناطق التي ارتبطت بالنشاط العسكري المصري في عصر الدولة القديمة؛ لنفوذها الجغرافي ولأنها طريق للتجارة والوصول إلى مناجم الذهب والموارد الطبيعية. لم تهدف الحملات المصرية حينها إلى الاحتلال الاستيطاني، بل إلى تأمين الطرق التجارية، وتأديب الجماعات الثائرة، والحفاظ على الهيبة المصرية. كما شارك عناصر من النوبيين أنفسهم ضمن صفوف القوات المصرية، مما يوضح أن العلاقة لم تكن مجرد صراع عسكري بل شملت التجارة والتحالفات العسكرية.</p>
+      <h3>الجيش في أواخر الدولة القديمة</h3>
+      <p>بلغ النشاط العسكري أوجَه في الأسرة السادسة، وتحديداً في عهدي الملكين (بيبي الأول) و(مرنـرع)، وظهرت شخصيات قيادية بارزة مثل القائد (وني). ومع ذلك، بدأت الدولة القديمة في أواخر هذه الفترة تعاني من مشكلات الاقتصاد وتراجع السلطة المركزية، مما أدى إلى زيادة نفوذ حكام الأقاليم وتحديات جسيمة واجهها الجيش لحماية البلاد داخلياً وخارجياً.</p>
+      <h3>خاتمة</h3>
+      <p>كانت المؤسسة العسكرية جزءاً أساسياً من هيكل الدولة المصرية القديمة، ورغم أنها لم تكن دولة توسعية امبراطورية في هذا العصر كما أصبحت لاحقاً في الدولة الحديثة، إلا أن تنظيمها العسكري واللوجستي وضع اللبنات الأولى لواحد من أعظم جيوش العالم القديم.</p>
+      <h3>المراجع:</h3>
+      <p>سليم حسن: موسوعة مصر القديمة (الجزء الثاني)، مؤسسة هنداوي.<br>عبد الرحمن زكي: الجيش في مصر القديمة، الهيئة المصرية العامة للكتاب، مصر، 2015.<br>مُرَاجعة تاريخيّة وتدقيق لُغوي: محمد محمود الرف<br>وذلك تحت إشراف مبادرة رحّالة عبر التاريخ والنقابة المهنية للسياحيين في مصر لنشر الوعي الثقافي والأثري.<br>مؤسس المبادرة: أ. سميحة محمود.</p>
     `,
     contentEn: `
-      <p>The Pyramids of Giza, spearheaded by the Great Pyramid of Khufu, stand as one of humanity's finest architectural and engineering triumphs. Erected over 4,500 years ago, this monumental edifice served as a royal tomb and an enduring symbol of eternal ascension.</p>
-      
-      <blockquote>"Pyramid architecture was not merely the stacking of stone, but an integrated synthesis of astronomy, applied geometry, and exceptional societal organization."</blockquote>
-      
-      <p>Recent archaeological findings confirm that the construction of the Great Pyramid demanded approximately 2.3 million stone blocks, each averaging 2.5 tons. Ancient Egyptian engineers implemented sophisticated canal waterways, counterweighted sleds, and limestone ramps to position these colossal blocks with sub-millimeter precision.</p>
-      
-      <p>Furthermore, excavations of the Builders' Village on the Giza plateau demonstrate the advanced dietary, medical, and social care granted to these free craftsmen, wholly debunking archaic myths of forced labor and showcasing the undisputed genius of ancient Egyptian organization.</p>
+      <p>The ancient Egyptian civilization is one of the earliest civilizations to develop an advanced political, administrative and military system. The Egyptian army was not merely a force used in warfare but an important state institution linked to protecting the nation's borders, evolving over time into a key instrument for securing Egyptian interests and extending state influence beyond the Nile Valley.</p>
+      <p>The nature of the Egyptian army varied according to the political and historical circumstances the country passed through; during periods of internal stability the army focused on border protection, while its role increased significantly during periods of conflict and expansion.</p>
     `
   },
-  {
-    id: "al-muizz-street",
-    category: "islamic",
-    date: "2022-11-20",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "6 دقائق قراءة",
-    readTimeEn: "6 min read",
-    img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "شارع المعز: أعظم متحف مفتوح للعمارة الإسلامية في العالم",
-    titleEn: "Al-Mu'izz Street: The World's Greatest Islamic Open-Air Museum",
-    excerptAr: "جولة تاريخية في قلب القاهرة الفاطمية بين باب الفتوح وباب زويلة، حيث تتجمع أعظم نماذج الزخرفة الإسلامية، والمقرنصات، ومآذن العصور المتعاقبة.",
-    excerptEn: "A historical stroll through the heart of Fatimid Cairo between Bab al-Futuh and Bab Zuweila, home to the finest minarets, arabesques, and medieval monuments.",
-    contentAr: `
-      <p>يمتد شارع المعز لدين الله الفاطمي في قلب القاهرة التاريخية بطول نحو كيلومتر واحد، حاملاً بين جنباته أكبر تجمع للآثار الإسلامية المعمارية في العالم. أُسس الشارع مع تخطيط مدينة القاهرة الفاطمية عام 969 ميلادية على يد القائد جوهر الصقلي.</p>
-      
-      <blockquote>"كل زاوية في شارع المعز تروي قصة عصر: من الفاطميين الذين بنوا جوامع النور، إلى المماليك الذين شيدوا مجمعات المدارس والمستشفيات والقباب المفرغة."</blockquote>
-      
-      <p>عند دخولك من باب الفتوح شمالاً، يستقبلك جامع الحاكم بأمر الله بجدرانه المهيبة ومئذنتيه الفريدتين، لتصل بعدها إلى مجمع السلطان المنصور قلاوون ومسجد ومدرسة الظاهر برقوق، وهي صروح تجسد الذروة الزخرفية للعمارة المملوكية بنوافذها الجصية ونقوشها الرخامية البديعة.</p>
-      
-      <p>وينتهي الشارع جنوباً عند باب زويلة التاريخي، حيث تطل مئذنتا جامع المؤيد شيخ لتعانقا سماء القاهرة، معلنتين أن هذه المدينة كانت وما زالت عاصمة خالدة للفن والجمال والتراث الإنساني.</p>
-    `,
-    contentEn: `
-      <p>Al-Mu'izz li-Din Allah al-Fatimi Street spans approximately one kilometer in historic Cairo, boasting the highest density of medieval architectural treasures anywhere in the Islamic world. The corridor was laid out when Cairo was founded in 969 AD by the general Jawhar al-Siqilli.</p>
-      
-      <blockquote>"Every turn on Al-Mu'izz Street tells the tale of an era: from the Fatimids who designed sanctuaries of light to the Mamluks who built monumental schools, hospitals, and lattice-domed complexes."</blockquote>
-      
-      <p>Entering from the northern gate of Bab al-Futuh, visitors are greeted by the fortress-like Al-Hakim Mosque with its iconic twin minarets, proceeding southward toward the awe-inspiring Sultan Qalawun complex and Barquq Madrasa, landmarks representing the pinnacle of Mamluk marble inlays and stucco carvings.</p>
-      
-      <p>The journey culminates at the historic southern gate of Bab Zuweila, crowned by the twin minarets of the Mosque of Sultan al-Mu'ayyad, testament to Cairo's timeless status as a metropolis of culture, art, and human heritage.</p>
-    `
-  },
-  {
-    id: "hanging-church",
-    category: "coptic",
-    date: "2022-12-18",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "4 دقائق قراءة",
-    readTimeEn: "4 min read",
-    img: "https://images.unsplash.com/photo-1579606032822-1f7df2bcefa8?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "الكنيسة المعلقة وحصن بابليون: ملحمة التراث القبطي في مصر القديمة",
-    titleEn: "The Hanging Church & Babylon Fortress: Coptic Heritage in Old Cairo",
-    excerptAr: "حكاية الكنيسة التي شُيدت فوق بوابات الحصن الروماني بدون ركائز أرضية مباشرة، وأيقوناتها الأثرية النادرة وتاريخ مجمع الأديان الفريد.",
-    excerptEn: "The tale of the ancient church constructed directly above the Roman fortress bastions, featuring rare historic icons and deep interfaith heritage.",
-    contentAr: `
-      <p>تعد الكنيسة المعلقة (كنيسة السيدة العذراء مريم) في حي مصر القديمة واحدة من أقدم وأجمل الكنائس القبطية في مصر والعالم. سميت بـ "المعلقة" لأنها بنيت على برجين من الأبراج الحصينة لحصن بابليون الروماني القديم، مرتفعة عن سطح الأرض دون أن ترتكز على أعمدة أرضية تقليدية.</p>
-      
-      <blockquote>"تجسد الكنيسة المعلقة ومجمع الأديان المحيط بها جوهر الشخصية المصرية الجامعة التي تتناغم فيها الحضارات والأديان بتسامح أزلي."</blockquote>
-      
-      <p>يعود تاريخ تأسيس الكنيسة إلى القرون الميلادية الأولى، وتتميز بسقفها الخشبي المشيد على هيئة سفينة نوح (طراز البازيليكا)، وحجابها الخشبي المطعم بخشب الأبنوس وعاج الفيل المصنوع بحرفية بالغة النقاء تعود للقرن الثاني عشر الميلادي.</p>
-      
-      <p>وتحتوي الكنيسة على أكثر من 110 أيقونة أثرية نادرة، فضلاً عن كونها مقراً تاريخياً لبطاركة الكرازة المرقسية لعدة قرون، مما يجعل زيارتها تجربة روحية وتاريخية لا مثيل لها.</p>
-    `,
-    contentEn: `
-      <p>The Hanging Church (Saint Virgin Mary's Coptic Orthodox Church) in Old Cairo is among the oldest and most architecturally captivating sanctuaries in Egypt. It earned its moniker because it was constructed suspended over the gatehouse towers of the Roman Fortress of Babylon.</p>
-      
-      <blockquote>"The Hanging Church and the surrounding Religious Compound symbolize the foundational essence of Egyptian harmony and intercultural coexistence."</blockquote>
-      
-      <p>With origins dating back to the earliest Christian centuries, the basilica features a wooden barrel-vaulted roof shaped like Noah's Ark, flanked by an intricately inlaid ebony and ivory iconostasis crafted during the 12th century.</p>
-      
-      <p>Housing over 110 venerated ancient icons and having served as the historic seat of Coptic Patriarchs for centuries, a visit to this sanctuary offers an incomparable historical and spiritual journey.</p>
-    `
-  },
-  {
-    id: "suez-canal-history",
-    category: "modern",
-    date: "2025-01-28",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "5 دقائق قراءة",
-    readTimeEn: "5 min read",
-    img: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "شريان الحضارة الحديثة: كيف أعادت قناة السويس رسم خريطة العالم",
-    titleEn: "Artery of Modernity: How the Suez Canal Reshaped Global History",
-    excerptAr: "تاريخ مدن القناة: بورسعيد والإسماعيلية والسويس، وعمارتها الخشبية الكولونيالية وملحمة ربط البحرين الأبيض والأحمر.",
-    excerptEn: "The story of the Suez Canal cities: Port Said, Ismailia, and Suez, exploring 19th-century French architecture and maritime trade legacy.",
-    contentAr: `
-      <p>في 17 نوفمبر 1869، شهد العالم افتتاح قناة السويس في حفل أسطوري جمع ملوك وأباطرة العالم في مصر، لتتحقق واحدة من أجرأ الرؤى الهندسية التي غيرت مسار التجارة البحرية واختصرت المسافة بين الشرق والغرب بآلاف الأميال البحرية.</p>
-      
-      <blockquote>"قناة السويس لم تكن مجرد ممر مائي عالمي، بل كانت ولادة لمدن مصرية حديثة ذات طابع عمراني وثقافي فريد كبورسعيد والإسماعيلية."</blockquote>
-      
-      <p>نشأت مدينة بورسعيد على المدخل الشمالي للقناة، متميزة بطرازها المعماري الكولونيالي الإيطالي والفرنسي وشرفاتها الخشبية المميزة (الفراندات)، بينما تأسست الإسماعيلية كمدينة حدائقية خضراء تحتضن بحيرة التمساح ومقر هيئة القناة القديم.</p>
-      
-      <p>واليوم، تظل منطقة القناة شاهداً على نضال الشعب المصري ورموز كفاحه الوطني وتطوره الاقتصادي المستمر حتى تدشين قناة السويس الجديدة، لتظل مصر دائماً قلب العالم النابض.</p>
-    `,
-    contentEn: `
-      <p>On November 17, 1869, the world witnessed the grand inauguration of the Suez Canal in a legendary ceremony uniting world monarchs, realizing an audacious engineering feat that bridged the Mediterranean with the Red Sea.</p>
-      
-      <blockquote>"The Suez Canal was far more than a global maritime waterway; it sparked the birth of iconic modern Egyptian cities with unique architectural character."</blockquote>
-      
-      <p>Port Said flourished at the canal's northern entrance, famed for its distinct French and Italian colonial facades with wooden verandas, while Ismailia was conceived as a lush garden city surrounding Lake Timsah and the historic canal administrative headquarters.</p>
-      
-      <p>Today, the canal zone endures as a living monument to Egyptian resilience, modern nation-building, and pivotal global commerce.</p>
-    `
-  },
-  {
-    id: "valley-of-kings",
-    category: "ancient",
-    date: "2022-11-02",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "5 دقائق قراءة",
-    readTimeEn: "5 min read",
-    img: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "وادي الملوك: نقوش تحكي رحلة الشمس إلى العالم الآخر",
-    titleEn: "Valley of the Kings: Inscriptions of the Solar Journey",
-    excerptAr: "استكشاف مقابر ملوك الفراعنة في البر الغربي بالأقصر، وأسرار كتاب الموتى والنقوش الملونة المحفوظة عبر آلاف السنين.",
-    excerptEn: "Exploring the royal tombs of the West Bank in Luxor, unveiling the secrets of the Book of the Dead and pristine astronomical ceilings.",
-    contentAr: `
-      <p>في وادٍ صخري منعزل خلف جبال البر الغربي بمدينة الأقصر (طيبة القديمة)، اختار ملوك الدولة الحديثة أن تكون مقابرهم محفورة في عمق الجبل بعيداً عن أعين لصوص المقابر، تحت قمة جبلية طبيعية تشبه الهرم تسمى "القرن".</p>
-      
-      <blockquote>"تحتفظ مقابر وادي الملوك بألوان زاهية ونقوش دقيقة تبدو وكأن الفنان المصري القديم قد انتهى من رسمها بالأمس فقط."</blockquote>
-      
-      <p>تضم المقابر، مثل مقبرة الملك رمسيس السادس ومقبرة توت عنخ آمون وسيتي الأول، فصولاً كاملة من كتب العالم الآخر مثل "كتاب البوابات" و"كتاب الكهوف" و"كتاب الموتى"، والتي ترسم بالتفصيل رحلة إله الشمس 'رع' عبر ساعات الليل الاثنتي عشرة حتى يولد من جديد مع كل فجر.</p>
-      
-      <p>تمثل زيارة هذا الوادي فرصة لاكتشاف الفلسفة الجنائزية العميقة التي ألهمت الحضارة المصرية وخلدت أسماء ملوكها عبر التاريخ.</p>
-    `,
-    contentEn: `
-      <p>In a secluded canyon beneath the desert cliffs of Luxor's West Bank, New Kingdom pharaohs concealed their rock-cut tombs deep within the stone, sheltered beneath a natural pyramid-shaped mountain known as 'Al-Qurn'.</p>
-      
-      <blockquote>"The tombs of the Valley of the Kings retain vivid mineral pigments and hieroglyphs that look as though they were painted only yesterday."</blockquote>
-      
-      <p>Tombs such as those of Seti I, Ramesses VI, and Tutankhamun feature complete depictions of underworld funerary compositions, including the Book of Gates and Book of Caverns, detailing the sun god Ra's nocturnal transformation before rebirth at dawn.</p>
-      
-      <p>Exploring this valley provides a profound window into the philosophical and spiritual worldview that guided ancient Egypt throughout the millennia.</p>
-    `
-  },
-  {
-    id: "mamluk-citadels",
-    category: "islamic",
-    date: "2022-12-05",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "4 دقائق قراءة",
-    readTimeEn: "4 min read",
-    img: "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "قلاع وقباب المماليك: عبقرية التخطيط والزخرفة الحجرية",
-    titleEn: "Mamluk Domes and Fortresses: Architectural Genius",
-    excerptAr: "كيف شكلت الدولة المملوكية الوجه المعماري الخالد للقاهرة من خلال القباب المعشقة والمقرنصات والمدارس الأثرية المتقنة.",
-    excerptEn: "How the Mamluk Sultanate defined Cairo's skyline with intricate stone-carved domes, stalactite vaults, and majestic madrasas.",
-    contentAr: `
-      <p>تركت دولة المماليك (1250 - 1517 م) إرثاً معمارياً يعد الأكثر إبهاراً في تاريخ العمارة الإسلامية. وقد عُرف سلاطين وأمراء المماليك بشغفهم بتشييد المجمعات المعمارية الضخمة التي تجمع بين المسجد والمدرسة والمستشفى (البيمارستان) وخانقاه الصوفية وضريح السلطان.</p>
-      
-      <blockquote>"تعد القباب الحجرية المنقوشة في عصر المماليك الجراكسة ذروة النحت المعماري في الحجر الجيري دون منازع في الشرق الأوسط."</blockquote>
-      
-      <p>ويبرز مسجد ومدرسة السلطان حسن بميدان القلعة كأعظم نموذج للعمارة الإسلامية في العالم، بارتفاع جدرانه الشاهقة وإيواناته الأربعة المتسعة، إلى جانب مجمع قايتباي في صحراء المماليك بقبته الحجرية المزخرفة بأشكال نباتية وهندسية بالغة التعقيد.</p>
-      
-      <p>إن قراءة تفاصيل هذه الأبنية تمنح الزائر فهماً عميقاً لعصر كانت فيه القاهرة عاصمة التجارة والعلم والفن في العالم الإسلامي.</p>
-    `,
-    contentEn: `
-      <p>The Mamluk Sultanate (1250–1517 AD) bequeathed an architectural legacy recognized as the most sophisticated in Islamic history. Mamluk rulers competed in commissioning multi-purpose complexes unifying mosques, madrasas, hospitals, and royal mausoleums.</p>
-      
-      <blockquote>"The carved stone domes of the late Burji Mamluk era stand as the unmatched zenith of architectural stone sculpting in the Middle East."</blockquote>
-      
-      <p>The Mosque-Madrasa of Sultan Hassan near the Citadel remains celebrated worldwide for its towering facades and massive cross-axial iwans, alongside the Mosque of Sultan Qaytbay featuring breathtaking geometric arabesques carved into solid stone.</p>
-      
-      <p>Studying these architectural monuments reveals the golden epoch when Cairo reigned as the beating heart of commerce, knowledge, and artistic excellence.</p>
-    `
-  },
-  {
-    id: "holy-family-trail",
-    category: "coptic",
-    date: "2025-01-10",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "6 دقائق قراءة",
-    readTimeEn: "6 min read",
-    img: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "مسار العائلة المقدسة في مصر: رحلة الهروب إلى أرض الأمان",
-    titleEn: "The Holy Family Trail in Egypt: Journey of Sanctuary",
-    excerptAr: "توثيق المحطات التاريخية لرحلة العائلة المقدسة عبر شمال سيناء والدلتا ووادي النطرون وصعيد مصر.",
-    excerptEn: "Documenting the historic pilgrimage trail of the Holy Family across Sinai, the Nile Delta, Wadi El Natrun, and Upper Egypt.",
-    contentAr: `
-      <p>يحظى مسار رحلة العائلة المقدسة في مصر بمكانة دينية وتاريخية استثنائية، إذ كانت مصر الملاذ الآمن الذي لجأت إليه السيدة مريم العذراء والسيد المسيح ويوسف النجار هرباً من بطش الملك هيرودس.</p>
-      
-      <blockquote>"امتدت الرحلة لأكثر من 3500 كيلومتر، تاركة في كل محطة عيناً للماء أو شجرة مباركة أو كنيسة أثرية تروي قصة الأمان والسلام."</blockquote>
-      
-      <p>بدأت الرحلة من رفح والفرما في شمال سيناء، مروراً ببلبيس وسخا وسمنود في الدلتا، وصولاً إلى شجرة مريم بالمطرية وكنيسة أبي سرجة بمصر القديمة، ثم إلى أديرة وادي النطرون العامرة، وانتقالاً جنوباً إلى دير المحرق بجبل قسقام في أسيوط حيث مكثت العائلة أطول فترة.</p>
-      
-      <p>يمثل هذا المسار اليوم أحد أهم مسارات الحج والسياحة الدينية والثقافية في العالم، شاهداً على أن مصر كانت عبر التاريخ واحة السلام والأمان لجميع الأمم.</p>
-    `,
-    contentEn: `
-      <p>The Holy Family Trail across Egypt holds unparalleled spiritual and historic importance, honoring the sanctuary sought by the Virgin Mary, the Child Jesus, and Saint Joseph from the persecution of King Herod.</p>
-      
-      <blockquote>"Spanning over 3,500 kilometers, the journey left behind blessed springs, ancient sycamore trees, and historic monasteries narrating peace and refuge."</blockquote>
-      
-      <p>The pilgrimage route crossed from Rafah and Pelusium in northern Sinai through the Delta towns of Samannud and Sakha, visiting the Virgin's Tree in Matariya, the crypt of St. Sergius in Old Cairo, the desert monasteries of Wadi El Natrun, and continuing south to the historic Al-Muharraq Monastery in Asyut.</p>
-      
-      <p>Today, this trail serves as one of the world's most significant cultural and spiritual heritage routes, affirming Egypt's enduring role as a haven of refuge and tolerance.</p>
-    `
-  },
-  {
-    id: "khedivial-cairo",
-    category: "modern",
-    date: "2025-02-14",
-    authorAr: "فريق رحّالة عبر التاريخ",
-    authorEn: "Rahala Editorial Team",
-    readTimeAr: "5 دقائق قراءة",
-    readTimeEn: "5 min read",
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
-    titleAr: "القاهرة الخديوية: باريس الشرق والنهضة المعمارية في القرن التاسع عشر",
-    titleEn: "Khedivial Cairo: Paris of the East in 19th-Century Egypt",
-    excerptAr: "استكشاف شوارع وسط البلد وميدان التحرير وميدان طلعت حرب وتخطيط الخديوي إسماعيل لمصر الحديثة.",
-    excerptEn: "Exploring Downtown Cairo, Talaat Harb Square, Belle Époque architecture, and Khedive Ismail's ambitious European-style urban vision.",
-    contentAr: `
-      <p>في أواخر القرن التاسع عشر، أراد الخديوي إسماعيل أن يجعل من القاهرة "قطعة من أوروبا"، فأطلق مشروع التخطيط العمراني الأضخم في تاريخ مصر الحديث بتشييد ما يعرف اليوم بـ "القاهرة الخديوية" أو منطقة وسط البلد.</p>
-      
-      <blockquote>"تحتضن القاهرة الخديوية أكثر من 500 مبنى مسجل كطراز معماري متميز يجمع بين الباروك والآرت ديكو والنيوكلاسيك مع لمسات مصرية أصيلة."</blockquote>
-      
-      <p>تم تخطيط الشوارع على النمط الهوسماني الباريسي بشوارع واسعة تتفرع من ميادين دائرية كبرى مثل ميدان الإسماعيلية (التحرير حالياً) وميدان طلعت حرب وميدان مصطفى كامل، مع تشييد الأوبرا الخديوية وحديقة الأزبكية الشهيرة.</p>
-      
-      <p>تعد جولات المشي التراثية في وسط البلد اليوم رحلة ممتعة عبر الزمن تتيح للمسافر اكتشاف مقاهي المثقفين العتيقة والممرات السرية وتفاصيل عمارة عصر النهضة المصرية الحديثة.</p>
-    `,
-    contentEn: `
-      <p>During the late 19th century, Khedive Ismail set out to transform Cairo into a premier modern metropolis, launching a grand urban development program that created what is famously known today as Khedivial Cairo (Downtown).</p>
-      
-      <blockquote>"Downtown Cairo houses over 500 heritage-listed buildings synthesizing Haussmannian Neo-Baroque, Art Deco, and Neo-Classical styles with subtle Egyptian motifs."</blockquote>
-      
-      <p>Modeled after Parisian boulevards radiating from grand circular piazzas—such as Tahrir and Talaat Harb Squares—the district flourished around the Khedivial Opera House and the Azbakeya public gardens.</p>
-      
-      <p>Today, heritage walking tours through downtown offer an enchanting stroll through time, discovering historic literary cafes, hidden art passages, and the elegant spirit of modern Egyptian enlightenment.</p>
-    `
-  }
 ];
 
 // LocalStorage Helper for Blog Posts
 function getBlogPosts() {
   const stored = localStorage.getItem('rahala_blog_posts');
+  let storedPosts = [];
   if (stored) {
     try {
       const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
+      if (Array.isArray(parsed)) storedPosts = parsed;
     } catch (e) {
       console.warn('Could not parse stored blog posts, using defaults.');
     }
   }
-  // Initialize with default posts
-  localStorage.setItem('rahala_blog_posts', JSON.stringify(defaultBlogPosts));
-  return defaultBlogPosts;
+  // The default posts are the authoritative source for the public blog. Their stored
+  // copies are rebuilt/reset to the canonical data (so stale images/text never return),
+  // while any stored post not present in the defaults is dropped permanently.
+  const defaultIds = new Set(defaultBlogPosts.map(p => p && p.id));
+  const rebuilt = defaultBlogPosts.map(d => {
+    const existing = storedPosts.find(p => p && p.id === d.id);
+    return existing ? Object.assign({}, existing, d) : d;
+  });
+  // Persist the cleaned, canonical list so deleted articles never reappear.
+  localStorage.setItem('rahala_blog_posts', JSON.stringify(rebuilt));
+  return rebuilt;
 }
 
 function saveBlogPosts(posts) {
@@ -1663,12 +1473,44 @@ function saveBlogPosts(posts) {
 
 const bookBlogStorageKey = 'rahala_book_blog_posts';
 
+// Default Library books — always available to every visitor, even if Firebase is off.
+const defaultLibraryBooks = [
+  {
+    id: 'book-sharh-al-ajrumiyyah',
+    category: 'miscellaneous',
+    date: '2026-08-28',
+    authorAr: 'العلامة محمد بن محمد بن داود الصنهاجي (نظم)',
+    authorEn: 'Ibn Ajurrum (Author) - Al-Ajrumiyyah',
+    img: 'images/ajrumiyyah-cover.jpg',
+    titleAr: 'شرح نظم الآجرومية',
+    titleEn: 'Explanation of the Ajrumiyyah Verses',
+    excerptAr: 'شرح منظوم في قواعد النحو والصرف على متن الآجرومية، يقدّم قواعد اللغة العربية بأسلوب نظمي واضح وميسّر للدارسين.',
+    excerptEn: 'A versified explanation of Ajurrumiyyah covering Arabic grammar rules in a clear, easy-to-follow poetic form for learners.',
+    contentAr: '<p>هذا الكتاب شرح نظمي لمتن الآجرومية في قواعد النحو العربي، يقدّم أبجديات الإعراب وأقسام الكلام بأسلوب منظوم يسهل الحفظ والفهم.</p>',
+    contentEn: '<p>This book is a versified explanation of the Ajurrumiyyah text on Arabic grammar, presenting the basics of syntax in an easy poetic form.</p>',
+    pdfUrl: 'books/sharh-al-ajrumiyyah.pdf'
+  }
+];
+
 function getBookBlogPosts() {
+  // Only the default Library books are shown. Any previously stored/published books
+  // other than the defaults are ignored and cleared from storage.
+  const acceptedIds = new Set(defaultLibraryBooks.map(b => b && b.id));
   try {
     const stored = JSON.parse(localStorage.getItem(bookBlogStorageKey) || '[]');
-    return Array.isArray(stored) ? stored : [];
+    const base = Array.isArray(stored) ? stored : [];
+    // Keep only the default book(s); merge their canonical data back in.
+    const rebuilt = defaultLibraryBooks.map(d => {
+      const existing = base.find(b => b && b.id === d.id);
+      return existing ? Object.assign({}, d, existing) : d;
+    });
+    // If storage still holds non-default books, rewrite it to only the defaults.
+    if (base.length !== rebuilt.length || base.some(b => !acceptedIds.has(b && b.id))) {
+      localStorage.setItem(bookBlogStorageKey, JSON.stringify(rebuilt));
+    }
+    return rebuilt;
   } catch (error) {
-    return [];
+    return defaultLibraryBooks.slice();
   }
 }
 
@@ -1698,10 +1540,14 @@ function renderBookBlogGrid(activeCategory = 'all') {
   renderBookBlogCards(container, localBooks, isAr);
   if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) {
     DataService.getPublishedBooks().then(firebaseBooks => {
-      const localIds = new Set(getBookBlogPosts().map(b => b.id));
-      const extra = firebaseBooks.filter(b => !localIds.has(b.id));
+      const current = getBookBlogPosts();
+      const localIds = new Set(current.map(b => b.id));
+      // Only allow Firebase books whose id matches a default Library book; all other
+      // previously published books are intentionally excluded from the public Library.
+      const allowedDefaultIds = new Set(defaultLibraryBooks.map(b => b && b.id));
+      const extra = firebaseBooks.filter(b => b && allowedDefaultIds.has(b.id) && !localIds.has(b.id));
       if (extra.length) {
-        const all = [...getBookBlogPosts(), ...extra];
+        const all = [...current, ...extra];
         saveBookBlogPosts(all);
         const posts = all.filter(post => activeCategory === 'all' || post.category === activeCategory);
         renderBookBlogCards(container, posts, isAr);
@@ -2355,13 +2201,15 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-record-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
+    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ مصر القديمة</option><option value="islamic">🕌 مصر الإسلامية</option><option value="coptic">⛪ مصر القبطية</option><option value="modern">🏙️ مصر الحديثة</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
     document.getElementById('admin-content-view').prepend(form);
     initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
-    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; const actionsEl = form.querySelector('.admin-form-actions'); let pubBtn = document.getElementById('admin-book-publish'); let unpubBtn = document.getElementById('admin-book-unpublish'); let pubStatus = document.getElementById('admin-book-publish-status'); if (isBook && !pubBtn) { pubStatus = document.createElement('div'); pubStatus.id = 'admin-book-publish-status'; pubStatus.className = 'form-pdf-status'; pubBtn = document.createElement('button'); pubBtn.type = 'button'; pubBtn.id = 'admin-book-publish'; pubBtn.className = 'btn btn--success btn--sm'; pubBtn.textContent = 'نشر في المكتبة العامة'; unpubBtn = document.createElement('button'); unpubBtn.type = 'button'; unpubBtn.id = 'admin-book-unpublish'; unpubBtn.className = 'btn btn--danger btn--sm'; unpubBtn.textContent = 'إلغاء النشر'; unpubBtn.hidden = true; actionsEl.insertBefore(pubBtn, actionsEl.firstChild); actionsEl.insertBefore(unpubBtn, pubBtn.nextSibling); actionsEl.insertBefore(pubStatus, unpubBtn.nextSibling); pubBtn.addEventListener('click', async () => { console.log('[Publish] Button clicked, DataService.isReady:', typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()); pubBtn.disabled = true; pubBtn.textContent = 'جاري النشر...'; try { const bookData = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: document.getElementById('admin-form-image').value.trim() || 'images/logo.jpg', titleAr: document.getElementById('admin-form-title').value.trim(), titleEn: document.getElementById('admin-form-title').value.trim(), excerptAr: document.getElementById('admin-form-detail').value.trim(), excerptEn: document.getElementById('admin-form-detail').value.trim(), contentAr: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, contentEn: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, pdfUrl: pendingPdfData || '' }; if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.publishBook(bookData); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#22c55e;">✓ تم النشر على كل الأجهزة</span>'; showToast('تم النشر — ظاهر للزوار على كل الأجهزة'); } else { const posts = getBookBlogPosts(); const existing = posts.find(p => p.id === bookData.id); if (existing) Object.assign(existing, bookData); else posts.unshift(bookData); saveBookBlogPosts(posts); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#f59e0b;">⚠ منشور محلياً فقط — أعد Firebase للنشر على كل الأجهزة</span>'; showToast('تم النشر محلياً — يظهر على هذا الجهاز فقط'); } renderBookBlogGrid('all'); } catch (err) { showToast('خطأ في النشر: ' + err.message); } finally { pubBtn.disabled = false; pubBtn.textContent = 'نشر في المكتبة العامة'; } }); unpubBtn.addEventListener('click', async () => { if (!confirm('هل تريد إلغاء نشر هذا الكتاب؟')) return; unpubBtn.disabled = true; try { if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.unpublishBook(editingId); } unpubBtn.hidden = true; pubBtn.hidden = false; pubStatus.innerHTML = ''; showToast('تم إلغاء النشر'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ: ' + err.message); } finally { unpubBtn.disabled = false; } }); } else if (!isBook && pubBtn) { pubBtn.remove(); unpubBtn.remove(); pubStatus.remove(); } };
+    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; const postCatGroup = document.getElementById('admin-post-category-group'); if (postCatGroup) postCatGroup.hidden = isBook; const actionsEl = form.querySelector('.admin-form-actions'); let pubBtn = document.getElementById('admin-book-publish'); let unpubBtn = document.getElementById('admin-book-unpublish'); let pubStatus = document.getElementById('admin-book-publish-status'); if (isBook && !pubBtn) { pubStatus = document.createElement('div'); pubStatus.id = 'admin-book-publish-status'; pubStatus.className = 'form-pdf-status'; pubBtn = document.createElement('button'); pubBtn.type = 'button'; pubBtn.id = 'admin-book-publish'; pubBtn.className = 'btn btn--success btn--sm'; pubBtn.textContent = 'نشر في المكتبة العامة'; unpubBtn = document.createElement('button'); unpubBtn.type = 'button'; unpubBtn.id = 'admin-book-unpublish'; unpubBtn.className = 'btn btn--danger btn--sm'; unpubBtn.textContent = 'إلغاء النشر'; unpubBtn.hidden = true; actionsEl.insertBefore(pubBtn, actionsEl.firstChild); actionsEl.insertBefore(unpubBtn, pubBtn.nextSibling); actionsEl.insertBefore(pubStatus, unpubBtn.nextSibling); pubBtn.addEventListener('click', async () => { console.log('[Publish] Button clicked, DataService.isReady:', typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()); pubBtn.disabled = true; pubBtn.textContent = 'جاري النشر...'; try { const bookData = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: document.getElementById('admin-form-image').value.trim() || 'images/logo.jpg', titleAr: document.getElementById('admin-form-title').value.trim(), titleEn: document.getElementById('admin-form-title').value.trim(), excerptAr: document.getElementById('admin-form-detail').value.trim(), excerptEn: document.getElementById('admin-form-detail').value.trim(), contentAr: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, contentEn: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, pdfUrl: pendingPdfData || '' }; if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.publishBook(bookData); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#22c55e;">✓ تم النشر على كل الأجهزة</span>'; showToast('تم النشر — ظاهر للزوار على كل الأجهزة'); } else { const posts = getBookBlogPosts(); const existing = posts.find(p => p.id === bookData.id); if (existing) Object.assign(existing, bookData); else posts.unshift(bookData); saveBookBlogPosts(posts); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#f59e0b;">⚠ منشور محلياً فقط — أعد Firebase للنشر على كل الأجهزة</span>'; showToast('تم النشر محلياً — يظهر على هذا الجهاز فقط'); } renderBookBlogGrid('all'); } catch (err) { showToast('خطأ في النشر: ' + err.message); } finally { pubBtn.disabled = false; pubBtn.textContent = 'نشر في المكتبة العامة'; } }); unpubBtn.addEventListener('click', async () => { if (!confirm('هل تريد إلغاء نشر هذا الكتاب؟')) return; unpubBtn.disabled = true; try { if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.unpublishBook(editingId); } unpubBtn.hidden = true; pubBtn.hidden = false; pubStatus.innerHTML = ''; showToast('تم إلغاء النشر'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ: ' + err.message); } finally { unpubBtn.disabled = false; } }); } else if (!isBook && pubBtn) { pubBtn.remove(); unpubBtn.remove(); pubStatus.remove(); } };
     document.getElementById('admin-form-type').addEventListener('change', updateBookFields);
     if (record?.category) document.getElementById('admin-book-category').value = record.category;
+    if (record?.category) document.getElementById('admin-post-category').value = record.category;
+    document.getElementById('admin-post-category-group').hidden = !(document.getElementById('admin-form-type').value === 'post');
     updateBookFields();
     document.getElementById('admin-form-cancel').onclick = () => form.remove();
     let pendingPdfData = record?.pdfUrl || null;
@@ -2385,18 +2233,20 @@ function initAdminDashboard() {
       event.preventDefault();
       if (!hasPermission('content.create') && !editingId) { showToast('ليس لديك صلاحية إنشاء محتوى'); return; }
       if (!hasPermission('content.edit') && editingId) { showToast('ليس لديك صلاحية التعديل'); return; }
-      const values = { type: document.getElementById('admin-form-type').value, title: document.getElementById('admin-form-title').value.trim(), detail: document.getElementById('admin-form-detail').value.trim(), image: document.getElementById('admin-form-image').value.trim() };
+      const values = { type: document.getElementById('admin-form-type').value, title: document.getElementById('admin-form-title').value.trim(), detail: document.getElementById('admin-form-detail').value.trim(), image: document.getElementById('admin-form-image').value.trim(), author: document.getElementById('admin-form-author').value.trim() };
       if (!values.title) return;
+      const authorName = values.author || 'رحّالة عبر التاريخ';
+      const postCategory = document.getElementById('admin-post-category') ? document.getElementById('admin-post-category').value : 'modern';
       if (values.type === 'book') {
         const posts = getBookBlogPosts();
         const post = posts.find(item => item.id === editingId);
-        const saved = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>`, pdfUrl: pendingPdfData || '' };
+        const saved = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: authorName, authorEn: authorName, img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>`, pdfUrl: pendingPdfData || '' };
         if (post) Object.assign(post, saved); else posts.unshift(saved);
         saveBookBlogPosts(posts); renderBookBlogGrid('all');
       } else if (values.type === 'post') {
         const posts = getBlogPosts(); const post = posts.find(item => item.id === editingId);
-        if (post) { post.titleAr = values.title; post.titleEn = values.title; post.excerptAr = values.detail; post.excerptEn = values.detail; post.img = values.image || post.img; saveBlogPosts(posts); }
-        else { posts.unshift({ id: 'admin-post-' + Date.now(), category: 'modern', date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', readTimeAr: '4 دقائق قراءة', readTimeEn: '4 min read', img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>` }); saveBlogPosts(posts); }
+        if (post) { post.titleAr = values.title; post.titleEn = values.title; post.excerptAr = values.detail; post.excerptEn = values.detail; post.img = values.image || post.img; post.authorAr = authorName; post.authorEn = authorName; post.category = postCategory; saveBlogPosts(posts); }
+        else { posts.unshift({ id: 'admin-post-' + Date.now(), category: postCategory, date: new Date().toISOString().slice(0, 10), authorAr: authorName, authorEn: authorName, readTimeAr: '4 دقائق قراءة', readTimeEn: '4 min read', img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>` }); saveBlogPosts(posts); }
         renderLatestPosts(); renderBlogGrid('all');
       } else {
         const records = getRecords(); const index = records.findIndex(item => item.id === editingId); const item = { id: editingId || `admin-${values.type}-${Date.now()}`, status: 'نشط', ...values };
