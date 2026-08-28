@@ -1956,7 +1956,7 @@ function openArticleReader(postId, sourcePosts, isBookBlog = false) {
   const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
   const author = isAr ? (post.authorAr || 'رحّالة عبر التاريخ') : (post.authorEn || 'Rahala Through History');
   const readTime = isAr ? (post.readTimeAr || '5 دقائق قراءة') : (post.readTimeEn || '5 min read');
-  const content = isAr ? post.contentAr : (post.contentEn || post.contentAr);
+  const content = isAr ? (post.contentAr || post.excerptAr || post.contentEn || post.excerptEn || '') : (post.contentEn || post.excerptEn || post.contentAr || post.excerptAr || '');
   const formattedDate = formatArticleDate(post.date, currentLang);
 
   modalImg.src = post.img;

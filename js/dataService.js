@@ -88,8 +88,30 @@ const DataService = (() => {
   async function publishBook(bookData) {
     if (!isReady()) throw new Error('Firebase غير متاح — تحقق من إعدادات Anonymous Auth في Firebase Console');
     const bookId = bookData.id || 'book-' + Date.now();
+    console.log('[DataService] Publishing book:', bookId);
+
     const data = { ...bookData, id: bookId, publishedAt: Date.now(), published: true };
-    console.log('[DataService] Writing to Firebase...', bookId, 'size:', JSON.stringify(data).length);
+
+    // Upload image to Storage if it's a base64 data URL
+    if (data.img && typeof data.img === 'string' && data.img.startsWith('data:')) {
+      console.log('[DataService] Uploading image to Storage...');
+      const imgExt = (data.img.match(/data:image\/([a-z]+);/) || [])[1] || 'jpg';
+      data.img = await uploadFile(`publishedBooks/${bookId}/image.${imgExt}`, data.img);
+      console.log('[DataService] Image uploaded:', data.img);
+    }
+
+    // Upload PDF to Storage if it's a base64 data URL
+    if (data.pdfUrl && typeof data.pdfUrl === 'string' && data.pdfUrl.startsWith('data:')) {
+      console.log('[DataService] Uploading PDF to Storage...');
+      data.pdfUrl = await uploadFile(`publishedBooks/${bookId}/document.pdf`, data.pdfUrl);
+      console.log('[DataService] PDF uploaded:', data.pdfUrl);
+    }
+
+    // Remove huge content from database to keep it fast, only keep excerpt
+    if (data.contentAr && data.contentAr.length > 2000) delete data.contentAr;
+    if (data.contentEn && data.contentEn.length > 2000) delete data.contentEn;
+
+    console.log('[DataService] Writing metadata to DB...', 'size:', JSON.stringify(data).length);
     await withTimeout(db.ref(`publishedBooks/${bookId}`).set(data), 15000);
     console.log('[DataService] Write OK!');
     saveLocalCache(data);
@@ -110,6 +132,27 @@ const DataService = (() => {
     } catch {
       return false;
     }
+  }
+
+  function uploadFile(path, dataUrl) {
+    return new Promise((resolve, reject) => {
+      try {
+        const ref = storage.ref(path);
+        const parts = dataUrl.split(',');
+        const mime = (parts[0].match(/data:(.*?);/) || [])[1] || 'application/octet-stream';
+        const b64 = parts[1];
+        const binary = atob(b64);
+        const arr = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+        const blob = new Blob([arr], { type: mime });
+        console.log('[DataService] Uploading file size:', blob.size);
+        const task = ref.put(blob, { contentType: mime });
+        const timer = setTimeout(() => { task.cancel(); reject(new Error('انتهى وقت الرفع (30 ثانية) — الملف كبير جداً')); }, 30000);
+        task.then(() => ref.getDownloadURL()).then(url => { clearTimeout(timer); resolve(url); }).catch(err => { clearTimeout(timer); console.warn('[DataService] Upload failed:', err.message); reject(err); });
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   const LOCAL_CACHE_KEY = 'rahala_published_books_cache';
