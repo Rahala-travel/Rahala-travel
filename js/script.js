@@ -982,6 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCurrentYear();
   initNewsTicker();
   initAdminDashboard();
+  handleOpenBookLink();
 });
 
 // Current active language state ('ar' or 'en')
@@ -1489,6 +1490,21 @@ const defaultLibraryBooks = [
     contentAr: '<p>هذا الكتاب شرح نظمي لمتن الآجرومية في قواعد النحو العربي، يقدّم أبجديات الإعراب وأقسام الكلام بأسلوب منظوم يسهل الحفظ والفهم.</p>',
     contentEn: '<p>This book is a versified explanation of the Ajurrumiyyah text on Arabic grammar, presenting the basics of syntax in an easy poetic form.</p>',
     pdfUrl: 'books/sharh-al-ajrumiyyah.pdf'
+  },
+  {
+    id: 'book-ancient-egypt',
+    category: 'history',
+    date: '2026-08-29',
+    authorAr: 'احمد صالح',
+    authorEn: 'احمد صالح',
+    img: 'images/ancient-egypt-cover.jpg',
+    titleAr: 'التحنيط فلسفة الخلود في مصر القديمة',
+    titleEn: 'التحنيط فلسفة الخلود في مصر القديمة',
+    excerptAr: 'دراسة في فن التحنيط عند قدماء المصريين، أسراره وأساليبه ومدلوله الديني والحضاري في مصر الفرعونية.',
+    excerptEn: 'A study of the art of mummification among the ancient Egyptians: its secrets, techniques, and its religious and civilizational significance in Pharaonic Egypt.',
+    contentAr: '<p>كتاب يستعرض فن التحنيط في مصر القديمة، من الأساليب العملية المستخدمة إلى المعتقدات الدينية التي جعلت من حفظ الجسد أساساً لرحلة الخلود في الحضارة المصرية.</p>',
+    contentEn: '<p>A book exploring the art of mummification in ancient Egypt, from the practical techniques used to the religious beliefs that made preserving the body essential to the journey of eternity in Egyptian civilization.</p>',
+    pdfUrl: 'books/ancient-egypt-book.pdf'
   }
 ];
 
@@ -1562,13 +1578,18 @@ function renderBookBlogCards(container, posts, isAr) {
     const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
     const hasPdf = post.pdfUrl && post.pdfUrl.length > 10;
     const pdfId = escapeContentHtml(post.id);
+    const isRealCover = post.img && post.img.trim() && post.img.trim() !== 'images/logo.jpg';
+    const coverThumb = isRealCover
+      ? `<div class="book-pdf-card__icon book-pdf-card__icon--cover" aria-hidden="true"><img class="book-pdf-card__cover-img" src="${escapeContentHtml(post.img)}" alt="" loading="lazy"></div>`
+      : `<div class="book-pdf-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span class="book-pdf-card__ext">PDF</span></div>`;
     if (hasPdf) {
-      return `<article class="book-pdf-card" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span class="book-pdf-card__ext">PDF</span></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-pdf-open="${pdfId}" title="${isAr ? 'اقرأ في المتصفح' : 'Read in Browser'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><a class="book-pdf-card__btn book-pdf-card__btn--download" href="${escapeContentHtml(post.pdfUrl)}" download="${escapeContentHtml(title)}.pdf" title="${isAr ? 'تحميل PDF' : 'Download PDF'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${isAr ? 'تحميل' : 'Download'}</span></a></div></article>`;
+      return `<article class="book-pdf-card" data-book-post-id="${pdfId}">${coverThumb}<div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-pdf-open="${pdfId}" title="${isAr ? 'اقرأ في المتصفح' : 'Read in Browser'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><a class="book-pdf-card__btn book-pdf-card__btn--download" href="${escapeContentHtml(post.pdfUrl)}" download="${escapeContentHtml(title)}.pdf" title="${isAr ? 'تحميل PDF' : 'Download PDF'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${isAr ? 'تحميل' : 'Download'}</span></a><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة الكتاب' : 'Share Book'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
     }
-    return `<article class="book-pdf-card book-pdf-card--no-pdf" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon book-pdf-card__icon--text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-book-post-id="${pdfId}" title="${isAr ? 'اقرأ المحتوى' : 'Read Content'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button></div></article>`;
+    return `<article class="book-pdf-card book-pdf-card--no-pdf" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon book-pdf-card__icon--text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-book-post-id="${pdfId}" title="${isAr ? 'اقرأ المحتوى' : 'Read Content'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة المحتوى' : 'Share Content'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
   }).join('') : `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><p>${isAr ? 'لا توجد منشورات في هذا التصنيف حالياً.' : 'No published content in this category yet.'}</p></div>`;
   container.querySelectorAll('[data-pdf-open]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); openPdfReader(btn.dataset.pdfOpen); }));
   container.querySelectorAll('.book-pdf-card--no-pdf [data-book-post-id]').forEach(card => card.addEventListener('click', () => openArticleReader(card.dataset.bookPostId, getBookBlogPosts(), true)));
+  container.querySelectorAll('[data-book-share]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); shareBook(btn.dataset.bookShare); }));
 }
 
 function initBookBlog() {
@@ -1884,6 +1905,122 @@ function initPdfReaderModal() {
   if (overlay) overlay.addEventListener('click', closePdf);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closePdf(); });
 }
+
+// --------------------------------------------------------------------------
+// 17c. BOOK SHARE — direct link to a specific book (native share + copy)
+// --------------------------------------------------------------------------
+function buildBookShareUrl(postId) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('book', postId);
+  return url.toString();
+}
+
+function fallbackCopyText(text, isAr) {
+  // Final fallback: show a prompt with the link so the visitor can copy it manually.
+  const done = window.prompt(isAr ? 'انسخ رابط الكتاب:' : 'Copy the book link:', text);
+  if (done) {
+    try { window.prompt(isAr ? 'مكتمل! اضغط Ctrl+C ثم موافق' : 'Done! Press Ctrl+C then OK', text); } catch (e) {}
+  }
+}
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+  // Legacy fallback using a hidden textarea + execCommand.
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+async function shareBook(postId) {
+  const post = (getBookBlogPosts() || []).find(p => p.id === postId);
+  if (!post) return;
+  const isAr = currentLang === 'ar';
+  const title = isAr ? (post.titleAr || post.titleEn) : (post.titleEn || post.titleAr);
+  const url = buildBookShareUrl(post.id);
+
+  // 1. Try the device's native Share sheet when available (mobile-friendly).
+  if (typeof navigator.share === 'function' && window.isSecureContext !== false) {
+    try {
+      await navigator.share({ title: title, text: isAr ? 'رابط الكتاب في مكتبة رحّالة' : 'Book link in the Rahala Library', url: url });
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return; // user cancelled share sheet
+      // otherwise fall through to copy link
+    }
+  }
+
+  // 2. Copy the direct link to the clipboard.
+  try {
+    await copyToClipboard(url);
+    showToast(isAr ? 'تم نسخ رابط الكتاب' : 'Book link copied');
+  } catch (err) {
+    fallbackCopyText(url, isAr);
+  }
+}
+
+// --------------------------------------------------------------------------
+// 17d. OPEN SHARED BOOK LINK — ?book=<id> takes visitors directly to a book
+// --------------------------------------------------------------------------
+function activateBookCategory(category) {
+  const tabs = document.querySelectorAll('[data-book-category]');
+  let target = null;
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    if (t.dataset.bookCategory === category) target = t;
+  });
+  if (!target) {
+    // No matching tab; fall back to "All"
+    tabs.forEach(t => { if (t.dataset.bookCategory === 'all') { t.classList.add('active'); target = t; } });
+    category = 'all';
+  } else {
+    target.classList.add('active');
+  }
+  return category;
+}
+
+function handleOpenBookLink() {
+  const params = new URLSearchParams(window.location.search);
+  const bookId = params.get('book');
+  if (!bookId) return;
+  const posts = getBookBlogPosts() || [];
+  const post = posts.find(p => p && p.id === bookId);
+  if (!post) return;
+  const isAr = currentLang === 'ar';
+
+  // Show the book's category so the target card is visible.
+  const category = activateBookCategory(post.category);
+  renderBookBlogGrid(category);
+
+  // Wait for layout/images to settle, then scroll to the Library and highlight.
+  const delay = 350;
+  setTimeout(() => {
+    const section = document.getElementById('book-blog');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    const card = document.querySelector(`.book-pdf-card[data-book-post-id="${CSS.escape(bookId)}"]`);
+    if (card) {
+      card.classList.add('book-pdf-card--shared');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => {
+        // Optionally open the PDF reader so the visitor lands on the book content.
+        if (post.pdfUrl) openPdfReader(post.id);
+      }, 450);
+    }
+  }, delay);
+}
+
 
 // --------------------------------------------------------------------------
 // 18. PUBLISH ARTICLE MODAL — ADMIN ONLY (moved to Admin Dashboard)
