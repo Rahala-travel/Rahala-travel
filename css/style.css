@@ -1958,6 +1958,11 @@ body:not(.ticker-dismissed) .header {
   border-color: rgba(56, 189, 248, 0.4);
 }
 
+.cat-badge--europe {
+  background: rgba(124, 58, 237, 0.85);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
 .blog-card__body {
   padding: 1.75rem;
   display: flex;

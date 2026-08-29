@@ -27,7 +27,7 @@ const translations = {
     nav_experiences: "تجاربنا",
     nav_latest_posts: "أحدث المقالات",
     nav_library: "المكتبة",
-    nav_blog: "المدونة",
+    nav_blog: "المقالات",
     nav_why_us: "لماذا رحّالة",
     nav_timeline: "المسيرة",
     nav_contact: "تواصل معنا",
@@ -40,14 +40,15 @@ const translations = {
     latest_posts_subtitle: "إضاءات معرفية وتوثيقية تسرد حكايات الحضارة وتراث مصر الخالد عبر العصور.",
     btn_view_all_blog: "تصفح كافة المقالات",
     btn_view_all_blog_text: "تصفح كافة المقالات",
-    blog_tag: "مدونة التراث والتوعية الأثرية",
-    blog_title: "مدونة رحّالة عبر التاريخ",
-    blog_subtitle: "موسوعة مقالات متخصصة مصنفة عبر أربعة عصور رئيسية ترسم ملامح الهوية والتاريخ المصري.",
+    blog_tag: "مقالات التراث والتوعية الأثرية",
+    blog_title: "مقالات رحّالة عبر التاريخ",
+    blog_subtitle: "موسوعة مقالات متخصصة مصنفة عبر خمسة عصور رئيسية ترسم ملامح الهوية والتاريخ المصري والأوروبي.",
     cat_all: "جميع المقالات",
-    cat_ancient: "مصر القديمة",
-    cat_islamic: "مصر الإسلامية",
-    cat_coptic: "مصر القبطية",
-    cat_modern: "مصر الحديثة",
+    cat_ancient: "تاريخ مصري قديم",
+    cat_islamic: "تاريخ إسلامي",
+    cat_coptic: "تاريخ قبطي",
+    cat_modern: "تاريخ مصر الحديث",
+    cat_europe: "تاريخ أوروبا",
     btn_publish_article: "إضافة ونشر مقال جديد",
     book_blog_tag: "مكتبة المقالات والكتب",
     book_blog_nav: "الكتب",
@@ -70,21 +71,22 @@ const translations = {
     btn_read_post: "اقرأ المقال بالكامل",
     article_share_label: "مشاركة المقال أو الاستفسار:",
     article_share_btn: "تواصل معنا حول هذا المقال عبر واتساب",
-    pub_modal_title: "إضافة ونشر مقال جديد في المدونة",
-    pub_modal_sub: "املأ تفاصيل المقال وسينشر مباشرة في المدونة وأحدث المقالات.",
+    pub_modal_title: "إضافة ونشر مقال جديد في المقالات",
+    pub_modal_sub: "املأ تفاصيل المقال وسينشر مباشرة في قسم المقالات وأحدث المقالات.",
     pub_label_title: "عنوان المقال *",
     pub_label_cat: "التصنيف التاريخي *",
     pub_label_author: "اسم الكاتب",
     pub_label_image: "رابط صورة الغلاف (URL) *",
     pub_presets_label: "أو اختر صورة جاهزة:",
-    pub_label_excerpt: "ملخص المقال (يظهر في بطاقة المدونة) *",
+    pub_label_excerpt: "ملخص المقال (يظهر في بطاقة المقالات) *",
     pub_label_content: "نص المقال الكامل *",
     pub_btn_submit: "نشر المقال على الفور",
-    toast_publish_success: "تم نشر المقال بنجاح وإضافته إلى المدونة!",
-    cat_opt_ancient: "🏛️ مصر القديمة (Ancient Egypt)",
-    cat_opt_islamic: "🕌 مصر الإسلامية (Islamic Egypt)",
-    cat_opt_coptic: "⛪ مصر القبطية (Coptic Egypt)",
-    cat_opt_modern: "🏙️ مصر الحديثة (Modern Egypt)",
+    toast_publish_success: "تم نشر المقال بنجاح وإضافته إلى المقالات!",
+    cat_opt_ancient: "🏛️ تاريخ مصري قديم (Ancient Egypt)",
+    cat_opt_islamic: "🕌 تاريخ إسلامي (Islamic Egypt)",
+    cat_opt_coptic: "⛪ تاريخ قبطي (Coptic Egypt)",
+    cat_opt_modern: "🏙️ تاريخ مصر الحديث (Modern Egypt)",
+    cat_opt_europe: "🏰 تاريخ أوروبا (European History)",
 
     // Hero
     hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2022",
@@ -343,7 +345,7 @@ const translations = {
     nav_experiences: "Experiences",
     nav_latest_posts: "Latest Posts",
     nav_library: "Library",
-    nav_blog: "Blog",
+    nav_blog: "Articles",
     nav_why_us: "Why Rahala",
     nav_timeline: "Timeline",
     nav_contact: "Contact Us",
@@ -356,14 +358,15 @@ const translations = {
     latest_posts_subtitle: "Illuminating articles narrating the stories and timeless legacy of Egyptian civilization.",
     btn_view_all_blog: "Browse All Articles",
     btn_view_all_blog_text: "Browse All Articles",
-    blog_tag: "Heritage & Archaeological Blog",
-    blog_title: "Rahala Through History Blog",
-    blog_subtitle: "Specialized articles categorized across four main eras defining Egyptian identity and history.",
+    blog_tag: "Heritage & Archaeological Articles",
+    blog_title: "Rahala Through History Articles",
+    blog_subtitle: "Specialized articles categorized across five main eras defining Egyptian and European identity and history.",
     cat_all: "All Articles",
     cat_ancient: "Ancient Egypt",
     cat_islamic: "Islamic Egypt",
     cat_coptic: "Coptic Egypt",
     cat_modern: "Modern Egypt",
+    cat_europe: "European History",
     btn_publish_article: "+ Publish New Article",
     book_blog_tag: "Books & Written Content",
     book_blog_nav: "Books",
@@ -387,7 +390,7 @@ const translations = {
     article_share_label: "Share or Inquire about this Article:",
     article_share_btn: "Connect with Us on WhatsApp",
     pub_modal_title: "Add & Publish New Article to Blog",
-    pub_modal_sub: "Fill in the article details to publish instantly to the blog and latest posts.",
+    pub_modal_sub: "Fill in the article details to publish instantly to the articles and latest posts.",
     pub_label_title: "Article Title *",
     pub_label_cat: "Historical Category *",
     pub_label_author: "Author Name",
@@ -396,11 +399,12 @@ const translations = {
     pub_label_excerpt: "Article Excerpt (shown on card) *",
     pub_label_content: "Full Article Content *",
     pub_btn_submit: "Publish Article Now",
-    toast_publish_success: "Article published successfully and added to the Blog!",
-    cat_opt_ancient: "🏛️ Ancient Egypt (مصر القديمة)",
-    cat_opt_islamic: "🕌 Islamic Egypt (مصر الإسلامية)",
-    cat_opt_coptic: "⛪ Coptic Egypt (مصر القبطية)",
-    cat_opt_modern: "🏙️ Modern Egypt (مصر الحديثة)",
+    toast_publish_success: "Article published successfully and added to the Articles!",
+    cat_opt_ancient: "🏛️ Ancient Egypt (تاريخ مصري قديم)",
+    cat_opt_islamic: "🕌 Islamic Egypt (تاريخ إسلامي)",
+    cat_opt_coptic: "⛪ Coptic Egypt (تاريخ قبطي)",
+    cat_opt_modern: "🏙️ Modern Egypt (تاريخ مصر الحديث)",
+    cat_opt_europe: "🏰 European History (تاريخ أوروبا)",
 
     // Hero
     hero_badge: "Tourism Company & Archaeological Awareness • Est. 2022",
@@ -1607,24 +1611,29 @@ function getCategoryInfo(catKey, lang) {
   const isAr = lang === 'ar';
   const mapping = {
     ancient: {
-      label: isAr ? 'مصر القديمة' : 'Ancient Egypt',
+      label: isAr ? 'تاريخ مصري قديم' : 'Ancient Egypt',
       icon: '🏛️',
       badgeClass: 'cat-badge--ancient'
     },
     islamic: {
-      label: isAr ? 'مصر الإسلامية' : 'Islamic Egypt',
+      label: isAr ? 'تاريخ إسلامي' : 'Islamic Egypt',
       icon: '🕌',
       badgeClass: 'cat-badge--islamic'
     },
     coptic: {
-      label: isAr ? 'مصر القبطية' : 'Coptic Egypt',
+      label: isAr ? 'تاريخ قبطي' : 'Coptic Egypt',
       icon: '⛪',
       badgeClass: 'cat-badge--coptic'
     },
     modern: {
-      label: isAr ? 'مصر الحديثة' : 'Modern Egypt',
+      label: isAr ? 'تاريخ مصر الحديث' : 'Modern Egypt',
       icon: '🏙️',
       badgeClass: 'cat-badge--modern'
+    },
+    europe: {
+      label: isAr ? 'تاريخ أوروبا' : 'European History',
+      icon: '🏰',
+      badgeClass: 'cat-badge--europe'
     }
   };
   return mapping[catKey] || {
@@ -1838,7 +1847,7 @@ function openArticleReader(postId, sourcePosts, isBookBlog = false) {
 
   // WhatsApp share link for this article
   const waText = isAr
-    ? `مرحباً، قرأت مقال "${title}" في مدونة رحّالة عبر التاريخ، وأود الاستفسار عن الجولات والأنشطة المتعلقة به.`
+    ? `مرحباً، قرأت مقال "${title}" في مقالات رحّالة عبر التاريخ، وأود الاستفسار عن الجولات والأنشطة المتعلقة به.`
     : `Hello, I read the article "${title}" on Rahala Through History blog and would like to inquire about related tours and experiences.`;
   shareWaBtn.href = `https://wa.me/201016643479?text=${encodeURIComponent(waText)}`;
 
@@ -2063,7 +2072,7 @@ const defaultTickerItems = [
   { id: 'tick-1', textAr: 'مرحباً بكم في رحّالة عبر التاريخ — شركة سياحة وتوعية أثرية', textEn: 'Welcome to Rahala Through History — Tourism & Archaeological Awareness', badgeAr: 'جديد', badgeEn: 'New', badgeType: 'new', enabled: true },
   { id: 'tick-2', textAr: 'استكشف أهرامات الجيزة مع جولاتنا التاريخية المتخصصة', textEn: 'Explore the Pyramids of Giza with our specialized historical tours', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-3', textAr: 'رحلات تعليمية للمدارس والجامعات — تواصل معنا اليوم', textEn: 'Educational trips for schools & universities — Contact us today', badgeAr: 'ساخن', badgeEn: 'Hot', badgeType: 'hot', enabled: true },
-  { id: 'tick-4', textAr: 'أحدث مقالاتنا: اكتشف تاريخ مصر القديمة والإسلامية والقبطية والحديثة', textEn: 'Latest articles: Ancient, Islamic, Coptic & Modern Egypt — explore now', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-4', textAr: 'أحدث مقالاتنا: اكتشف تاريخ مصر القديم والإسلامي والقبطي والحديث وأوروبا', textEn: 'Latest articles: Ancient, Islamic, Coptic & Modern Egypt, and European history — explore now', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-5', textAr: 'احجز رحلتك الآن عبر واتساب: 01016643479', textEn: 'Book your trip via WhatsApp: 01016643479', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-6', textAr: 'جولات ثقافية وأثرية في القاهرة التاريخية وأسوان والأقصر', textEn: 'Cultural & archaeological tours in Historic Cairo, Aswan & Luxor', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-7', textAr: 'نحن نؤمن أن السفر جسرٌ معرفي يربطك بأعماق الحضارة المصرية', textEn: 'We believe travel is a bridge connecting you to the depths of Egyptian civilization', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
@@ -2246,7 +2255,7 @@ function initAdminDashboard() {
   ];
   const sectionNames = [
     ['hero', 'الواجهة الرئيسية', 'البانر التعريفي'], ['about', 'من نحن', 'قصة الشركة ورسالتها'], ['services', 'الخدمات', 'الخدمات المتخصصة'],
-    ['destinations', 'الوجهات', 'وجهات مصر السياحية'], ['experiences', 'التجارب', 'أنماط الرحلات'], ['blog', 'المدونة', 'المقالات والتوعية'],
+    ['destinations', 'الوجهات', 'وجهات مصر السياحية'], ['experiences', 'التجارب', 'أنماط الرحلات'], ['blog', 'المقالات', 'المقالات والتوعية'],
     ['why-us', 'لماذا رحّالة', 'نقاط التميز'], ['timeline', 'المسيرة', 'خط زمني للشركة'], ['contact', 'تواصل معنا', 'بيانات التواصل']
   ];
 
@@ -2338,7 +2347,7 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-record-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ مصر القديمة</option><option value="islamic">🕌 مصر الإسلامية</option><option value="coptic">⛪ مصر القبطية</option><option value="modern">🏙️ مصر الحديثة</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
+    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ تاريخ مصري قديم</option><option value="islamic">🕌 تاريخ إسلامي</option><option value="coptic">⛪ تاريخ قبطي</option><option value="modern">🏙️ تاريخ مصر الحديث</option><option value="europe">🏰 تاريخ أوروبا</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
     document.getElementById('admin-content-view').prepend(form);
     initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
