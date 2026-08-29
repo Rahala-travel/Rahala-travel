@@ -66,6 +66,7 @@ const translations = {
     book_pdf_upload: "ملف PDF الكتاب",
     book_pdf_upload_hint: "ارفع ملف PDF للكتاب (الحد الأقصى ~5MB)",
     book_pdf_download: "تحميل PDF",
+    book_pdf_open: "فتح في نافذة جديدة",
     book_pdf_read: "قراءة",
     book_pdf_no_file: "لم يتم رفع ملف PDF",
     btn_read_post: "اقرأ المقال بالكامل",
@@ -384,6 +385,7 @@ const translations = {
     book_pdf_upload: "Book PDF File",
     book_pdf_upload_hint: "Upload a PDF file for the book (max ~5MB)",
     book_pdf_download: "Download PDF",
+    book_pdf_open: "Open in new tab",
     book_pdf_read: "Read",
     book_pdf_no_file: "No PDF file uploaded",
     btn_read_post: "Read Full Article",
@@ -993,6 +995,27 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentLang = 'ar';
 
 // --------------------------------------------------------------------------
+// WHATSAPP CONFIG — single source of truth for every WhatsApp button on the site.
+// The number must be in full international format WITH the country code and
+// WITHOUT any "+", spaces, or leading zeros of the country code.
+//   Local number: 01016643479
+//   International: +20 10 1664 3479  ->  wa.me number = 201016643479
+// Real UAE/Egypt 20-prefixed numbers go here; keep it identical everywhere so
+// the same standard link opens a normal chat for BOTH regular WhatsApp and
+// WhatsApp Business users, on mobile and desktop.
+// --------------------------------------------------------------------------
+const RAHALA_WHATSAPP_NUMBER = '201016643479';
+
+// Standard WhatsApp chat link. `wa.me` is the canonical, device-compatible
+// format that opens the regular chat for both WhatsApp and WhatsApp Business
+// recipients. Optional ?text= pre-fills a message.
+function buildWhatsAppLink(text) {
+  const base = 'https://wa.me/' + RAHALA_WHATSAPP_NUMBER;
+  if (text) return base + '?text=' + encodeURIComponent(text);
+  return base;
+}
+
+// --------------------------------------------------------------------------
 // 4. THEME CONTROLLER (Dark / Light Mode)
 // --------------------------------------------------------------------------
 function initTheme() {
@@ -1278,7 +1301,7 @@ function initDestinationModal() {
       ? `مرحباً، أود الاستفسار وحجز رحلة إلى وجهة: ${destinationName} مع رحّالة عبر التاريخ.`
       : `Hello, I would like to inquire and book a journey to: ${destinationName} with Rahala Through History.`;
     
-    modalWhatsAppBtn.href = `https://wa.me/201016643479?text=${encodeURIComponent(waText)}`;
+    modalWhatsAppBtn.href = buildWhatsAppLink(waText);
 
     // Display modal
     modal.classList.add('is-open');
@@ -1342,7 +1365,7 @@ function initContactForm() {
     }
 
     // Official WhatsApp URL for official phone: 01016643479 (+201016643479)
-    const targetUrl = `https://wa.me/201016643479?text=${encodeURIComponent(waMessage)}`;
+    const targetUrl = buildWhatsAppLink(waMessage);
     window.open(targetUrl, '_blank', 'noopener,noreferrer');
   });
 }
@@ -1522,7 +1545,14 @@ function getBookBlogPosts() {
     // Keep only the default book(s); merge their canonical data back in.
     const rebuilt = defaultLibraryBooks.map(d => {
       const existing = base.find(b => b && b.id === d.id);
-      return existing ? Object.assign({}, d, existing) : d;
+      // Prefer the canonical default PDF path when one exists: an uploaded
+      // inline base64/data blob must never override a working server file,
+      // otherwise the Read button points to a broken/oversized URL.
+      let merged = existing ? Object.assign({}, d, existing) : d;
+      if (d && d.pdfUrl && d.pdfUrl.length > 0 && d.pdfUrl.indexOf('data:') !== 0) {
+        merged = Object.assign({}, merged, { pdfUrl: d.pdfUrl });
+      }
+      return merged;
     });
     // If storage still holds non-default books, rewrite it to only the defaults.
     if (base.length !== rebuilt.length || base.some(b => !acceptedIds.has(b && b.id))) {
@@ -1849,7 +1879,7 @@ function openArticleReader(postId, sourcePosts, isBookBlog = false) {
   const waText = isAr
     ? `مرحباً، قرأت مقال "${title}" في مقالات رحّالة عبر التاريخ، وأود الاستفسار عن الجولات والأنشطة المتعلقة به.`
     : `Hello, I read the article "${title}" on Rahala Through History blog and would like to inquire about related tours and experiences.`;
-  shareWaBtn.href = `https://wa.me/201016643479?text=${encodeURIComponent(waText)}`;
+  shareWaBtn.href = buildWhatsAppLink(waText);
 
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
@@ -1891,14 +1921,24 @@ function openPdfReader(postId) {
   const viewer = document.getElementById('pdf-reader-iframe');
   const titleEl = document.getElementById('pdf-reader-title');
   const downloadBtn = document.getElementById('pdf-reader-download');
+  const openBtn = document.getElementById('pdf-reader-open');
   if (!modal || !viewer) return;
   viewer.src = post.pdfUrl;
   titleEl.textContent = title;
   downloadBtn.href = post.pdfUrl;
   downloadBtn.download = title + '.pdf';
+  if (openBtn) openBtn.href = post.pdfUrl;
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  // On mobile/touch devices embedded iframe PDF readers are unreliable
+  // (iOS Safari / Android often fail or download instead of rendering).
+  // Open the PDF in the browser's native viewer, which works on every device.
+  const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const isNarrow = window.innerWidth < 768;
+  if ((isTouch || isNarrow) && openBtn && post.pdfUrl.indexOf('data:') !== 0) {
+    window.open(post.pdfUrl, '_blank', 'noopener');
+  }
 }
 
 function initPdfReaderModal() {
