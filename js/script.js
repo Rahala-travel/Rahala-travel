@@ -14,8 +14,8 @@
 const translations = {
   ar: {
     // Meta & Brand
-    meta_title: "Rahala Travel | رحالة للسفر والرحلات السياحية",
-    meta_description: "رحالة للسفر والرحلات السياحية تقدم خدمات السياحة والسفر والرحلات في مصر. اكتشف أجمل وجهات مصر، رحلات سياحية منظمة، جولات تاريخية وأثرية، وخطط سفر مخصصة. Rahala Travel offers tourism, travel and trip services across Egypt.",
+    meta_title: "رحّالة عبر التاريخ | Rahala Through History",
+    meta_description: "رحّالة لنشر الوعي الأثري - السفر والرحلات — خدمات سياحية وسفر داخل مصر — جولات تاريخية وآثار",
     brand_name: "رحّالة عبر التاريخ",
     brand_subtitle: "Rahala Through History",
     
@@ -330,8 +330,8 @@ const translations = {
 
   en: {
     // Meta & Brand
-    meta_title: "Rahala Travel | رحالة للسفر والرحلات السياحية",
-    meta_description: "Rahala Travel offers tourism, travel and trip services across Egypt. Discover the best destinations in Egypt, organized tours, historical and archaeological excursions, and custom travel plans. رحالة للسفر والرحلات السياحية تقدم خدمات السياحة والسفر في مصر.",
+    meta_title: "رحّالة عبر التاريخ | Rahala Through History",
+    meta_description: "رحّالة لنشر الوعي الأثري - السفر والرحلات — خدمات سياحية وسفر داخل مصر — جولات تاريخية وآثار",
     brand_name: "Rahala Through History",
     brand_subtitle: "رحّالة عبر التاريخ",
     
