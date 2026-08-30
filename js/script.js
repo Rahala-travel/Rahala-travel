@@ -90,7 +90,7 @@ const translations = {
     cat_opt_europe: "🏰 تاريخ أوروبا (European History)",
 
     // Hero
-    hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2022",
+    hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2023",
     hero_title: "اكتشف مصر من خلال التاريخ",
     hero_desc: "رحّالة عبر التاريخ تقدم تجارب سياحية مميزة تربط الإنسان بتاريخ مصر وآثارها وثقافتها وتراثها.",
     hero_cta_primary: "استكشف تجاربنا",
@@ -99,13 +99,13 @@ const translations = {
     stat_1_sub: "تأصيل للمعرفة التاريخية",
     stat_2_title: "استكشاف وتوثيق",
     stat_2_sub: "وجهات مصرية فريدة",
-    stat_3_title: "تأسست 25 سبتمبر 2022",
+    stat_3_title: "تأسست 25 سبتمبر 2023",
     stat_3_sub: "انطلاقة برؤية متجددة",
 
     // About Us
     about_tag: "عن رحّالة عبر التاريخ",
     about_title: "رحلة تتجاوز المكان.. لنروي قصة الحضارة",
-    about_lead: "رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2022 تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.",
+    about_lead: "رحّالة عبر التاريخ هي شركة سياحة تأسست في 25 سبتمبر 2023 تكرس جهودها لخلق تجارب استثنائية في جميع أنحاء مصر، مع تعزيز الوعي بالتراث الأثري والتاريخي والثقافي للبلاد.",
     about_text_p1: "تأسست الشركة انطلاقاً من إيمان عميق بأن السياحة ليست مجرد زيارة مواقع، بل هي جسر معرفي حي يربط الإنسان بعراقة الماضي. نحن نجمع بين شغف الاستكشاف، والدقة التاريخية، والتوعية الأثرية، لنقدم للمسافر تجربة حقيقية تمنحه فهماً أعمق لحضارة مصر الخالدة.",
     about_badge_label: "تاريخ التأسيس",
     pillar_1_title: "شغف بالتاريخ المصري",
@@ -262,7 +262,7 @@ const translations = {
     timeline_tag: "مسيرة الشركة",
     timeline_title: "خطوات واثقة وتطلعات مستقبلية",
     timeline_subtitle: "منذ انطلاقتنا الرسمية في القاهرة، نرسم مساراً واضحاً نحو الريادة في السياحة التاريخية والتوعية الأثرية.",
-    tl_date_1: "25 سبتمبر 2022",
+    tl_date_1: "25 سبتمبر 2023",
     tl_1_title: "التأسيس الرسمي لشركة رحّالة عبر التاريخ",
     tl_1_desc: "انطلاق شركة \"رحّالة عبر التاريخ\" كشركة سياحة وتوعية أثرية بمدينة نصر في القاهرة، بهدف تقديم تجارب نوعية تربط الزوار بالحضارة المصرية.",
     tl_date_future: "مرحلة قادمة",
@@ -322,7 +322,7 @@ const translations = {
     footer_links_title: "روابط سريعة",
     footer_services_title: "خدماتنا",
     footer_contact_title: "معلومات الاتصال",
-    footer_est: "تأسست: 25 سبتمبر 2022",
+    footer_est: "تأسست: 25 سبتمبر 2023",
     footer_rights: "جميع الحقوق محفوظة.",
     footer_slogan: "رحّالة عبر التاريخ — سافر، اكتشف، وعش الحكاية.",
 
@@ -409,7 +409,7 @@ const translations = {
     cat_opt_europe: "🏰 European History (تاريخ أوروبا)",
 
     // Hero
-    hero_badge: "Tourism Company & Archaeological Awareness • Est. 2022",
+    hero_badge: "Tourism Company & Archaeological Awareness • Est. 2023",
     hero_title: "Discover Egypt Through History",
     hero_desc: "Rahala Through History creates unique tourism experiences that connect people with Egypt's history, archaeology, culture, and heritage.",
     hero_cta_primary: "Explore Our Experiences",
@@ -418,13 +418,13 @@ const translations = {
     stat_1_sub: "Deepening Historical Knowledge",
     stat_2_title: "Exploration & Discovery",
     stat_2_sub: "Unique Egyptian Destinations",
-    stat_3_title: "Established Sept 25, 2022",
+    stat_3_title: "Established Sept 25, 2023",
     stat_3_sub: "Driven by Heritage & Passion",
 
     // About Us
     about_tag: "About Rahala Through History",
     about_title: "A Journey Beyond Destinations.. Living the Story",
-    about_lead: "Rahala Through History is a tourism company established on September 25, 2022, dedicated to creating memorable journeys across Egypt while promoting awareness of the country's archaeological, historical, and cultural heritage.",
+    about_lead: "Rahala Through History is a tourism company established on September 25, 2023, dedicated to creating memorable journeys across Egypt while promoting awareness of the country's archaeological, historical, and cultural heritage.",
     about_text_p1: "Founded on the core belief that travel is more than visiting landmarks; it is a vital bridge connecting people to the richness of history. We merge genuine passion for exploration with authentic historical accuracy and archaeological appreciation.",
     about_badge_label: "Date of Establishment",
     pillar_1_title: "Passion for Egyptian History",
@@ -581,7 +581,7 @@ const translations = {
     timeline_tag: "Company Milestones",
     timeline_title: "Firm Steps & Forward-Looking Vision",
     timeline_subtitle: "From our official launch in Cairo, we are steadily advancing toward leadership in cultural and archaeological tourism.",
-    tl_date_1: "September 25, 2022",
+    tl_date_1: "September 25, 2023",
     tl_1_title: "Official Foundation of Rahala Through History",
     tl_1_desc: "Rahala Through History was established as a tourism and archaeological awareness company based in Nasr City, Cairo, to connect travelers with Egypt's heritage.",
     tl_date_future: "Upcoming Milestone",
@@ -641,7 +641,7 @@ const translations = {
     footer_links_title: "Quick Links",
     footer_services_title: "Our Services",
     footer_contact_title: "Contact Info",
-    footer_est: "Established: September 25, 2022",
+    footer_est: "Established: September 25, 2023",
     footer_rights: "All Rights Reserved.",
     footer_slogan: "Rahala Through History — Travel, Discover, Experience the Story.",
 
@@ -2116,7 +2116,7 @@ const defaultTickerItems = [
   { id: 'tick-5', textAr: 'احجز رحلتك الآن عبر واتساب: 01016643479', textEn: 'Book your trip via WhatsApp: 01016643479', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-6', textAr: 'جولات ثقافية وأثرية في القاهرة التاريخية وأسوان والأقصر', textEn: 'Cultural & archaeological tours in Historic Cairo, Aswan & Luxor', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
   { id: 'tick-7', textAr: 'نحن نؤمن أن السفر جسرٌ معرفي يربطك بأعماق الحضارة المصرية', textEn: 'We believe travel is a bridge connecting you to the depths of Egyptian civilization', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
-  { id: 'tick-8', textAr: 'تأسست رحّالة عبر التاريخ في سبتمبر 2022 بشغف أصيل للتراث', textEn: 'Rahala Through History was founded in September 2022 with genuine heritage passion', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
+  { id: 'tick-8', textAr: 'تأسست رحّالة عبر التاريخ في سبتمبر 2023 بشغف أصيل للتراث', textEn: 'Rahala Through History was founded in September 2023 with genuine heritage passion', badgeAr: '', badgeEn: '', badgeType: '', enabled: true },
 ];
 function getTickerItems() { const saved = localStorage.getItem(tickerStorageKey); if (saved) return JSON.parse(saved); localStorage.setItem(tickerStorageKey, JSON.stringify(defaultTickerItems)); return defaultTickerItems.map(i => ({ ...i })); }
 function saveTickerItems(items) { localStorage.setItem(tickerStorageKey, JSON.stringify(items)); }
