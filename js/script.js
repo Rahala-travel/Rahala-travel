@@ -1501,6 +1501,22 @@ function saveBlogPosts(posts) {
 
 const bookBlogStorageKey = 'rahala_book_blog_posts';
 
+// Books published via the Admin "إضافة 6 كتب" batch publisher. Kept separate from
+// the default Library books and from the single-book "publish" flow so that existing
+// books are never overwritten or cleared. All batch books are history-category.
+const batchBooksStorageKey = 'rahala_batch_book_books';
+
+function getBatchBooks() {
+  try {
+    const arr = JSON.parse(localStorage.getItem(batchBooksStorageKey) || '[]');
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) { return []; }
+}
+
+function saveBatchBooks(books) {
+  localStorage.setItem(batchBooksStorageKey, JSON.stringify(books || []));
+}
+
 // Default Library books — always available to every visitor, even if Firebase is off.
 const defaultLibraryBooks = [
   {
@@ -1562,6 +1578,111 @@ const defaultLibraryBooks = [
     contentAr: '<p>النظافة في الحياة اليومية عند المصريين القدماء — دراسة تأليف إيمان أحمد أبو بكر تستعرض ممارسات وعادات النظافة في الحياة اليومية للمصريين القدماء وأثرها على صحتهم وثقافتهم.</p>',
     contentEn: '<p>Hygiene in the Daily Life of the Ancient Egyptians — a study by Eman Ahmed Abo Bakr examining the cleanliness habits and practices in the daily life of the ancient Egyptians and their impact on health and culture.</p>',
     pdfUrl: 'books/ancient-egypt-book3.pdf'
+  },
+  {
+    id: 'book-ancient-egypt-4',
+    category: 'history',
+    date: '2026-08-30',
+    authorAr: 'سليم حسن',
+    authorEn: 'Salim Hassan',
+    img: 'images/ancient-egypt-book4-cover.jpg',
+    titleAr: 'أقسام مصر الجغرافية في العهد الفرعوني',
+    titleEn: 'Geographical Regions of Egypt in the Pharaonic Era',
+    excerptAr: 'دراسة للمؤرخ الكبير سليم حسن تعرض أقسام مصر الجغرافية في العهد الفرعوني، وتسلط الضوء على توزيع الأقاليم وخصائصها الطبيعية في الحضارة المصرية القديمة.',
+    excerptEn: 'A study by the great historian Salim Hassan presenting the geographical regions of Egypt in the Pharaonic era, highlighting the distribution of the provinces and their natural features in ancient Egyptian civilization.',
+    contentAr: '<p>أقسام مصر الجغرافية في العهد الفرعوني — دراسة للمؤرخ والأثري سليم حسن تستعرض التقسيمات الجغرافية لمصر في العصر الفرعوني وأثرها في حياة الدولة المصرية القديمة واقتصادها وإدارتها.</p>',
+    contentEn: '<p>Geographical Regions of Egypt in the Pharaonic Era — a study by the historian and archaeologist Salim Hassan examining the geographical divisions of Egypt in the Pharaonic age and their impact on the life, economy and administration of the ancient Egyptian state.</p>',
+    pdfUrl: 'books/ancient-egypt-book4.pdf'
+  },
+  {
+    id: 'book-m3-muhammad-ali',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د.سليمان الغنام',
+    authorEn: 'Dr. Suleiman Al-Ghannam',
+    img: 'images/m3.jpg',
+    titleAr: 'سياسة محمد علي باشا التوسعية',
+    titleEn: 'The Expansionist Policy of Muhammad Ali Pasha',
+    excerptAr: 'دراسة تاريخية عن سياسة محمد علي باشا التوسعية وأهدافها وآثارها على مصر والمنطقة، من تأليف د.سليمان الغنام.',
+    excerptEn: 'A historical study of the expansionist policy of Muhammad Ali Pasha, its aims and its impact on Egypt and the region, by Dr. Suleiman Al-Ghannam.',
+    contentAr: '<p>سياسة محمد علي باشا التوسعية — دراسة تاريخية تحلل أهداف محمد علي باشا التوسعية ومراحلها ونتائجها على مصر ودول المنطقة خلال العصر الحديث.</p>',
+    contentEn: '<p>The Expansionist Policy of Muhammad Ali Pasha — a historical study analysing the aims, phases and consequences of Muhammad Ali\'s expansionist policy on Egypt and the surrounding states in the modern era.</p>',
+    pdfUrl: 'books/m3.pdf'
+  },
+  {
+    id: 'book-m4-assyrian-torture',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د.نعيم عوده',
+    authorEn: 'Dr. Naeem Awdah',
+    img: 'images/m4.jpg',
+    titleAr: 'سياسة التعذيب والموت في التاريخ الاشوري',
+    titleEn: 'The Policy of Torture and Death in Assyrian History',
+    excerptAr: 'دراسة في التاريخ الأشوري تتناول سياسة التعذيب والموت وأساليبها ودلالاتها في حضارة آشور، من تأليف د.نعيم عوده.',
+    excerptEn: 'A study in Assyrian history examining the policy of torture and death, its methods and significance in Assyrian civilisation, by Dr. Naeem Awdah.',
+    contentAr: '<p>سياسة التعذيب والموت في التاريخ الاشوري — دراسة تاريخية تبين ممارسات التعذيب والموت في الدولة الآشورية ودورها في السياسة والمجتمع.</p>',
+    contentEn: '<p>The Policy of Torture and Death in Assyrian History — a historical study showing the practices of torture and death in the Assyrian state and their role in politics and society.</p>',
+    pdfUrl: 'books/m4.pdf'
+  },
+  {
+    id: 'book-m5-burji-mamluks',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د.عصام علي أحمد',
+    authorEn: 'Dr. Essam Ali Ahmed',
+    img: 'images/m5.jpg',
+    titleAr: 'سلطنة المماليك البرجية',
+    titleEn: 'The Burji Mamluk Sultanate',
+    excerptAr: 'دراسة حول سلطنة المماليك البرجية وأحوالها السياسية والعسكرية والاقتصادية، من تأليف د.عصام علي أحمد.',
+    excerptEn: 'A study of the Burji Mamluk Sultanate and its political, military and economic conditions, by Dr. Essam Ali Ahmed.',
+    contentAr: '<p>سلطنة المماليك البرجية — دراسة تاريخية عن نشأة السلطنة البرجية وأبرز سلاطينها وتطورها السياسي والاقتصادي في تاريخ مصر الإسلامية.</p>',
+    contentEn: '<p>The Burji Mamluk Sultanate — a historical study of the rise of the Burji sultanate, its most prominent sultans and its political and economic development in the Islamic history of Egypt.</p>',
+    pdfUrl: 'books/m5.pdf'
+  },
+  {
+    id: 'book-m6-islamic-conquest',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د.صلاح الدين محمد',
+    authorEn: 'Dr. Salah El-Din Mohamed',
+    img: 'images/m6.jpg',
+    titleAr: 'قراءة جديدة في الفتح الاسلامى لمصر وموقف الاقباط واليهود منه',
+    titleEn: 'A New Reading of the Islamic Conquest of Egypt and the Position of the Copts and Jews toward It',
+    excerptAr: 'قراءة جديدة تحليلية في الفتح الإسلامي لمصر وموقف الأقباط واليهود منه، من تأليف د.صلاح الدين محمد.',
+    excerptEn: 'A new analytical reading of the Islamic conquest of Egypt and the position of the Copts and Jews toward it, by Dr. Salah El-Din Mohamed.',
+    contentAr: '<p>قراءة جديدة في الفتح الاسلامى لمصر وموقف الاقباط واليهود منه — دراسة تحليلية تعيد النظر في أحداث الفتح الإسلامي لمصر وفي مواقف الأقباط واليهود خلال تلك الفترة.</p>',
+    contentEn: '<p>A New Reading of the Islamic Conquest of Egypt and the Position of the Copts and Jews toward It — an analytical study reconsidering the events of the Islamic conquest of Egypt and the positions of the Copts and Jews during that period.</p>',
+    pdfUrl: 'books/m6.pdf'
+  },
+  {
+    id: 'book-m7-beni-hassan',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'عبد الغفار شديد',
+    authorEn: 'Abdel Ghaffar Shadid',
+    img: 'images/m7.jpg',
+    titleAr: 'مقابر بني حسن في مصر الوسطى',
+    titleEn: 'The Beni Hassan Necropolis in Middle Egypt',
+    excerptAr: 'دراسة أثرية عن مقابر بني حسن في مصر الوسطى ومميزاتها المعمارية والفنية، من تأليف عبد الغفار شديد.',
+    excerptEn: 'An archaeological study of the Beni Hassan necropolis in Middle Egypt and its architectural and artistic features, by Abdel Ghaffar Shadid.',
+    contentAr: '<p>مقابر بني حسن في مصر الوسطى — دراسة أثرية تستعرض مقابر بني حسن ومواقعها وعمارتها الجنائزية ورسومها ودلالاتها الحضارية.</p>',
+    contentEn: '<p>The Beni Hassan Necropolis in Middle Egypt — an archaeological study presenting the Beni Hassan tombs, their sites, funerary architecture, paintings and cultural significance.</p>',
+    pdfUrl: 'books/m7.pdf'
+  },
+  {
+    id: 'book-m8-beni-hassan-image',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'مركز تسجيل الاثار',
+    authorEn: 'The Center for Documentation of Antiquities',
+    img: 'images/m8.jpg',
+    titleAr: 'مقابر بني حسن الصورة والدلالة',
+    titleEn: 'The Beni Hassan Tomb: Image and Significance',
+    excerptAr: 'دراسة توثق مقابر بني حسن من حيث الصورة والدلالة الفنية والحضارية، من إصدار مركز تسجيل الآثار.',
+    excerptEn: 'A documentary study of the Beni Hassan tombs in terms of image and artistic and cultural significance, published by the Center for Documentation of Antiquities.',
+    contentAr: '<p>مقابر بني حسن الصورة والدلالة — دراسة من مركز تسجيل الآثار تتناول مشاهد مقابر بني حسن وما تحمله من دلالات فنية وحضارية في مصر القديمة.</p>',
+    contentEn: '<p>The Beni Hassan Tomb: Image and Significance — a study by the Center for Documentation of Antiquities exploring the scenes of the Beni Hassan tombs and their artistic and cultural meanings in ancient Egypt.</p>',
+    pdfUrl: 'books/m8.pdf'
   }
 ];
 
@@ -1588,9 +1709,15 @@ function getBookBlogPosts() {
     if (base.length !== rebuilt.length || base.some(b => !acceptedIds.has(b && b.id))) {
       localStorage.setItem(bookBlogStorageKey, JSON.stringify(rebuilt));
     }
+    // Append books published via the Admin "إضافة 6 كتب" batch publisher so that
+    // they appear publicly and immediately, without touching the default Library.
+    const batch = getBatchBooks();
+    if (batch.length) {
+      return rebuilt.concat(batch);
+    }
     return rebuilt;
   } catch (error) {
-    return defaultLibraryBooks.slice();
+    return defaultLibraryBooks.concat(getBatchBooks());
   }
 }
 
@@ -2562,8 +2689,105 @@ function initAdminDashboard() {
     });
   }
 
+  // ── ADD 6 BOOKS (BULK PUBLISHER) ──
+  // Six independent book rows (PDF + cover + title + author). Clicking "نشر الكتب"
+  // publishes every COMPLETED row at once into the 'history' (التاريخ والحضارات)
+  // category. Incomplete rows are skipped independently and never block the others.
+  let sixBooksBuilt = false;
+  function initSixBooksView() {
+    const container = document.getElementById('admin-sixbooks-content');
+    if (!container || sixBooksBuilt) return;
+    sixBooksBuilt = true;
+
+    const rowState = Array.from({ length: 6 }, () => ({ pdfData: '', imgData: '' }));
+
+    const rowsHtml = Array.from({ length: 6 }, (_, idx) => {
+      const n = idx + 1;
+      return `<div class="sixbook-row"><div class="sixbook-row__head"><span class="sixbook-row__num">${n}</span><h4>كتاب ${n}</h4></div><div class="sixbook-row__grid"><div class="form-group"><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" accept=".pdf,application/pdf" data-sixbook-pdf="${idx}"><div class="form-pdf-status" data-sixbook-pdf-status="${idx}"></div></div><div class="form-group"><label class="form-label">صورة الغلاف (JPG)</label><input class="form-input" type="file" accept="image/jpeg,image/jpg,image/png,image/webp" data-sixbook-img="${idx}"><div class="form-pdf-status" data-sixbook-img-status="${idx}"></div></div><div class="form-group"><label class="form-label">عنوان الكتاب *</label><input class="form-input" type="text" data-sixbook-title="${idx}" placeholder="أدخل عنوان الكتاب"></div><div class="form-group"><label class="form-label">اسم المؤلف</label><input class="form-input" type="text" data-sixbook-author="${idx}" placeholder="أدخل اسم المؤلف"></div></div></div>`;
+    }).join('');
+
+    container.innerHTML = `<form id="sixbooks-form" class="admin-record-form">${rowsHtml}<div class="sixbook-actions"><span class="form-hint">تُنشر الكتب المكتملة فقط في "كتب الحضارات والتاريخ". تُتجاهل الحقول الفارغة ولا تؤثر على بقية الكتب.</span><button type="button" class="btn btn--success" id="sixbooks-publish">نشر الكتب</button></div></form>`;
+
+    container.querySelectorAll('[data-sixbook-pdf]').forEach(input => input.addEventListener('change', () => {
+      const idx = Number(input.dataset.sixbookPdf);
+      const file = input.files[0];
+      const statusEl = container.querySelector(`[data-sixbook-pdf-status="${idx}"]`);
+      if (!file) { rowState[idx].pdfData = ''; statusEl.innerHTML = ''; return; }
+      if (file.type !== 'application/pdf') { statusEl.innerHTML = '<span style="color:#ef4444;">الملف يجب أن يكون PDF</span>'; input.value = ''; rowState[idx].pdfData = ''; return; }
+      statusEl.innerHTML = '<span style="color:var(--text-muted);">جاري قراءة الملف...</span>';
+      const reader = new FileReader();
+      reader.onload = () => { rowState[idx].pdfData = reader.result; statusEl.innerHTML = `<span style="color:#22c55e;">✓ ${escapeHtml(file.name)} (${(file.size / 1024 / 1024).toFixed(1)}MB)</span>`; };
+      reader.onerror = () => { statusEl.innerHTML = '<span style="color:#ef4444;">خطأ في قراءة الملف</span>'; };
+      reader.readAsDataURL(file);
+    }));
+
+    container.querySelectorAll('[data-sixbook-img]').forEach(input => input.addEventListener('change', () => {
+      const idx = Number(input.dataset.sixbookImg);
+      const file = input.files[0];
+      const statusEl = container.querySelector(`[data-sixbook-img-status="${idx}"]`);
+      if (!file) { rowState[idx].imgData = ''; statusEl.innerHTML = ''; return; }
+      if (file.type.indexOf('image/') !== 0) { statusEl.innerHTML = '<span style="color:#ef4444;">الملف يجب أن يكون صورة</span>'; input.value = ''; rowState[idx].imgData = ''; return; }
+      statusEl.innerHTML = '<span style="color:var(--text-muted);">جاري قراءة الصورة...</span>';
+      const reader = new FileReader();
+      reader.onload = () => { rowState[idx].imgData = reader.result; statusEl.innerHTML = `<span style="color:#22c55e;">✓ ${escapeHtml(file.name)} (${(file.size / 1024 / 1024).toFixed(1)}MB)</span>`; };
+      reader.onerror = () => { statusEl.innerHTML = '<span style="color:#ef4444;">خطأ في قراءة الصورة</span>'; };
+      reader.readAsDataURL(file);
+    }));
+
+    document.getElementById('sixbooks-publish').addEventListener('click', () => {
+      const existing = getBatchBooks();
+      const existingIds = new Set(existing.map(b => b && b.id));
+      let publishedCount = 0;
+      for (let idx = 0; idx < 6; idx++) {
+        const title = (container.querySelector(`[data-sixbook-title="${idx}"]`).value || '').trim();
+        const author = (container.querySelector(`[data-sixbook-author="${idx}"]`).value || '').trim();
+        const pdf = rowState[idx].pdfData;
+        // Incomplete rows are skipped independently.
+        if (!title || !pdf) continue;
+        let id = `batch-book-${Date.now()}-${idx}`;
+        while (existingIds.has(id)) id = `batch-book-${Date.now()}-${idx}-${Math.floor(Math.random() * 10000)}`;
+        existingIds.add(id);
+        const safeTitle = title.replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+        existing.push({
+          id,
+          category: 'history',
+          date: (new Date()).toISOString().slice(0, 10),
+          authorAr: author || 'رحّالة عبر التاريخ',
+          authorEn: author || 'Rahala Through History',
+          img: rowState[idx].imgData || 'images/logo.jpg',
+          titleAr: title,
+          titleEn: title,
+          excerptAr: title,
+          excerptEn: title,
+          contentAr: `<p>${safeTitle}</p>`,
+          contentEn: `<p>${safeTitle}</p>`,
+          pdfUrl: pdf
+        });
+        publishedCount++;
+        // Reset this row so single-book independence is preserved.
+        rowState[idx] = { pdfData: '', imgData: '' };
+        container.querySelector(`[data-sixbook-title="${idx}"]`).value = '';
+        container.querySelector(`[data-sixbook-author="${idx}"]`).value = '';
+        container.querySelector(`[data-sixbook-pdf="${idx}"]`).value = '';
+        container.querySelector(`[data-sixbook-img="${idx}"]`).value = '';
+        container.querySelector(`[data-sixbook-pdf-status="${idx}"]`).innerHTML = '';
+        container.querySelector(`[data-sixbook-img-status="${idx}"]`).innerHTML = '';
+      }
+      try {
+        saveBatchBooks(existing);
+      } catch (e) {
+        showToast('تعذّر الحفظ — الملفات كبير جداً لتخزينها محلياً (حد المتصفح). استخدم ملفات أصغر.');
+        return;
+      }
+      if (publishedCount === 0) { showToast('لم تُنشر أي كتب — تأكد من إدخال العنوان وملف PDF لكل كتاب تريد نشره'); return; }
+      renderBookBlogGrid('all');
+      renderRecords(); refreshStats();
+      showToast(`تم نشر ${publishedCount} كتاب في "كتب الحضارات والتاريخ" بنجاح`);
+    });
+  }
+
   function showLogin() { currentLoggedUser = null; login.hidden = false; dashboard.hidden = true; loginForm.reset(); loginError.hidden = true; populateUserSelect(); document.getElementById('admin-username').focus(); applyAdminRBAC(); }
-  function showDashboard() { login.hidden = true; dashboard.hidden = false; applyAdminRBAC(); refreshStats(); renderRecords(); renderSections(); renderSettings(); renderUsers(); renderTickerAdmin(); }
+  function showDashboard() { login.hidden = true; dashboard.hidden = false; applyAdminRBAC(); refreshStats(); renderRecords(); renderSections(); renderSettings(); renderUsers(); renderTickerAdmin(); initSixBooksView(); }
   function openDashboard() { shell.classList.add('is-open'); shell.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; const stored = sessionStorage.getItem(authKey); if (stored && getUsers()[stored]) { currentLoggedUser = stored; showDashboard(); } else { showLogin(); } }
   function closeDashboard() { shell.classList.remove('is-open'); shell.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; sessionStorage.removeItem(authKey); currentLoggedUser = null; }
   loginForm.addEventListener('submit', event => { event.preventDefault(); const formData = new FormData(loginForm); const username = formData.get('username'); const password = formData.get('password'); const users = getUsers(); if (!username) { loginError.hidden = false; loginError.textContent = 'يرجى اختيار اسم المستخدم.'; return; } loginError.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة.'; if (users[username] && users[username].password === password) { sessionStorage.setItem(authKey, username); currentLoggedUser = username; showDashboard(); } else { loginError.hidden = false; document.getElementById('admin-password').select(); } });
@@ -2587,7 +2811,7 @@ function initAdminDashboard() {
   }
   document.getElementById('admin-toggle').addEventListener('click', openDashboard);
   document.getElementById('admin-login-close').addEventListener('click', closeDashboard); document.getElementById('admin-close').addEventListener('click', closeDashboard); document.getElementById('admin-back').addEventListener('click', closeDashboard); document.getElementById('admin-overlay').addEventListener('click', closeDashboard);
-  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { const view = button.dataset.adminView; if (view === 'settings' && !isSuperAdmin()) return; if (view === 'sections' && !isSuperAdmin()) return; if (view === 'users' && !isSuperAdmin()) return; document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'sections' ? 'أقسام الموقع' : view === 'users' ? 'إدارة المستخدمين' : 'إعدادات الموقع'; }));
+  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { const view = button.dataset.adminView; if (view === 'settings' && !isSuperAdmin()) return; if (view === 'sections' && !isSuperAdmin()) return; if (view === 'users' && !isSuperAdmin()) return; document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'sixbooks' ? 'إضافة 6 كتب' : view === 'sections' ? 'أقسام الموقع' : view === 'users' ? 'إدارة المستخدمين' : 'إعدادات الموقع'; }));
   document.querySelectorAll('[data-admin-create]').forEach(button => button.addEventListener('click', () => { document.querySelector('[data-admin-view="content"]').click(); openForm(button.dataset.adminCreate); }));
   document.getElementById('admin-add-record').addEventListener('click', () => { const selectedType = document.querySelector('[data-admin-type].is-active')?.dataset.adminType || activeType; openForm(selectedType === 'all' ? 'post' : selectedType); });
   document.querySelectorAll('[data-admin-type]').forEach(button => button.addEventListener('click', () => { activeType = button.dataset.adminType; document.querySelectorAll('[data-admin-type]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); renderRecords(); }));
