@@ -1532,6 +1532,36 @@ const defaultLibraryBooks = [
     contentAr: '<p>كتاب يستعرض فن التحنيط في مصر القديمة، من الأساليب العملية المستخدمة إلى المعتقدات الدينية التي جعلت من حفظ الجسد أساساً لرحلة الخلود في الحضارة المصرية.</p>',
     contentEn: '<p>A book exploring the art of mummification in ancient Egypt, from the practical techniques used to the religious beliefs that made preserving the body essential to the journey of eternity in Egyptian civilization.</p>',
     pdfUrl: 'books/ancient-egypt-book.pdf'
+  },
+  {
+    id: 'book-theban-tombs',
+    category: 'history',
+    date: '2026-08-30',
+    authorAr: 'ديتهلم آيجنر (ترجمة حسين نصر الدين)',
+    authorEn: 'Diethelm Eigner (translated by Hussein Nasr El-Din)',
+    img: 'images/ancient-egypt-book2-cover.jpg',
+    titleAr: 'مقابر طيبة في العصر المتأخر',
+    titleEn: 'Theban Tombs in the Late Period',
+    excerptAr: 'دراسة أثرية في مقابر طيبة في العصر المتأخر، تأليف ديتهلم آيجنر وترجمة حسين نصر الدين، تستعرض العمارة الجنائزية والمدافن الطيبية وأسرارها الحضارية.',
+    excerptEn: 'An archaeological study of the Theban tombs in the Late Period, by Diethelm Eigner and translated by Hussein Nasr El-Din, exploring the funerary architecture and heritage of the Theban necropolis.',
+    contentAr: '<p>مقابر طيبة في العصر المتأخر — دراسة أثرية متخصصة للمؤلف ديتهلم آيجنر، من ترجمة حسين نصر الدين، تستعرض مقابر مدينة طيبة وخصائصها المعمارية والجنائزية خلال العصر المتأخر من الحضارة المصرية.</p>',
+    contentEn: '<p>Theban Tombs in the Late Period — a specialized archaeological study by Diethelm Eigner, translated by Hussein Nasr El-Din, examining the tombs of Thebes and their funerary and architectural features in the Late Period of Egyptian civilization.</p>',
+    pdfUrl: 'books/ancient-egypt-book2.pdf'
+  },
+  {
+    id: 'book-ancient-egypt-3',
+    category: 'history',
+    date: '2026-08-30',
+    authorAr: 'إيمان أحمد أبو بكر',
+    authorEn: 'Eman Ahmed Abo Bakr',
+    img: 'images/ancient-egypt-book3-cover.jpg',
+    titleAr: 'النظافة في الحياة اليومية عند المصريين القدماء',
+    titleEn: 'Hygiene in the Daily Life of the Ancient Egyptians',
+    excerptAr: 'كتاب يدرس ممارسات النظافة في الحياة اليومية عند المصريين القدماء، من تأليف إيمان أحمد أبو بكر، ويسلط الضوء على العادات والسلوكيات الصحية في الحضارة المصرية القديمة.',
+    excerptEn: 'A book studying hygiene practices in the daily life of the ancient Egyptians, by Eman Ahmed Abo Bakr, shedding light on the cleanliness habits and health practices of ancient Egyptian civilization.',
+    contentAr: '<p>النظافة في الحياة اليومية عند المصريين القدماء — دراسة تأليف إيمان أحمد أبو بكر تستعرض ممارسات وعادات النظافة في الحياة اليومية للمصريين القدماء وأثرها على صحتهم وثقافتهم.</p>',
+    contentEn: '<p>Hygiene in the Daily Life of the Ancient Egyptians — a study by Eman Ahmed Abo Bakr examining the cleanliness habits and practices in the daily life of the ancient Egyptians and their impact on health and culture.</p>',
+    pdfUrl: 'books/ancient-egypt-book3.pdf'
   }
 ];
 
