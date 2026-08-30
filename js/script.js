@@ -14,8 +14,8 @@
 const translations = {
   ar: {
     // Meta & Brand
-    meta_title: "رحّالة عبر التاريخ | Rahala Through History",
-    meta_description: "رحّالة لنشر الوعي الأثري - السفر والرحلات — خدمات سياحية وسفر داخل مصر — جولات تاريخية وآثار",
+    meta_title: "رحالة عبر التاريخ | شركة سياحة وتوعية أثرية",
+    meta_description: "رحالة عبر التاريخ - شركة سياحة وتوعية أثرية في مصر، متخصصة في السفر والرحلات والجولات التاريخية والأثرية داخل مصر.",
     brand_name: "رحّالة عبر التاريخ",
     brand_subtitle: "Rahala Through History",
     
@@ -333,8 +333,8 @@ const translations = {
 
   en: {
     // Meta & Brand
-    meta_title: "رحّالة عبر التاريخ | Rahala Through History",
-    meta_description: "رحّالة لنشر الوعي الأثري - السفر والرحلات — خدمات سياحية وسفر داخل مصر — جولات تاريخية وآثار",
+    meta_title: "Rahala Through History | Tourism and Archaeological Awareness Company",
+    meta_description: "Rahala Through History - a tourism and archaeological awareness company in Egypt, specializing in travel, trips and historical & archaeological tours across Egypt.",
     brand_name: "Rahala Through History",
     brand_subtitle: "رحّالة عبر التاريخ",
     
