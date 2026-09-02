@@ -69,6 +69,8 @@ const translations = {
     book_pdf_open: "فتح في نافذة جديدة",
     book_pdf_read: "قراءة",
     book_pdf_no_file: "لم يتم رفع ملف PDF",
+    book_pdf_loading: "جاري تحميل الكتاب...",
+    book_pdf_error: "تعذر فتح الكتاب للقراءة في هذه النافذة، افتحه في نافذة جديدة أو حمّله.",
     btn_read_post: "اقرأ المقال بالكامل",
     article_share_label: "مشاركة المقال أو الاستفسار:",
     article_share_btn: "تواصل معنا حول هذا المقال عبر واتساب",
@@ -388,6 +390,8 @@ const translations = {
     book_pdf_open: "Open in new tab",
     book_pdf_read: "Read",
     book_pdf_no_file: "No PDF file uploaded",
+    book_pdf_loading: "Loading book...",
+    book_pdf_error: "This book could not be opened for reading in this window. Open it in a new tab or download it.",
     btn_read_post: "Read Full Article",
     article_share_label: "Share or Inquire about this Article:",
     article_share_btn: "Connect with Us on WhatsApp",
@@ -1683,6 +1687,96 @@ const defaultLibraryBooks = [
     contentAr: '<p>مقابر بني حسن الصورة والدلالة — دراسة من مركز تسجيل الآثار تتناول مشاهد مقابر بني حسن وما تحمله من دلالات فنية وحضارية في مصر القديمة.</p>',
     contentEn: '<p>The Beni Hassan Tomb: Image and Significance — a study by the Center for Documentation of Antiquities exploring the scenes of the Beni Hassan tombs and their artistic and cultural meanings in ancient Egypt.</p>',
     pdfUrl: 'books/m8.pdf'
+  },
+  {
+    id: 'book-antiquities-paper-currency',
+    category: 'miscellaneous',
+    date: '2026-08-31',
+    authorAr: 'TiGo',
+    authorEn: 'TiGo',
+    img: 'images/antiquities-paper-currency-cover.png',
+    titleAr: 'الاثار الموجودة على العملات الورقية',
+    titleEn: 'The Antiquities Found on Paper Currency',
+    excerptAr: 'كتاب يعرض الآثار المصرية التي ظهرت على العملات الورقية، من تأليف TiGo، ويسلط الضوء على المعالم الأثرية والفرعونية الموثقة في تصميم الأوراق النقدية.',
+    excerptEn: 'A book presenting the Egyptian antiquities that appeared on paper currency, by TiGo, highlighting the archaeological and Pharaonic landmarks documented in the design of banknotes.',
+    contentAr: '<p>الاثار الموجودة على العملات الورقية — دراسة لعرض الآثار والمعالم المصرية التي جُسدت على العملات الورقية عبر تاريخها، من تأليف TiGo، وتبرز المكانة الحضارية للآثار الفرعونية في الرموز الوطنية المطبوعة على النقود الورقية.</p>',
+    contentEn: '<p>The Antiquities Found on Paper Currency — a presentation of the Egyptian antiquities and landmarks depicted on paper currency throughout its history, by TiGo, highlighting the civilizational status of Pharaonic antiquities among the national symbols printed on banknotes.</p>',
+    pdfUrl: 'books/antiquities-paper-currency.pdf'
+  },
+  {
+    id: 'book-mamluks-islamic-civilization',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د. عصام علي أحمد',
+    authorEn: 'Dr. Essam Ali Ahmed',
+    img: 'images/mamluks-islamic-civilization-cover.jpg',
+    titleAr: 'المماليك وحضارة الاسلام',
+    titleEn: 'The Mamluks and Islamic Civilization',
+    excerptAr: 'كتاب يدرس دور المماليك ومساهمتهم في الحضارة الإسلامية عبر العصور، من تأليف د. عصام علي أحمد.',
+    excerptEn: 'A book studying the role of the Mamluks and their contribution to Islamic civilisation across the ages, by Dr. Essam Ali Ahmed.',
+    contentAr: '<p>المماليك وحضارة الاسلام — دراسة تاريخية حول دولة المماليك ودورها الحضاري في التاريخ الإسلامي السياسي والثقافي، من تأليف د. عصام علي أحمد.</p>',
+    contentEn: '<p>The Mamluks and Islamic Civilization — a historical study of the Mamluk state and its civilisational role in the political and cultural history of Islam, by Dr. Essam Ali Ahmed.</p>',
+    pdfUrl: 'books/mamluks-islamic-civilization.pdf'
+  },
+  {
+    id: 'book-mosques-egypt-saints-1',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د. سعاد ماهر',
+    authorEn: 'Dr. Souad Maher',
+    img: 'images/mosques-egypt-saints-1-cover.webp',
+    titleAr: 'مساجد مصر و أولياء الصالحون (ج1)',
+    titleEn: 'Mosques of Egypt and the Righteous Saints (Part 1)',
+    excerptAr: 'كتاب يعرض مساجد مصر التاريخية وتراث أولياء الله الصالحين (الجزء الأول)، من تأليف د. سعاد ماهر.',
+    excerptEn: 'A book presenting the historic mosques of Egypt and the heritage of the righteous saints (Part One), by Dr. Souad Maher.',
+    contentAr: '<p>مساجد مصر و أولياء الصالحون (ج1) — دراسة تتناول أشهر مساجد مصر وأعلام الأولياء الصالحين المرتبطة بها، من تأليف د. سعاد ماهر.</p>',
+    contentEn: '<p>Mosques of Egypt and the Righteous Saints (Part 1) — a study of the most famous mosques of Egypt and the righteous saints associated with them, by Dr. Souad Maher.</p>',
+    pdfUrl: 'books/mosques-egypt-saints-1.pdf'
+  },
+  {
+    id: 'book-features-modern-contemporary-history',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'جاد طه',
+    authorEn: 'Gad Taha',
+    img: 'images/features-modern-contemporary-history-cover.webp',
+    titleAr: 'معالم التاريخ الحديث والمعاصر',
+    titleEn: 'Features of Modern and Contemporary History',
+    excerptAr: 'كتاب يستعرض أبرز معالم التاريخ الحديث والمعاصر وتطوراته، من تأليف جاد طه.',
+    excerptEn: 'A book presenting the most prominent features and developments of modern and contemporary history, by Gad Taha.',
+    contentAr: '<p>معالم التاريخ الحديث والمعاصر — دراسة تاريخية تعرض أهم الأحداث والتحولات في العصر الحديث والمعاصر، من تأليف جاد طه.</p>',
+    contentEn: '<p>Features of Modern and Contemporary History — a historical study presenting the most important events and transformations of the modern and contemporary era, by Gad Taha.</p>',
+    pdfUrl: 'books/features-modern-contemporary-history.pdf'
+  },
+  {
+    id: 'book-jewelry-ancient-egypt',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'رحّالة عبر التاريخ',
+    authorEn: 'Rahala Through History',
+    img: 'images/jewelry-ancient-egypt-cover.jpg',
+    titleAr: 'الحلي في مصر القديمة',
+    titleEn: 'Jewelry in Ancient Egypt',
+    excerptAr: 'كتاب يتناول فنون الحلي والزينة وأشكالها ودلالاتها في مصر القديمة.',
+    excerptEn: 'A book exploring the art of jewelry and adornment, its forms and significance in ancient Egypt.',
+    contentAr: '<p>الحلي في مصر القديمة — دراسة عن الحلي والزينة المصنوعة في مصر القديمة وأنواعها وخاماتها ودلالاتها الثقافية والدينية.</p>',
+    contentEn: '<p>Jewelry in Ancient Egypt — a study of the jewelry and adornments crafted in ancient Egypt, their types, materials and cultural and religious significance.</p>',
+    pdfUrl: 'books/jewelry-ancient-egypt.pdf'
+  },
+  {
+    id: 'book-crusades-political-preludes',
+    category: 'history',
+    date: '2026-08-31',
+    authorAr: 'د. علية الجنزوري',
+    authorEn: 'Dr. Aliya Al-Ganzouri',
+    img: 'images/logo.jpg',
+    titleAr: 'الحروب الصليبية: المقدمات السياسية',
+    titleEn: 'The Crusades: The Political Preludes',
+    excerptAr: 'كتاب يدرس المقدمات السياسية للحروب الصليبية وأسبابها وخلفياتها الدولية، من تأليف د. علية الجنزوري.',
+    excerptEn: 'A book studying the political preludes of the Crusades, their causes and international background, by Dr. Aliya Al-Ganzouri.',
+    contentAr: '<p>الحروب الصليبية: المقدمات السياسية — دراسة تحليلية للمقدمات السياسية والدولية التي سبقت الحروب الصليبية، من تأليف د. علية الجنزوري.</p>',
+    contentEn: '<p>The Crusades: The Political Preludes — an analytical study of the political and international preludes that preceded the Crusades, by Dr. Aliya Al-Ganzouri.</p>',
+    pdfUrl: 'books/crusades-political-preludes.pdf'
   }
 ];
 
@@ -1727,6 +1821,28 @@ function saveBookBlogPosts(posts) {
 
 function escapeContentHtml(value) {
   return String(value || '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+}
+
+// Build a safe download filename from a book title. Keeps the displayed title
+// (including Arabic) but removes characters that are invalid in filenames on
+// Windows and other devices, collapses extra whitespace, and truncates overlong
+// names. Never modifies the title shown on the site or the stored PDF path.
+function sanitizeDownloadFilename(title) {
+  let name = String(title || '');
+  // Decode any HTML entities in case the title was previously escaped.
+  const tmp = document ? document.createElement('textarea') : null;
+  if (tmp) { tmp.innerHTML = name; name = tmp.value; }
+  // Strip control characters.
+  name = name.replace(/[\u0000-\u001f\u007f]/g, '');
+  // Replace characters invalid in filenames on Windows and most other systems.
+  name = name.replace(/[\\/:*?"<>|]/g, ' ');
+  // Trim whitespace and trailing dots/spaces, then collapse repeated spaces.
+  name = name.replace(/^\s+|\s+$/g, '').replace(/[. ]+$/g, '');
+  name = name.replace(/\s+/g, ' ');
+  // Normalize, then cap length so the filename stays within filesystem limits.
+  name = name.normalize('NFKC').slice(0, 180).trim();
+  if (!name) name = 'book';
+  return name;
 }
 
 function getBookBlogCategoryInfo(category, lang) {
@@ -1774,7 +1890,7 @@ function renderBookBlogCards(container, posts, isAr) {
       ? `<div class="book-pdf-card__icon book-pdf-card__icon--cover" aria-hidden="true"><img class="book-pdf-card__cover-img" src="${escapeContentHtml(post.img)}" alt="" loading="lazy"></div>`
       : `<div class="book-pdf-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span class="book-pdf-card__ext">PDF</span></div>`;
     if (hasPdf) {
-      return `<article class="book-pdf-card" data-book-post-id="${pdfId}">${coverThumb}<div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-pdf-open="${pdfId}" title="${isAr ? 'اقرأ في المتصفح' : 'Read in Browser'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><a class="book-pdf-card__btn book-pdf-card__btn--download" href="${escapeContentHtml(post.pdfUrl)}" download="${escapeContentHtml(title)}.pdf" title="${isAr ? 'تحميل PDF' : 'Download PDF'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${isAr ? 'تحميل' : 'Download'}</span></a><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة الكتاب' : 'Share Book'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
+      return `<article class="book-pdf-card" data-book-post-id="${pdfId}">${coverThumb}<div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-pdf-open="${pdfId}" title="${isAr ? 'اقرأ في المتصفح' : 'Read in Browser'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><a class="book-pdf-card__btn book-pdf-card__btn--download" href="${escapeContentHtml(post.pdfUrl)}" download="${escapeContentHtml(sanitizeDownloadFilename(title))}.pdf" title="${isAr ? 'تحميل PDF' : 'Download PDF'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${isAr ? 'تحميل' : 'Download'}</span></a><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة الكتاب' : 'Share Book'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
     }
     return `<article class="book-pdf-card book-pdf-card--no-pdf" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon book-pdf-card__icon--text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-book-post-id="${pdfId}" title="${isAr ? 'اقرأ المحتوى' : 'Read Content'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة المحتوى' : 'Share Content'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
   }).join('') : `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><p>${isAr ? 'لا توجد منشورات في هذا التصنيف حالياً.' : 'No published content in this category yet.'}</p></div>`;
@@ -2069,6 +2185,136 @@ function initArticleReaderModal() {
 // --------------------------------------------------------------------------
 // 17b. PDF BOOK READER MODAL
 // --------------------------------------------------------------------------
+// PDF.js CDN (works on static/GitHub Pages; loaded lazily only when reading)
+const PDFJS_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
+const PDFJS_WORKER_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+// Module-level reader state shared between openPdfReader and the toolbar wiring.
+const PdfReaderState = {
+  pdf: null,
+  page: 1,
+  numPages: 0,
+  scale: 1,
+  renderTask: null,
+  getDocTask: null
+};
+
+function loadPdfJs() {
+  return new Promise((resolve, reject) => {
+    if (window.pdfjsLib) { try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL; } catch (e) {} resolve(window.pdfjsLib); return; }
+    const existing = document.querySelector('script[src="' + PDFJS_URL + '"]');
+    if (existing) { existing.addEventListener('load', () => resolve(window.pdfjsLib)); existing.addEventListener('error', () => reject(new Error('pdfjs load failed'))); return; }
+    const s = document.createElement('script');
+    s.src = PDFJS_URL;
+    s.async = true;
+    s.onload = () => { try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL; } catch (e) {} resolve(window.pdfjsLib); };
+    s.onerror = () => reject(new Error('pdfjs load failed'));
+    document.head.appendChild(s);
+  });
+}
+
+function showPdfFallback(msg, url) {
+  const scroll = document.getElementById('pdf-reader-scroll');
+  const toolbar = document.getElementById('pdf-reader-toolbar');
+  const loading = document.getElementById('pdf-reader-loading');
+  const fallback = document.getElementById('pdf-reader-fallback');
+  const viewer = document.getElementById('pdf-reader-iframe');
+  const fbMsg = document.getElementById('pdf-reader-fallback-msg');
+  const fbOpen = document.getElementById('pdf-reader-fallback-open');
+  if (scroll) scroll.hidden = true;
+  if (toolbar) toolbar.hidden = true;
+  if (loading) loading.hidden = true;
+  if (viewer) viewer.hidden = true;
+  if (fbMsg) fbMsg.textContent = msg;
+  if (fbOpen) fbOpen.href = url;
+  if (fallback) { fallback.hidden = false; }
+}
+
+async function renderCurrentPdfPage() {
+  const wrap = document.getElementById('pdf-reader-scroll');
+  const canvas = document.getElementById('pdf-reader-canvas');
+  const st = PdfReaderState;
+  if (!st.pdf || !wrap || !canvas) return;
+  if (st.page < 1) st.page = 1;
+  if (st.page > st.numPages) st.page = st.numPages;
+  try {
+    const page = await st.pdf.getPage(st.page);
+    if (!st.scale) {
+      const base = page.getViewport({ scale: 1 });
+      const avail = wrap.clientWidth || 1;
+      let fit = avail / base.width;
+      const cap = 2;
+      st.scale = Math.min(Math.max(fit, 0.25), cap);
+      const sorted = [0.5, 0.75, 1, 1.25, 1.5, 2];
+      st.scale = sorted.reduce((acc, v) => (Math.abs(v - st.scale) < Math.abs(acc - st.scale) ? v : acc), st.scale);
+    }
+    const dpr = (window.devicePixelRatio || 1);
+    const viewport = page.getViewport({ scale: st.scale });
+    canvas.width = Math.floor(viewport.width * dpr);
+    canvas.height = Math.floor(viewport.height * dpr);
+    canvas.style.width = viewport.width + 'px';
+    canvas.style.height = viewport.height + 'px';
+    canvas.style.background = '#fff';
+    if (st.renderTask) { try { st.renderTask.cancel(); } catch (e) {} }
+    let ctx = null;
+    try { ctx = canvas.getContext('2d'); } catch (e) { ctx = null; }
+    if (ctx && ctx.setTransform) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (ctx) {
+      st.renderTask = page.render({ canvasContext: ctx, viewport: viewport });
+      try { await st.renderTask.promise; } finally { st.renderTask = null; }
+    }
+    const pi = document.getElementById('pdf-reader-page');
+    const pg = document.getElementById('pdf-reader-pages');
+    const zl = document.getElementById('pdf-reader-zoom-label');
+    if (pi) pi.value = st.page;
+    if (pg) pg.textContent = '/ ' + st.numPages;
+    if (zl) zl.textContent = Math.round(st.scale * 100) + '%';
+    if (pi) { pi.max = st.numPages; pi.min = 1; }
+    const prev = document.getElementById('pdf-reader-prev');
+    const next = document.getElementById('pdf-reader-next');
+    if (prev) prev.disabled = st.page <= 1;
+    if (next) next.disabled = st.page >= st.numPages;
+  } catch (err) {
+    if (err && (err.name === 'RenderingCancelledException' || /cancel/i.test(String(err && err.message)))) return;
+    throw err;
+  }
+}
+
+async function startPdfJsReader(url) {
+  const scroll = document.getElementById('pdf-reader-scroll');
+  const toolbar = document.getElementById('pdf-reader-toolbar');
+  const loading = document.getElementById('pdf-reader-loading');
+  const fallback = document.getElementById('pdf-reader-fallback');
+  const viewer = document.getElementById('pdf-reader-iframe');
+  const st = PdfReaderState;
+  const isAr = currentLang === 'ar';
+  if (viewer) viewer.hidden = true;
+  if (scroll) scroll.hidden = true;
+  if (toolbar) toolbar.hidden = true;
+  if (fallback) fallback.hidden = true;
+  if (loading) { loading.hidden = false; }
+  try {
+    await loadPdfJs();
+    if (st.getDocTask) { try { st.getDocTask.destroy(); } catch (e) {} }
+    loading.hidden = true;
+    st.getDocTask = window.pdfjsLib.getDocument({ url: url });
+    st.pdf = await st.getDocTask.promise;
+    st.numPages = st.pdf.numPages;
+    st.page = 1;
+    st.scale = 0;
+    if (toolbar) toolbar.hidden = false;
+    if (scroll) scroll.hidden = false;
+    await renderCurrentPdfPage();
+  } catch (err) {
+    const msg = isAr
+      ? (i18n && i18n.ar && i18n.ar.book_pdf_error)
+      : (i18n && i18n.en && i18n.en.book_pdf_error);
+    showPdfFallback(msg || 'PDF', url);
+    st.pdf = null;
+    st.numPages = 0;
+  }
+}
+
 function openPdfReader(postId) {
   const post = getBookBlogPosts().find(p => p.id === postId);
   if (!post || !post.pdfUrl) return;
@@ -2076,25 +2322,37 @@ function openPdfReader(postId) {
   const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
   const modal = document.getElementById('pdf-reader-modal');
   const viewer = document.getElementById('pdf-reader-iframe');
+  const scroll = document.getElementById('pdf-reader-scroll');
+  const toolbar = document.getElementById('pdf-reader-toolbar');
+  const loading = document.getElementById('pdf-reader-loading');
+  const fallback = document.getElementById('pdf-reader-fallback');
   const titleEl = document.getElementById('pdf-reader-title');
   const downloadBtn = document.getElementById('pdf-reader-download');
   const openBtn = document.getElementById('pdf-reader-open');
+  const fbOpen = document.getElementById('pdf-reader-fallback-open');
   if (!modal || !viewer) return;
-  viewer.src = post.pdfUrl;
   titleEl.textContent = title;
   downloadBtn.href = post.pdfUrl;
-  downloadBtn.download = title + '.pdf';
+  downloadBtn.download = sanitizeDownloadFilename(title) + '.pdf';
   if (openBtn) openBtn.href = post.pdfUrl;
+  if (fbOpen) fbOpen.href = post.pdfUrl;
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  // On mobile/touch devices embedded iframe PDF readers are unreliable
-  // (iOS Safari / Android often fail or download instead of rendering).
-  // Open the PDF in the browser's native viewer, which works on every device.
-  const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-  const isNarrow = window.innerWidth < 768;
-  if ((isTouch || isNarrow) && openBtn && post.pdfUrl.indexOf('data:') !== 0) {
-    window.open(post.pdfUrl, '_blank', 'noopener');
+  if (scroll) scroll.scrollTop = 0;
+  // data: URLs (admin-published, stored per-browser in localStorage) can only be
+  // shown in the iframe that already reads them; real static PDFs use the in-page
+  // PDF.js reader so they open and stay readable on mobile (no new tab / auto-download).
+  const isDataUrl = post.pdfUrl.indexOf('data:') === 0;
+  if (isDataUrl) {
+    if (fallback) fallback.hidden = true;
+    if (scroll) scroll.hidden = true;
+    if (toolbar) toolbar.hidden = true;
+    if (loading) loading.hidden = true;
+    viewer.hidden = false;
+    viewer.src = post.pdfUrl;
+  } else {
+    startPdfJsReader(post.pdfUrl);
   }
 }
 
@@ -2102,14 +2360,39 @@ function initPdfReaderModal() {
   const modal = document.getElementById('pdf-reader-modal');
   const closeBtn = document.getElementById('pdf-reader-close');
   const overlay = document.getElementById('pdf-reader-overlay');
-  const viewer = document.getElementById('pdf-reader-iframe');
   function closePdf() {
     if (modal) { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
-    if (viewer) viewer.src = '';
+    const viewer = document.getElementById('pdf-reader-iframe');
+    const scroll = document.getElementById('pdf-reader-scroll');
+    const toolbar = document.getElementById('pdf-reader-toolbar');
+    const loading = document.getElementById('pdf-reader-loading');
+    const fallback = document.getElementById('pdf-reader-fallback');
+    const canvas = document.getElementById('pdf-reader-canvas');
+    if (viewer) { viewer.src = ''; viewer.hidden = false; }
+    if (scroll) scroll.hidden = true;
+    if (toolbar) toolbar.hidden = true;
+    if (loading) loading.hidden = true;
+    if (fallback) fallback.hidden = true;
+    if (canvas) { canvas.width = 0; canvas.height = 0; }
+    const st = PdfReaderState;
+    if (st.renderTask) { try { st.renderTask.cancel(); } catch (e) {} st.renderTask = null; }
+    if (st.getDocTask) { try { st.getDocTask.destroy(); } catch (e) {} st.getDocTask = null; }
+    st.pdf = null; st.numPages = 0; st.page = 1; st.scale = 1;
   }
   if (closeBtn) closeBtn.addEventListener('click', closePdf);
   if (overlay) overlay.addEventListener('click', closePdf);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closePdf(); });
+
+  const zoomIn = document.getElementById('pdf-reader-zoom-in');
+  const zoomOut = document.getElementById('pdf-reader-zoom-out');
+  const prevBtn = document.getElementById('pdf-reader-prev');
+  const nextBtn = document.getElementById('pdf-reader-next');
+  const pageInput = document.getElementById('pdf-reader-page');
+  if (zoomIn) zoomIn.addEventListener('click', () => { const st = PdfReaderState; st.scale = Math.min((st.scale || 1) * 1.2, 4); renderCurrentPdfPage().catch(() => {}); });
+  if (zoomOut) zoomOut.addEventListener('click', () => { const st = PdfReaderState; st.scale = Math.max((st.scale || 1) / 1.2, 0.25); renderCurrentPdfPage().catch(() => {}); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { const st = PdfReaderState; if (st.page > 1) { st.page -= 1; renderCurrentPdfPage().catch(() => {}); } });
+  if (nextBtn) nextBtn.addEventListener('click', () => { const st = PdfReaderState; if (st.page < st.numPages) { st.page += 1; renderCurrentPdfPage().catch(() => {}); } });
+  if (pageInput) pageInput.addEventListener('change', () => { const st = PdfReaderState; const v = parseInt(pageInput.value, 10); if (!isNaN(v) && v >= 1 && v <= st.numPages) { st.page = v; renderCurrentPdfPage().catch(() => {}); } });
 }
 
 // --------------------------------------------------------------------------
