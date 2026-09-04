@@ -1641,7 +1641,30 @@
         </div>
       </div>
       <div class="pdf-reader__body">
-        <iframe id="pdf-reader-iframe" title="PDF Viewer" allowfullscreen></iframe>
+        <div class="pdf-reader__toolbar" id="pdf-reader-toolbar" hidden>
+          <button type="button" class="pdf-reader__tool" id="pdf-reader-prev" aria-label="Previous page">&#8249;</button>
+          <input class="pdf-reader__page-input" id="pdf-reader-page" type="number" min="1" value="1" aria-label="Page number">
+          <span class="pdf-reader__pages" id="pdf-reader-pages">/ 0</span>
+          <span class="pdf-reader__toolbar-sep"></span>
+          <span class="pdf-reader__zoom-label" id="pdf-reader-zoom-label">100%</span>
+          <button type="button" class="pdf-reader__tool" id="pdf-reader-zoom-in" aria-label="Zoom in">+</button>
+          <button type="button" class="pdf-reader__tool" id="pdf-reader-zoom-out" aria-label="Zoom out">&#8722;</button>
+          <button type="button" class="pdf-reader__tool" id="pdf-reader-next" aria-label="Next page">&#8250;</button>
+        </div>
+        <div class="pdf-reader__stage">
+          <div class="pdf-reader__scroll" id="pdf-reader-scroll" hidden>
+            <canvas class="pdf-reader__canvas" id="pdf-reader-canvas"></canvas>
+          </div>
+          <div class="pdf-reader__loading" id="pdf-reader-loading" hidden>
+            <div class="pdf-reader__spinner"></div>
+            <span>Loading…</span>
+          </div>
+          <div class="pdf-reader__fallback" id="pdf-reader-fallback" hidden>
+            <p id="pdf-reader-fallback-msg"></p>
+            <a class="btn btn--primary" id="pdf-reader-fallback-open" href="#" target="_blank" rel="noopener">Open PDF</a>
+          </div>
+          <iframe id="pdf-reader-iframe" title="PDF Viewer" allowfullscreen hidden></iframe>
+        </div>
       </div>
     </div>
   </div>
