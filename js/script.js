@@ -1911,6 +1911,22 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء الرابع: عهد الهكسوس وتأسيس الإمبراطورية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول فيه عصر دخول الهكسوس لمصر وطردهم، وقيام الدولة الحديثة وتأسيس الإمبراطورية المصرية العريقة.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Four: The Hyksos Era and the Founding of the Empire, by the great historian and archaeologist Dr. Salim Hassan, covering the Hyksos entry into Egypt, their expulsion, and the rise of the New Kingdom with the founding of the ancient Egyptian empire.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part4.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part5',
+    authorKey: 'selim-hassan',
+    order: 5,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part5-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء الخامس: السيادة العالمية والتوحيد',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Five: World Supremacy and Unification',
+    excerptAr: 'الجزء الخامس من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يبين كيف بلغت مصر أوج السيادة العالمية في الدولة الحديثة ورسّخت الوحدة السياسية والحضارية للإمبراطورية المصرية.',
+    excerptEn: 'Part Five of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, showing how Egypt reached the height of world supremacy in the New Kingdom and consolidated the political and civilizational unity of the Egyptian empire.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء الخامس: السيادة العالمية والتوحيد، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول مرحلة بلوغ مصر السيادة العالمية خلال الدولة الحديثة، وسعي ملوكها إلى توحيد البلاد وتأكيد الهيمنة المصرية في الشرق الأدنى القديم.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Five: World Supremacy and Unification, by the great historian and archaeologist Dr. Salim Hassan, covering Egypt\u2019s attainment of world supremacy during the New Kingdom and the efforts of its kings to unify the country and assert Egyptian dominance across the ancient Near East.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part5.pdf'
   }
 ];
 
