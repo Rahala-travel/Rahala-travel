@@ -59,6 +59,11 @@ const translations = {
     book_blog_scientific: "كتب علمية",
     book_blog_history: "كتب الحضارات والتاريخ",
     book_blog_miscellaneous: "كتب متنوعة",
+    book_blog_encyclopedia: "الموسوعات",
+    encyclopedia_authors: "مؤلفو الموسوعات",
+    encyclopedia_back: "العودة إلى المؤلفين",
+    encyclopedia_books_title: "جميع كتب {author}",
+    encyclopedia_books_count: "كتب مرتبة بالترتيب الرسمي للموسوعة",
     book_blog_publish: "نشر كتاب أو مقال",
     book_blog_category: "التصنيف *",
     book_blog_publish_title: "نشر كتاب أو مقال جديد",
@@ -382,6 +387,11 @@ const translations = {
     book_blog_scientific: "Scientific Books",
     book_blog_history: "Civilizations & History Books",
     book_blog_miscellaneous: "Miscellaneous Books",
+    book_blog_encyclopedia: "Encyclopedias",
+    encyclopedia_authors: "Encyclopedia Authors",
+    encyclopedia_back: "Back to Authors",
+    encyclopedia_books_title: "All Books by {author}",
+    encyclopedia_books_count: "Books ordered by the official encyclopedia sequence",
     book_blog_publish: "Publish a Book or Article",
     book_blog_category: "Category *",
     book_blog_publish_title: "Publish a New Book or Article",
@@ -1823,6 +1833,41 @@ function saveBookBlogPosts(posts) {
   localStorage.setItem(bookBlogStorageKey, JSON.stringify(posts));
 }
 
+// --------------------------------------------------------------------------
+// ENCYCLOPEDIA SECTION — Library → Encyclopedias → Author → Author's Books
+// --------------------------------------------------------------------------
+const encyclopediaStorageKey = 'rahala_encyclopedia_books';
+
+// Encyclopedia author registry. Each author has a stable key; books reference
+// it via `authorKey` and are displayed in the exact order they are stored.
+const encyclopediaAuthors = [
+  { key: 'selim-hassan', nameAr: 'سليم حسن', nameEn: 'Salim Hassan' }
+];
+
+function getEncyclopediaBooks() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(encyclopediaStorageKey) || '[]');
+    return Array.isArray(stored) ? stored.filter(b => b && b.category === 'encyclopedia') : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveEncyclopediaBooks(books) {
+  localStorage.setItem(encyclopediaStorageKey, JSON.stringify(Array.isArray(books) ? books : []));
+}
+
+function getEncyclopediaAuthor(key) {
+  return encyclopediaAuthors.find(a => a.key === key) || null;
+}
+
+function getEncyclopediaBooksByAuthor(authorKey) {
+  return getEncyclopediaBooks()
+    .filter(b => b.authorKey === authorKey || b.author === authorKey)
+    .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
+    .map(b => Object.assign({}, b, { category: 'encyclopedia' }));
+}
+
 function escapeContentHtml(value) {
   return String(value || '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
 }
@@ -1854,15 +1899,28 @@ function getBookBlogCategoryInfo(category, lang) {
   const labels = {
     scientific: isAr ? 'كتب علمية' : 'Scientific Books',
     history: isAr ? 'كتب الحضارات والتاريخ' : 'Civilizations & History Books',
-    miscellaneous: isAr ? 'كتب متنوعة' : 'Miscellaneous Books'
+    miscellaneous: isAr ? 'كتب متنوعة' : 'Miscellaneous Books',
+    encyclopedia: isAr ? 'الموسوعات' : 'Encyclopedias'
   };
-  return { label: labels[category] || labels.miscellaneous, icon: category === 'scientific' ? '⚗️' : category === 'history' ? '🏛️' : '✦', badgeClass: 'cat-badge--modern' };
+  const icons = { scientific: '⚗️', history: '🏛️', miscellaneous: '✦', encyclopedia: '📚' };
+  const badges = { encyclopedia: 'cat-badge--encyclopedia' };
+  return { label: labels[category] || labels.miscellaneous, icon: icons[category] || '✦', badgeClass: badges[category] || 'cat-badge--modern' };
 }
+
+let activeEncyclopediaAuthor = null;
 
 function renderBookBlogGrid(activeCategory = 'all') {
   const container = document.getElementById('book-blog-grid');
   if (!container) return;
   const isAr = currentLang === 'ar';
+  if (activeCategory === 'encyclopedia') {
+    if (activeEncyclopediaAuthor) {
+      renderEncyclopediaAuthorBooks(container, activeEncyclopediaAuthor, isAr);
+    } else {
+      renderEncyclopediaAuthorsList(container, isAr);
+    }
+    return;
+  }
   const localBooks = getBookBlogPosts().filter(post => activeCategory === 'all' || post.category === activeCategory);
   renderBookBlogCards(container, localBooks, isAr);
   if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) {
@@ -1883,6 +1941,62 @@ function renderBookBlogGrid(activeCategory = 'all') {
   }
 }
 
+function renderEncyclopediaAuthorsList(container, isAr) {
+  const dict = translations[currentLang];
+  const authors = encyclopediaAuthors.map(author => {
+    const bookCount = getEncyclopediaBooksByAuthor(author.key).length;
+    const name = isAr ? author.nameAr : author.nameEn;
+    return `
+      <button type="button" class="encyclopedia-author-card" data-encyclopedia-author="${escapeContentHtml(author.key)}">
+        <span class="encyclopedia-author-card__avatar" aria-hidden="true">📚</span>
+        <span class="encyclopedia-author-card__body">
+          <strong>${escapeContentHtml(name)}</strong>
+          <small>${bookCount} ${isAr ? 'كتاب' : 'books'}</small>
+        </span>
+        <span class="encyclopedia-author-card__arrow" aria-hidden="true">←</span>
+      </button>`;
+  }).join('');
+  container.innerHTML = `
+    <div class="encyclopedia-authors" style="grid-column: 1 / -1;">
+      <h3 class="encyclopedia-authors__title">${dict.encyclopedia_authors}</h3>
+      <div class="encyclopedia-authors__grid">
+        ${authors || `<p style="color: var(--text-muted);">${isAr ? 'لا يوجد مؤلفون بعد.' : 'No authors yet.'}</p>`}
+      </div>
+    </div>`;
+  container.querySelectorAll('[data-encyclopedia-author]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeEncyclopediaAuthor = btn.getAttribute('data-encyclopedia-author');
+      renderBookBlogGrid('encyclopedia');
+    });
+  });
+}
+
+function renderEncyclopediaAuthorBooks(container, authorKey, isAr) {
+  const dict = translations[currentLang];
+  const author = getEncyclopediaAuthor(authorKey);
+  const name = author ? (isAr ? author.nameAr : author.nameEn) : authorKey;
+  const books = getEncyclopediaBooksByAuthor(authorKey);
+  const backLabel = dict.encyclopedia_back;
+  const title = dict.encyclopedia_books_title.replace('{author}', name);
+  container.innerHTML = `
+    <div class="encyclopedia-authors" style="grid-column: 1 / -1;">
+      <div class="encyclopedia-authors__toolbar">
+        <button type="button" class="btn btn--secondary btn--sm" data-encyclopedia-back>← ${backLabel}</button>
+      </div>
+      <h3 class="encyclopedia-authors__title">${title}</h3>
+      <p class="encyclopedia-authors__subtitle">${dict.encyclopedia_books_count}</p>
+    </div>`;
+  container.querySelector('[data-encyclopedia-back]').addEventListener('click', () => {
+    activeEncyclopediaAuthor = null;
+    renderBookBlogGrid('encyclopedia');
+  });
+  const grid = document.createElement('div');
+  grid.className = 'blog__grid';
+  grid.style.gridColumn = '1 / -1';
+  container.appendChild(grid);
+  renderBookBlogCards(grid, books, isAr);
+}
+
 function renderBookBlogCards(container, posts, isAr) {
   container.innerHTML = posts.length ? posts.map(post => {
     const category = getBookBlogCategoryInfo(post.category, currentLang);
@@ -1899,7 +2013,7 @@ function renderBookBlogCards(container, posts, isAr) {
     return `<article class="book-pdf-card book-pdf-card--no-pdf" data-book-post-id="${pdfId}"><div class="book-pdf-card__icon book-pdf-card__icon--text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="book-pdf-card__info"><span class="book-pdf-card__badge ${category.badgeClass}"><span>${category.icon}</span> ${category.label}</span><h3 class="book-pdf-card__title">${escapeContentHtml(title)}</h3><p class="book-pdf-card__author">${escapeContentHtml(post.authorAr || (isAr ? 'رحّالة عبر التاريخ' : 'Rahala Through History'))}</p></div><div class="book-pdf-card__actions"><button type="button" class="book-pdf-card__btn book-pdf-card__btn--read" data-book-post-id="${pdfId}" title="${isAr ? 'اقرأ المحتوى' : 'Read Content'}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>${isAr ? 'قراءة' : 'Read'}</span></button><button type="button" class="book-pdf-card__btn book-pdf-card__btn--share" data-book-share="${pdfId}" title="${isAr ? 'مشاركة المحتوى' : 'Share Content'}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg><span>${isAr ? 'مشاركة' : 'Share'}</span></button></div></article>`;
   }).join('') : `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);"><p>${isAr ? 'لا توجد منشورات في هذا التصنيف حالياً.' : 'No published content in this category yet.'}</p></div>`;
   container.querySelectorAll('[data-pdf-open]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); openPdfReader(btn.dataset.pdfOpen); }));
-  container.querySelectorAll('.book-pdf-card--no-pdf [data-book-post-id]').forEach(card => card.addEventListener('click', () => openArticleReader(card.dataset.bookPostId, getBookBlogPosts(), true)));
+  container.querySelectorAll('.book-pdf-card--no-pdf [data-book-post-id]').forEach(card => card.addEventListener('click', () => { const pid = card.dataset.bookPostId; const main = getBookBlogPosts(); openArticleReader(pid, (main && main.find(p => p.id === pid)) ? main : getEncyclopediaBooks(), true); }));
   container.querySelectorAll('[data-book-share]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); shareBook(btn.dataset.bookShare); }));
 }
 
@@ -1908,6 +2022,7 @@ function initBookBlog() {
   document.querySelectorAll('[data-book-category]').forEach(button => button.addEventListener('click', () => {
     document.querySelectorAll('[data-book-category]').forEach(item => item.classList.remove('active'));
     button.classList.add('active');
+    if (button.dataset.bookCategory !== 'encyclopedia') activeEncyclopediaAuthor = null;
     renderBookBlogGrid(button.dataset.bookCategory || 'all');
   }));
   // Book publish controls moved to Admin Dashboard only
@@ -2325,7 +2440,7 @@ async function startPdfJsReader(url) {
 }
 
 function openPdfReader(postId) {
-  const post = getBookBlogPosts().find(p => p.id === postId);
+  const post = getBookBlogPosts().find(p => p.id === postId) || getEncyclopediaBooks().find(p => p.id === postId);
   if (!post || !post.pdfUrl) return;
   const isAr = currentLang === 'ar';
   const title = isAr ? post.titleAr : (post.titleEn || post.titleAr);
@@ -2441,7 +2556,7 @@ async function copyToClipboard(text) {
 }
 
 async function shareBook(postId) {
-  const post = (getBookBlogPosts() || []).find(p => p.id === postId);
+  const post = (getBookBlogPosts() || []).find(p => p.id === postId) || getEncyclopediaBooks().find(p => p.id === postId);
   if (!post) return;
   const isAr = currentLang === 'ar';
   const title = isAr ? (post.titleAr || post.titleEn) : (post.titleEn || post.titleAr);
@@ -2492,12 +2607,20 @@ function handleOpenBookLink() {
   const bookId = params.get('book');
   if (!bookId) return;
   const posts = getBookBlogPosts() || [];
-  const post = posts.find(p => p && p.id === bookId);
+  let post = posts.find(p => p && p.id === bookId);
+  let fromEncyclopedia = false;
+  if (!post) {
+    post = getEncyclopediaBooks().find(b => b && b.id === bookId);
+    fromEncyclopedia = !!post;
+  }
   if (!post) return;
   const isAr = currentLang === 'ar';
 
   // Show the book's category so the target card is visible.
   const category = activateBookCategory(post.category);
+  if (fromEncyclopedia && post.authorKey) {
+    activeEncyclopediaAuthor = post.authorKey;
+  }
   renderBookBlogGrid(category);
 
   // Wait for layout/images to settle, then scroll to the Library and highlight.
@@ -2765,7 +2888,7 @@ function initAdminDashboard() {
   }
   function escapeHtml(value) { return String(value || '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char])); }
   function allContent() {
-    return getBlogPosts().map(post => ({ id: post.id, type: 'post', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img })).concat(getBookBlogPosts().map(post => ({ id: post.id, type: 'book', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img, category: post.category, pdfUrl: post.pdfUrl || '' }))).concat(getRecords());
+    return getBlogPosts().map(post => ({ id: post.id, type: 'post', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img })).concat(getBookBlogPosts().map(post => ({ id: post.id, type: 'book', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img, category: post.category, pdfUrl: post.pdfUrl || '' }))).concat(getEncyclopediaBooks().map(post => ({ id: post.id, type: 'book', title: post.titleAr, detail: post.excerptAr, status: 'منشور', image: post.img, category: 'encyclopedia', pdfUrl: post.pdfUrl || '', authorKey: post.authorKey, order: post.order }))).concat(getRecords());
   }
   function refreshStats() {
     const records = allContent();
@@ -2836,14 +2959,17 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-record-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ تاريخ مصري قديم</option><option value="islamic">🕌 تاريخ اسلامي</option><option value="coptic">⛪ تاريخ قبطي</option><option value="modern">🏙️ تاريخ الحديث و المعاصر</option><option value="europe">🏰 تاريخ أوروبا</option><option value="language">🗣️ مقالات اللغة</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
+    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ تاريخ مصري قديم</option><option value="islamic">🕌 تاريخ اسلامي</option><option value="coptic">⛪ تاريخ قبطي</option><option value="modern">🏙️ تاريخ الحديث و المعاصر</option><option value="europe">🏰 تاريخ أوروبا</option><option value="language">🗣️ مقالات اللغة</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option><option value="encyclopedia">📚 الموسوعات</option></select></div></div><div class="admin-form-grid" id="admin-encyclopedia-group" hidden><div class="form-group"><label class="form-label">المؤلف</label><select class="form-select" id="admin-encyclopedia-author">${encyclopediaAuthors.map(a => `<option value="${escapeContentHtml(a.key)}">${escapeContentHtml(a.nameAr)}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">الترتيب</label><input class="form-input" type="number" id="admin-encyclopedia-order" min="1" step="1" placeholder="1"></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
     document.getElementById('admin-content-view').prepend(form);
     initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
-    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; const postCatGroup = document.getElementById('admin-post-category-group'); if (postCatGroup) postCatGroup.hidden = isBook; const actionsEl = form.querySelector('.admin-form-actions'); let pubBtn = document.getElementById('admin-book-publish'); let unpubBtn = document.getElementById('admin-book-unpublish'); let pubStatus = document.getElementById('admin-book-publish-status'); if (isBook && !pubBtn) { pubStatus = document.createElement('div'); pubStatus.id = 'admin-book-publish-status'; pubStatus.className = 'form-pdf-status'; pubBtn = document.createElement('button'); pubBtn.type = 'button'; pubBtn.id = 'admin-book-publish'; pubBtn.className = 'btn btn--success btn--sm'; pubBtn.textContent = 'نشر في المكتبة العامة'; unpubBtn = document.createElement('button'); unpubBtn.type = 'button'; unpubBtn.id = 'admin-book-unpublish'; unpubBtn.className = 'btn btn--danger btn--sm'; unpubBtn.textContent = 'إلغاء النشر'; unpubBtn.hidden = true; actionsEl.insertBefore(pubBtn, actionsEl.firstChild); actionsEl.insertBefore(unpubBtn, pubBtn.nextSibling); actionsEl.insertBefore(pubStatus, unpubBtn.nextSibling); pubBtn.addEventListener('click', async () => { console.log('[Publish] Button clicked, DataService.isReady:', typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()); pubBtn.disabled = true; pubBtn.textContent = 'جاري النشر...'; try { const bookData = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: document.getElementById('admin-form-image').value.trim() || 'images/logo.jpg', titleAr: document.getElementById('admin-form-title').value.trim(), titleEn: document.getElementById('admin-form-title').value.trim(), excerptAr: document.getElementById('admin-form-detail').value.trim(), excerptEn: document.getElementById('admin-form-detail').value.trim(), contentAr: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, contentEn: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, pdfUrl: pendingPdfData || '' }; if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.publishBook(bookData); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#22c55e;">✓ تم النشر على كل الأجهزة</span>'; showToast('تم النشر — ظاهر للزوار على كل الأجهزة'); } else { const posts = getBookBlogPosts(); const existing = posts.find(p => p.id === bookData.id); if (existing) Object.assign(existing, bookData); else posts.unshift(bookData); saveBookBlogPosts(posts); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#f59e0b;">⚠ منشور محلياً فقط — أعد Firebase للنشر على كل الأجهزة</span>'; showToast('تم النشر محلياً — يظهر على هذا الجهاز فقط'); } renderBookBlogGrid('all'); } catch (err) { showToast('خطأ في النشر: ' + err.message); } finally { pubBtn.disabled = false; pubBtn.textContent = 'نشر في المكتبة العامة'; } }); unpubBtn.addEventListener('click', async () => { if (!confirm('هل تريد إلغاء نشر هذا الكتاب؟')) return; unpubBtn.disabled = true; try { if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.unpublishBook(editingId); } unpubBtn.hidden = true; pubBtn.hidden = false; pubStatus.innerHTML = ''; showToast('تم إلغاء النشر'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ: ' + err.message); } finally { unpubBtn.disabled = false; } }); } else if (!isBook && pubBtn) { pubBtn.remove(); unpubBtn.remove(); pubStatus.remove(); } };
+    const updateBookFields = () => { const isBook = document.getElementById('admin-form-type').value === 'book'; document.getElementById('admin-book-category-group').hidden = !isBook; document.getElementById('admin-book-pdf-group').hidden = !isBook; const postCatGroup = document.getElementById('admin-post-category-group'); if (postCatGroup) postCatGroup.hidden = isBook; const encGroup = document.getElementById('admin-encyclopedia-group'); if (encGroup) { const isEnc = isBook && document.getElementById('admin-book-category').value === 'encyclopedia'; encGroup.hidden = !isEnc; if (isEnc) { const orderEl = document.getElementById('admin-encyclopedia-order'); if (orderEl && !orderEl.value) orderEl.value = getEncyclopediaBooks().length + 1; } } const actionsEl = form.querySelector('.admin-form-actions'); let pubBtn = document.getElementById('admin-book-publish'); let unpubBtn = document.getElementById('admin-book-unpublish'); let pubStatus = document.getElementById('admin-book-publish-status'); if (isBook && !pubBtn) { pubStatus = document.createElement('div'); pubStatus.id = 'admin-book-publish-status'; pubStatus.className = 'form-pdf-status'; pubBtn = document.createElement('button'); pubBtn.type = 'button'; pubBtn.id = 'admin-book-publish'; pubBtn.className = 'btn btn--success btn--sm'; pubBtn.textContent = 'نشر في المكتبة العامة'; unpubBtn = document.createElement('button'); unpubBtn.type = 'button'; unpubBtn.id = 'admin-book-unpublish'; unpubBtn.className = 'btn btn--danger btn--sm'; unpubBtn.textContent = 'إلغاء النشر'; unpubBtn.hidden = true; actionsEl.insertBefore(pubBtn, actionsEl.firstChild); actionsEl.insertBefore(unpubBtn, pubBtn.nextSibling); actionsEl.insertBefore(pubStatus, unpubBtn.nextSibling); pubBtn.addEventListener('click', async () => { console.log('[Publish] Button clicked, DataService.isReady:', typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()); pubBtn.disabled = true; pubBtn.textContent = 'جاري النشر...'; try { const bookData = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: 'رحّالة عبر التاريخ', authorEn: 'Rahala Through History', img: document.getElementById('admin-form-image').value.trim() || 'images/logo.jpg', titleAr: document.getElementById('admin-form-title').value.trim(), titleEn: document.getElementById('admin-form-title').value.trim(), excerptAr: document.getElementById('admin-form-detail').value.trim(), excerptEn: document.getElementById('admin-form-detail').value.trim(), contentAr: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, contentEn: `<p>${document.getElementById('admin-form-detail').value.trim()}</p>`, pdfUrl: pendingPdfData || '' }; if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.publishBook(bookData); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#22c55e;">✓ تم النشر على كل الأجهزة</span>'; showToast('تم النشر — ظاهر للزوار على كل الأجهزة'); } else { const posts = getBookBlogPosts(); const existing = posts.find(p => p.id === bookData.id); if (existing) Object.assign(existing, bookData); else posts.unshift(bookData); saveBookBlogPosts(posts); pubBtn.hidden = true; unpubBtn.hidden = false; pubStatus.innerHTML = '<span style="color:#f59e0b;">⚠ منشور محلياً فقط — أعد Firebase للنشر على كل الأجهزة</span>'; showToast('تم النشر محلياً — يظهر على هذا الجهاز فقط'); } renderBookBlogGrid('all'); } catch (err) { showToast('خطأ في النشر: ' + err.message); } finally { pubBtn.disabled = false; pubBtn.textContent = 'نشر في المكتبة العامة'; } }); unpubBtn.addEventListener('click', async () => { if (!confirm('هل تريد إلغاء نشر هذا الكتاب؟')) return; unpubBtn.disabled = true; try { if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) { await DataService.unpublishBook(editingId); } unpubBtn.hidden = true; pubBtn.hidden = false; pubStatus.innerHTML = ''; showToast('تم إلغاء النشر'); renderBookBlogGrid('all'); } catch (err) { showToast('خطأ: ' + err.message); } finally { unpubBtn.disabled = false; } }); } else if (!isBook && pubBtn) { pubBtn.remove(); unpubBtn.remove(); pubStatus.remove(); } };
     document.getElementById('admin-form-type').addEventListener('change', updateBookFields);
+    document.getElementById('admin-book-category').addEventListener('change', updateBookFields);
     if (record?.category) document.getElementById('admin-book-category').value = record.category;
     if (record?.category) document.getElementById('admin-post-category').value = record.category;
+    if (record?.category === 'encyclopedia' && record?.authorKey) document.getElementById('admin-encyclopedia-author') && (document.getElementById('admin-encyclopedia-author').value = record.authorKey);
+    if (record?.category === 'encyclopedia' && record?.order) document.getElementById('admin-encyclopedia-order') && (document.getElementById('admin-encyclopedia-order').value = record.order);
     document.getElementById('admin-post-category-group').hidden = !(document.getElementById('admin-form-type').value === 'post');
     updateBookFields();
     document.getElementById('admin-form-cancel').onclick = () => form.remove();
@@ -2873,11 +2999,26 @@ function initAdminDashboard() {
       const authorName = values.author || 'رحّالة عبر التاريخ';
       const postCategory = document.getElementById('admin-post-category') ? document.getElementById('admin-post-category').value : 'modern';
       if (values.type === 'book') {
-        const posts = getBookBlogPosts();
-        const post = posts.find(item => item.id === editingId);
-        const saved = { id: editingId || `book-post-${Date.now()}`, category: document.getElementById('admin-book-category').value, date: new Date().toISOString().slice(0, 10), authorAr: authorName, authorEn: authorName, img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>`, pdfUrl: pendingPdfData || '' };
-        if (post) Object.assign(post, saved); else posts.unshift(saved);
-        saveBookBlogPosts(posts); renderBookBlogGrid('all');
+        const bookCategory = document.getElementById('admin-book-category').value;
+        const saved = { id: editingId || `book-post-${Date.now()}`, category: bookCategory, date: new Date().toISOString().slice(0, 10), authorAr: authorName, authorEn: authorName, img: values.image || 'images/logo.jpg', titleAr: values.title, titleEn: values.title, excerptAr: values.detail, excerptEn: values.detail, contentAr: `<p>${values.detail}</p>`, contentEn: `<p>${values.detail}</p>`, pdfUrl: pendingPdfData || '' };
+        if (bookCategory === 'encyclopedia') {
+          const encAuthor = document.getElementById('admin-encyclopedia-author') ? document.getElementById('admin-encyclopedia-author').value : '';
+          const encOrder = Number((document.getElementById('admin-encyclopedia-order') || {}).value) || (getEncyclopediaBooks().length + 1);
+          const encBooks = getEncyclopediaBooks();
+          const encPost = encBooks.find(item => item.id === editingId);
+          const encSaved = Object.assign({}, saved, { authorKey: encAuthor || 'selim-hassan', order: encOrder });
+          if (encPost) Object.assign(encPost, encSaved, { order: encOrder });
+          else {
+            encBooks.push(encSaved);
+            encBooks.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+          }
+          saveEncyclopediaBooks(encBooks); renderBookBlogGrid('all');
+        } else {
+          const posts = getBookBlogPosts();
+          const post = posts.find(item => item.id === editingId);
+          if (post) Object.assign(post, saved); else posts.unshift(saved);
+          saveBookBlogPosts(posts); renderBookBlogGrid('all');
+        }
       } else if (values.type === 'post') {
         const posts = getBlogPosts(); const post = posts.find(item => item.id === editingId);
         if (post) { post.titleAr = values.title; post.titleEn = values.title; post.excerptAr = values.detail; post.excerptEn = values.detail; post.img = values.image || post.img; post.authorAr = authorName; post.authorEn = authorName; post.category = postCategory; saveBlogPosts(posts); }
@@ -3108,7 +3249,7 @@ function initAdminDashboard() {
   document.getElementById('admin-add-record').addEventListener('click', () => { const selectedType = document.querySelector('[data-admin-type].is-active')?.dataset.adminType || activeType; openForm(selectedType === 'all' ? 'post' : selectedType); });
   document.querySelectorAll('[data-admin-type]').forEach(button => button.addEventListener('click', () => { activeType = button.dataset.adminType; document.querySelectorAll('[data-admin-type]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); renderRecords(); }));
   document.getElementById('admin-search-input').addEventListener('input', renderRecords);
-  recordsEl.addEventListener('click', event => { const id = event.target.dataset.adminEdit || event.target.dataset.adminDelete; if (!id) return; const record = allContent().find(item => item.id === id); if (event.target.dataset.adminEdit) { if (!hasPermission('content.edit')) { showToast('ليس لديك صلاحية التعديل'); return; } openForm(record.type, record); } else if (event.target.dataset.adminDelete) { if (!hasPermission('content.delete')) { showToast('ليس لديك صلاحية الحذف'); return; } if (confirm('هل تريد حذف هذا المحتوى؟')) { if (record.type === 'post') saveBlogPosts(getBlogPosts().filter(item => item.id !== id)); else if (record.type === 'book') saveBookBlogPosts(getBookBlogPosts().filter(item => item.id !== id)); else saveRecords(getRecords().filter(item => item.id !== id)); renderBookBlogGrid('all'); renderRecords(); refreshStats(); showToast('تم حذف المحتوى'); } } });
+  recordsEl.addEventListener('click', event => { const id = event.target.dataset.adminEdit || event.target.dataset.adminDelete; if (!id) return; const record = allContent().find(item => item.id === id); if (event.target.dataset.adminEdit) { if (!hasPermission('content.edit')) { showToast('ليس لديك صلاحية التعديل'); return; } openForm(record.type, record); } else if (event.target.dataset.adminDelete) { if (!hasPermission('content.delete')) { showToast('ليس لديك صلاحية الحذف'); return; } if (confirm('هل تريد حذف هذا المحتوى؟')) { if (record.type === 'post') saveBlogPosts(getBlogPosts().filter(item => item.id !== id)); else if (record.type === 'book') { if (record.category === 'encyclopedia') saveEncyclopediaBooks(getEncyclopediaBooks().filter(item => item.id !== id)); else saveBookBlogPosts(getBookBlogPosts().filter(item => item.id !== id)); } else saveRecords(getRecords().filter(item => item.id !== id)); renderBookBlogGrid('all'); renderRecords(); refreshStats(); showToast('تم حذف المحتوى'); } } });
   document.getElementById('admin-section-list').addEventListener('change', event => { if (!isSuperAdmin()) { showToast('ليس لديك صلاحية تغيير الأقسام'); event.target.checked = !event.target.checked; return; } const id = event.target.dataset.adminSection; if (!id) return; const sections = getSections(); sections[id] = event.target.checked; localStorage.setItem(sectionKey, JSON.stringify(sections)); const section = document.getElementById(id); if (section) section.hidden = !event.target.checked; refreshStats(); });
   sectionNames.forEach(([id]) => { const sections = getSections(); const section = document.getElementById(id); if (section) section.hidden = sections[id] === false; });
   document.getElementById('admin-add-user').addEventListener('click', () => openUserForm());
