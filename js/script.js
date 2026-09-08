@@ -1943,6 +1943,22 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء السادس: عصر رعمسيس الثاني وقيام الإمبراطورية الثانية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يسلط الضوء على عصر رعمسيس الثاني ودوره في قيام الإمبراطورية الثانية، وما شهدته الدولة الحديثة من بناء ومجد عسكري وحضاري.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Six: The Age of Ramesses II and the Rise of the Second Empire, by the great historian and archaeologist Dr. Salim Hassan, highlighting the age of Ramesses II and his role in the rise of the second empire, and the military and civilizational splendor of the New Kingdom.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part6.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part7',
+    authorKey: 'selim-hassan',
+    order: 7,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part7-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء السابع: عصر أسرة مرنبتاح ورعمسيس الثالث ولمحة في تاريخ لوبية',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Seven: The Age of the Merenptah Dynasty and Ramesses III, with a Glimpse into the History of Libya',
+    excerptAr: 'الجزء السابع من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يتناول عصر أسرة مرنبتاح ورعمسيس الثالث، مع لمحة مخصصة في تاريخ لوبية وعلاقاتها بمصر الفرعونية.',
+    excerptEn: 'Part Seven of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, covering the age of the Merenptah dynasty and Ramesses III, with a dedicated glimpse into the history of Libya and its relations with Pharaonic Egypt.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء السابع: عصر أسرة مرنبتاح ورعمسيس الثالث ولمحة في تاريخ لوبية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول فيه عصر خلفاء رعمسيس الثاني، وأعمال رعمسيس الثالث الدفاعية والحضارية، ويلقي الضوء على تاريخ لوبية وصلاتها بمصر.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Seven: The Age of the Merenptah Dynasty and Ramesses III, with a Glimpse into the History of Libya, by the great historian and archaeologist Dr. Salim Hassan, covering the successors of Ramesses II, the defensive and civilizational achievements of Ramesses III, and shedding light on the history of Libya and its ties to Egypt.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part7.pdf'
   }
 ];
 
