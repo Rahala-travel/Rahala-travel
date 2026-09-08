@@ -42,13 +42,14 @@ const translations = {
     btn_view_all_blog_text: "تصفح كافة المقالات",
     blog_tag: "مقالات التراث والتوعية الأثرية",
     blog_title: "مقالات رحّالة عبر التاريخ",
-    blog_subtitle: "موسوعة مقالات متخصصة مصنفة عبر خمسة عصور رئيسية ترسم ملامح الهوية والتاريخ المصري والأوروبي.",
+    blog_subtitle: "موسوعة مقالات متخصصة مصنفة عبر عصور رئيسية وتصنيفات لغوية ترسم ملامح الهوية والتاريخ المصري والأوروبي.",
     cat_all: "جميع المقالات",
     cat_ancient: "تاريخ مصري قديم",
     cat_islamic: "تاريخ اسلامي",
     cat_coptic: "تاريخ قبطي",
     cat_modern: "تاريخ الحديث و المعاصر",
     cat_europe: "تاريخ أوروبا",
+    cat_language: "مقالات اللغة",
     btn_publish_article: "إضافة ونشر مقال جديد",
     book_blog_tag: "مكتبة المقالات والكتب",
     book_blog_nav: "الكتب",
@@ -90,6 +91,7 @@ const translations = {
     cat_opt_coptic: "⛪ تاريخ قبطي (Coptic Egypt)",
     cat_opt_modern: "🏙️ تاريخ الحديث و المعاصر (Modern & Contemporary History)",
     cat_opt_europe: "🏰 تاريخ أوروبا (European History)",
+    cat_opt_language: "🗣️ مقالات اللغة (Language Articles)",
 
     // Hero
     hero_badge: "شركة سياحة وتوعية أثرية • تأسست 2023",
@@ -363,13 +365,14 @@ const translations = {
     btn_view_all_blog_text: "Browse All Articles",
     blog_tag: "Heritage & Archaeological Articles",
     blog_title: "Rahala Through History Articles",
-    blog_subtitle: "Specialized articles categorized across five main eras defining Egyptian and European identity and history.",
+    blog_subtitle: "Specialized articles categorized across main eras and language topics defining Egyptian and European identity and history.",
     cat_all: "All Articles",
     cat_ancient: "Ancient Egypt",
     cat_islamic: "Islamic Egypt",
     cat_coptic: "Coptic Egypt",
     cat_modern: "Modern & Contemporary History",
     cat_europe: "European History",
+    cat_language: "Language Articles",
     btn_publish_article: "+ Publish New Article",
     book_blog_tag: "Books & Written Content",
     book_blog_nav: "Books",
@@ -411,6 +414,7 @@ const translations = {
     cat_opt_coptic: "⛪ Coptic Egypt (تاريخ قبطي)",
     cat_opt_modern: "🏙️ Modern & Contemporary History (تاريخ الحديث و المعاصر)",
     cat_opt_europe: "🏰 European History (تاريخ أوروبا)",
+    cat_opt_language: "🗣️ Language Articles (مقالات اللغة)",
 
     // Hero
     hero_badge: "Tourism Company & Archaeological Awareness • Est. 2023",
@@ -1937,6 +1941,11 @@ function getCategoryInfo(catKey, lang) {
       label: isAr ? 'تاريخ أوروبا' : 'European History',
       icon: '🏰',
       badgeClass: 'cat-badge--europe'
+    },
+    language: {
+      label: isAr ? 'مقالات اللغة' : 'Language Articles',
+      icon: '🗣️',
+      badgeClass: 'cat-badge--language'
     }
   };
   return mapping[catKey] || {
@@ -2827,7 +2836,7 @@ function initAdminDashboard() {
     if (existing) existing.remove();
     const form = document.createElement('form');
     form.id = 'admin-record-form'; form.className = 'admin-record-form';
-    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ تاريخ مصري قديم</option><option value="islamic">🕌 تاريخ اسلامي</option><option value="coptic">⛪ تاريخ قبطي</option><option value="modern">🏙️ تاريخ الحديث و المعاصر</option><option value="europe">🏰 تاريخ أوروبا</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
+    form.innerHTML = `<h3>${record ? 'تعديل المحتوى' : 'إضافة محتوى جديد'}</h3><div class="admin-form-grid"><div class="form-group"><label class="form-label">النوع</label><select class="form-select" id="admin-form-type"><option value="post">مقال</option><option value="book">كتاب أو مقال معرفي</option><option value="trip">رحلة</option><option value="announcement">إعلان</option></select></div><div class="form-group"><label class="form-label">العنوان *</label><input class="form-input" id="admin-form-title" required value="${escapeHtml(record ? record.title : '')}"></div></div><div class="admin-form-grid"><div class="form-group"><label class="form-label">اسم صاحب المحتوى / الكاتب</label><input class="form-input" id="admin-form-author" value="${escapeHtml(record ? (record.authorAr || '') : '')}" placeholder="مثال: عفاف محمد البقاشي"></div><div class="form-group" id="admin-post-category-group" hidden><label class="form-label">تصنيف المقال</label><select class="form-select" id="admin-post-category"><option value="ancient">🏛️ تاريخ مصري قديم</option><option value="islamic">🕌 تاريخ اسلامي</option><option value="coptic">⛪ تاريخ قبطي</option><option value="modern">🏙️ تاريخ الحديث و المعاصر</option><option value="europe">🏰 تاريخ أوروبا</option><option value="language">🗣️ مقالات اللغة</option></select></div></div><div class="form-group" id="admin-book-category-group" hidden><label class="form-label">تصنيف المحتوى</label><select class="form-select" id="admin-book-category"><option value="scientific">كتب علمية</option><option value="history">كتب الحضارات والتاريخ</option><option value="miscellaneous">كتب متنوعة</option></select></div></div><div class="form-group" id="admin-book-pdf-group" hidden><label class="form-label">ملف PDF الكتاب</label><input class="form-input" type="file" id="admin-book-pdf" accept=".pdf,application/pdf"><small class="form-hint">ارفع ملف PDF للكتاب (الحد الأقصى ~5MB). ${record?.pdfUrl ? '✓ ملف PDF مرفق مسبقاً — ارفع ملفاً جديداً للاستبدال.' : ''}</small><div id="admin-book-pdf-status" class="form-pdf-status"></div></div><div class="form-group"><label class="form-label">الوصف أو التفاصيل</label><textarea class="form-textarea" id="admin-form-detail" rows="2">${escapeHtml(record ? record.detail : '')}</textarea></div><div class="form-group"><label class="form-label">رابط الصورة</label><input class="form-input" type="url" id="admin-form-image" value="${escapeHtml(record ? record.image : '')}" placeholder="https://...">${imageUploadHTML('admin-form-image-upload', 'admin-form-image-preview', record?.image, 'رفع صورة من الجهاز')}</div><div class="admin-form-actions"><button type="button" class="btn btn--secondary" id="admin-form-cancel">إلغاء</button><button class="btn btn--primary" type="submit">حفظ التغييرات</button></div>`;
     document.getElementById('admin-content-view').prepend(form);
     initImageUpload('admin-form-image-upload', 'admin-form-image-preview', dataUrl => { document.getElementById('admin-form-image').value = dataUrl; });
     document.getElementById('admin-form-type').value = record ? record.type : type;
