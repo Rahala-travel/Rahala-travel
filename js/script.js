@@ -1959,6 +1959,54 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء السابع: عصر أسرة مرنبتاح ورعمسيس الثالث ولمحة في تاريخ لوبية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول فيه عصر خلفاء رعمسيس الثاني، وأعمال رعمسيس الثالث الدفاعية والحضارية، ويلقي الضوء على تاريخ لوبية وصلاتها بمصر.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Seven: The Age of the Merenptah Dynasty and Ramesses III, with a Glimpse into the History of Libya, by the great historian and archaeologist Dr. Salim Hassan, covering the successors of Ramesses II, the defensive and civilizational achievements of Ramesses III, and shedding light on the history of Libya and its ties to Egypt.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part7.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part8',
+    authorKey: 'selim-hassan',
+    order: 8,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part8-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء الثامن: نهاية عصر الرعامسة وقيام دولة الكهنة بطيبة في عهد الأسرة الواحدة والعشرين',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Eight: The End of the Ramesside Age and the Rise of the Priest-Kings of Thebes in the Twenty-First Dynasty',
+    excerptAr: 'الجزء الثامن من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يتناول نهاية عصر الرعامسة وقيام دولة الكهنة بطيبة في عهد الأسرة الواحدة والعشرين، مسلطاً الضوء على تحول مراكز السلطة في مصر القديمة.',
+    excerptEn: 'Part Eight of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, covering the end of the Ramesside age and the rise of the priest-kings of Thebes during the Twenty-First Dynasty, highlighting the shift of power centers in ancient Egypt.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء الثامن: نهاية عصر الرعامسة وقيام دولة الكهنة بطيبة في عهد الأسرة الواحدة والعشرين، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول تراجع سلطة الرعامسة وبروز كهنوت آمون بطيبة كقوة سياسية، وما رافق ذلك من تحولات في بنية الدولة المصرية القديمة.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Eight: The End of the Ramesside Age and the Rise of the Priest-Kings of Thebes in the Twenty-First Dynasty, by the great historian and archaeologist Dr. Salim Hassan, covering the decline of Ramesside authority and the emergence of the Amun priesthood of Thebes as a political power, along with the resulting transformations in the structure of the ancient Egyptian state.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part8.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part9',
+    authorKey: 'selim-hassan',
+    order: 9,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part9-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء التاسع: نهاية الأسرة الواحدة والعشرين وحكم دولة اللوبيين لمصر حتى بداية العهد الأثيوبي ولمحة في تاريخ العبرانيين',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Nine: The End of the Twenty-First Dynasty, the Libyan Rule of Egypt until the Beginning of the Ethiopian Era, and a Glimpse into the History of the Hebrews',
+    excerptAr: 'الجزء التاسع من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يستعرض نهاية الأسرة الواحدة والعشرين وحكم دولة اللوبيين لمصر حتى بداية العهد الأثيوبي، مع لمحة في تاريخ العبرانيين.',
+    excerptEn: 'Part Nine of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, covering the end of the Twenty-First Dynasty and the Libyan rule of Egypt until the beginning of the Ethiopian era, with a glimpse into the history of the Hebrews.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء التاسع: نهاية الأسرة الواحدة والعشرين وحكم دولة اللوبيين لمصر حتى بداية العهد الأثيوبي ولمحة في تاريخ العبرانيين، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتابع فيه مرحلة حكم الملوك اللوبيين لمصر، تمهيداً لقيام العهد الأثيوبي، مع عرض مستقل لتاريخ العبرانيين.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Nine: The End of the Twenty-First Dynasty, the Libyan Rule of Egypt until the Beginning of the Ethiopian Era, and a Glimpse into the History of the Hebrews, by the great historian and archaeologist Dr. Salim Hassan, following the period of Libyan kings over Egypt before the rise of the Ethiopian era, together with an independent account of the history of the Hebrews.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part9.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part10',
+    authorKey: 'selim-hassan',
+    order: 10,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part10-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء العاشر: تاريخ السودان المقارن إلى أوائل عهد بيعنخي',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Ten: A Comparative History of Sudan up to the Early Reign of Piankhy',
+    excerptAr: 'الجزء العاشر من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يقدّم تاريخاً مقارناً للسودان حتى أوائل عهد الملك بيعنخي، رابطاً بين سير الحضارة في وادي النيل صعيده ودلتاه وكوش.',
+    excerptEn: 'Part Ten of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, presenting a comparative history of Sudan up to the early reign of King Piankhy, connecting the course of civilization along the Nile Valley, Upper Egypt, the Delta and Kush.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء العاشر: تاريخ السودان المقارن إلى أوائل عهد بيعنخي، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول فيه تاريخ السودان في إطار مقارن مع مصر حتى أوائل عهد بيعنخي، مبرزاً أواصر الحضارة والاتصال بين مصر وكوش في وادي النيل.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Ten: A Comparative History of Sudan up to the Early Reign of Piankhy, by the great historian and archaeologist Dr. Salim Hassan, offering a comparative study of the history of Sudan and Egypt until the early reign of Piankhy, highlighting the ties of civilization and contact between Egypt and Kush in the Nile Valley.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part10.pdf'
   }
 ];
 
