@@ -1927,6 +1927,22 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء الخامس: السيادة العالمية والتوحيد، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول مرحلة بلوغ مصر السيادة العالمية خلال الدولة الحديثة، وسعي ملوكها إلى توحيد البلاد وتأكيد الهيمنة المصرية في الشرق الأدنى القديم.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Five: World Supremacy and Unification, by the great historian and archaeologist Dr. Salim Hassan, covering Egypt\u2019s attainment of world supremacy during the New Kingdom and the efforts of its kings to unify the country and assert Egyptian dominance across the ancient Near East.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part5.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part6',
+    authorKey: 'selim-hassan',
+    order: 6,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part6-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء السادس: عصر رعمسيس الثاني وقيام الإمبراطورية الثانية',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Six: The Age of Ramesses II and the Rise of the Second Empire',
+    excerptAr: 'الجزء السادس من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يتناول عصر رعمسيس الثاني وقيام الإمبراطورية المصرية الثانية، موثقاً أزهى عصور الدولة الحديثة وأبعدها أثراً.',
+    excerptEn: 'Part Six of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, covering the age of Ramesses II and the rise of the second Egyptian empire, documenting one of the most brilliant and influential eras of the New Kingdom.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء السادس: عصر رعمسيس الثاني وقيام الإمبراطورية الثانية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يسلط الضوء على عصر رعمسيس الثاني ودوره في قيام الإمبراطورية الثانية، وما شهدته الدولة الحديثة من بناء ومجد عسكري وحضاري.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Six: The Age of Ramesses II and the Rise of the Second Empire, by the great historian and archaeologist Dr. Salim Hassan, highlighting the age of Ramesses II and his role in the rise of the second empire, and the military and civilizational splendor of the New Kingdom.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part6.pdf'
   }
 ];
 
