@@ -88,7 +88,7 @@ const translations = {
     cat_opt_ancient: "🏛️ تاريخ مصري قديم (Ancient Egypt)",
     cat_opt_islamic: "🕌 تاريخ اسلامي (Islamic Egypt)",
     cat_opt_coptic: "⛪ تاريخ قبطي (Coptic Egypt)",
-    cat_opt_modern: "🏙️ تاريخ الحديث و المعاصر (Modern Egypt)",
+    cat_opt_modern: "🏙️ تاريخ الحديث و المعاصر (Modern & Contemporary History)",
     cat_opt_europe: "🏰 تاريخ أوروبا (European History)",
 
     // Hero
@@ -368,7 +368,7 @@ const translations = {
     cat_ancient: "Ancient Egypt",
     cat_islamic: "Islamic Egypt",
     cat_coptic: "Coptic Egypt",
-    cat_modern: "Modern Egypt",
+    cat_modern: "Modern & Contemporary History",
     cat_europe: "European History",
     btn_publish_article: "+ Publish New Article",
     book_blog_tag: "Books & Written Content",
@@ -409,7 +409,7 @@ const translations = {
     cat_opt_ancient: "🏛️ Ancient Egypt (تاريخ مصري قديم)",
     cat_opt_islamic: "🕌 Islamic Egypt (تاريخ اسلامي)",
     cat_opt_coptic: "⛪ Coptic Egypt (تاريخ قبطي)",
-    cat_opt_modern: "🏙️ Modern Egypt (تاريخ الحديث و المعاصر)",
+    cat_opt_modern: "🏙️ Modern & Contemporary History (تاريخ الحديث و المعاصر)",
     cat_opt_europe: "🏰 European History (تاريخ أوروبا)",
 
     // Hero
@@ -1929,7 +1929,7 @@ function getCategoryInfo(catKey, lang) {
       badgeClass: 'cat-badge--coptic'
     },
     modern: {
-      label: isAr ? 'تاريخ الحديث و المعاصر' : 'Modern Egypt',
+      label: isAr ? 'تاريخ الحديث و المعاصر' : 'Modern & Contemporary History',
       icon: '🏙️',
       badgeClass: 'cat-badge--modern'
     },
