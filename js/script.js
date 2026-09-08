@@ -1879,6 +1879,22 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء الثاني، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يقدّم فيه دراسة متأنية لتاريخ مصر في العصور الفرعونية التالية، مسلطاً الضوء على ما تلته من أسرات وما ارتبط بها من تطورات سياسية وحضارية.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Two, by the great historian and archaeologist Dr. Salim Hassan, offering a thorough study of the following Pharaonic ages, focusing on the successive dynasties and their political and civilizational developments.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part2.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part3',
+    authorKey: 'selim-hassan',
+    order: 3,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part3-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء الثالث',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Three',
+    excerptAr: 'الجزء الثالث من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، متابعةً تاريخ مصر الفرعونية وحضارتها العريقة في حلقات هذه الموسوعة العلمية الرائدة.',
+    excerptEn: 'Part Three of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, continuing the history and heritage of Pharaonic Egypt in this pioneering scholarly encyclopedia.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء الثالث، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يقدّم فيه دراسة متأنية لتاريخ مصر في العصور الفرعونية المتتابعة، مسلطاً الضوء على ما حملته من تطورات سياسية وحضارية ودينية.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Three, by the great historian and archaeologist Dr. Salim Hassan, offering a thorough study of the successive Pharaonic ages, highlighting their political, civilizational and religious developments.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part3.pdf'
   }
 ];
 
