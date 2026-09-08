@@ -1895,6 +1895,22 @@ const defaultEncyclopediaBooks = [
     contentAr: '<p>موسوعة مصر القديمة — الجزء الثالث، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يقدّم فيه دراسة متأنية لتاريخ مصر في العصور الفرعونية المتتابعة، مسلطاً الضوء على ما حملته من تطورات سياسية وحضارية ودينية.</p>',
     contentEn: '<p>Encyclopedia of Ancient Egypt — Part Three, by the great historian and archaeologist Dr. Salim Hassan, offering a thorough study of the successive Pharaonic ages, highlighting their political, civilizational and religious developments.</p>',
     pdfUrl: 'books/ancient-egypt-encyclopedia-part3.pdf'
+  },
+  {
+    id: 'enc-ancient-egypt-part4',
+    authorKey: 'selim-hassan',
+    order: 4,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part4-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء الرابع: عهد الهكسوس وتأسيس الإمبراطورية',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part Four: The Hyksos Era and the Founding of the Empire',
+    excerptAr: 'الجزء الرابع من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يستعرض عهد الهكسوس وتأسيس الإمبراطورية المصرية، متابعةً تاريخ مصر الفرعونية في واحدة من أخصب مراحلها السياسية والحضارية.',
+    excerptEn: 'Part Four of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, covering the Hyksos era and the founding of the Egyptian empire in one of the richest political and civilizational phases of Pharaonic history.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء الرابع: عهد الهكسوس وتأسيس الإمبراطورية، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يتناول فيه عصر دخول الهكسوس لمصر وطردهم، وقيام الدولة الحديثة وتأسيس الإمبراطورية المصرية العريقة.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part Four: The Hyksos Era and the Founding of the Empire, by the great historian and archaeologist Dr. Salim Hassan, covering the Hyksos entry into Egypt, their expulsion, and the rise of the New Kingdom with the founding of the ancient Egyptian empire.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part4.pdf'
   }
 ];
 
