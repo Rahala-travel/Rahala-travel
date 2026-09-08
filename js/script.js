@@ -1844,17 +1844,66 @@ const encyclopediaAuthors = [
   { key: 'selim-hassan', nameAr: 'د. سليم حسن', nameEn: 'Dr. Salim Hassan', img: 'images/selim-hassan.jpg' }
 ];
 
+// Default Encyclopedia books — always available to every visitor, even before any
+// book is published via the Admin panel. Books reference the author registry via
+// `authorKey` and carry an `order` value so they display in the exact sequence.
+const defaultEncyclopediaBooks = [
+  {
+    id: 'enc-ancient-egypt-part1',
+    authorKey: 'selim-hassan',
+    order: 1,
+    category: 'encyclopedia',
+    authorAr: 'د. سليم حسن',
+    authorEn: 'Dr. Salim Hassan',
+    img: 'images/ancient-egypt-encyclopedia-part1-cover.jpg',
+    titleAr: 'موسوعة مصر القديمة - الجزء الأول',
+    titleEn: 'Encyclopedia of Ancient Egypt - Part One',
+    excerptAr: 'الجزء الأول من موسوعة مصر القديمة للمؤرخ والأثري د. سليم حسن، يستعرض تاريخ مصر الفرعونية وحضارتها العريقة في أولى حلقات هذه الموسوعة العلمية الرائدة.',
+    excerptEn: 'Part One of the Encyclopedia of Ancient Egypt by the historian and archaeologist Dr. Salim Hassan, presenting the history and heritage of Pharaonic Egypt in the first volume of this pioneering scholarly encyclopedia.',
+    contentAr: '<p>موسوعة مصر القديمة — الجزء الأول، من تأليف المؤرخ والأثري الكبير الدكتور سليم حسن، يقدّم فيه دراسة متأنية لتاريخ مصر في العصور الفرعونية، مسلطاً الضوء على الأسرة الأولى وما ارتبط بها من أصول الحضارة المصرية القديمة.</p>',
+    contentEn: '<p>Encyclopedia of Ancient Egypt — Part One, by the great historian and archaeologist Dr. Salim Hassan, offering a thorough study of Egyptian history in the Pharaonic ages, focusing on the First Dynasty and the origins of ancient Egyptian civilization.</p>',
+    pdfUrl: 'books/ancient-egypt-encyclopedia-part1.pdf'
+  }
+];
+
 function getEncyclopediaBooks() {
   try {
     const stored = JSON.parse(localStorage.getItem(encyclopediaStorageKey) || '[]');
-    return Array.isArray(stored) ? stored.filter(b => b && b.category === 'encyclopedia') : [];
+    const base = Array.isArray(stored) ? stored.filter(b => b && b.category === 'encyclopedia') : [];
+    // Always merge the canonical default books back in, so Part 1 is available
+    // even on a fresh browser, alongside any books published via the Admin panel.
+    const acceptedIds = new Set(defaultEncyclopediaBooks.map(b => b && b.id));
+    const rebuilt = defaultEncyclopediaBooks.map(d => {
+      const existing = base.find(b => b && b.id === d.id);
+      // Prefer the canonical server PDF path over an uploaded data: blob.
+      let merged = existing ? Object.assign({}, d, existing) : d;
+      if (d && d.pdfUrl && d.pdfUrl.length > 0 && d.pdfUrl.indexOf('data:') !== 0) {
+        merged = Object.assign({}, merged, { pdfUrl: d.pdfUrl });
+      }
+      return merged;
+    });
+    // Keep any non-default books (admin additions) and persist a clean merged list.
+    const extra = base.filter(b => !acceptedIds.has(b.id));
+    const combined = rebuilt.concat(extra);
+    if (combined.length !== base.length && extra.length === 0) {
+      localStorage.setItem(encyclopediaStorageKey, JSON.stringify(combined));
+    }
+    return combined;
   } catch (error) {
-    return [];
+    return defaultEncyclopediaBooks.slice();
   }
 }
 
 function saveEncyclopediaBooks(books) {
-  localStorage.setItem(encyclopediaStorageKey, JSON.stringify(Array.isArray(books) ? books : []));
+  const merged = defaultEncyclopediaBooks.map(d => {
+    const existing = (books || []).find(b => b && b.id === d.id);
+    let out = existing ? Object.assign({}, d, existing) : d;
+    if (d && d.pdfUrl && d.pdfUrl.length > 0 && d.pdfUrl.indexOf('data:') !== 0) {
+      out = Object.assign({}, out, { pdfUrl: d.pdfUrl });
+    }
+    return out;
+  }).concat((books || []).filter(b => b && !defaultEncyclopediaBooks.some(d => d.id === b.id)));
+  localStorage.setItem(encyclopediaStorageKey, JSON.stringify(Array.isArray(merged) ? merged : []));
 }
 
 function getEncyclopediaAuthor(key) {
