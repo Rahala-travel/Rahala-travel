@@ -1841,7 +1841,7 @@ const encyclopediaStorageKey = 'rahala_encyclopedia_books';
 // Encyclopedia author registry. Each author has a stable key; books reference
 // it via `authorKey` and are displayed in the exact order they are stored.
 const encyclopediaAuthors = [
-  { key: 'selim-hassan', nameAr: 'سليم حسن', nameEn: 'Salim Hassan' }
+  { key: 'selim-hassan', nameAr: 'د. سليم حسن', nameEn: 'Dr. Salim Hassan', img: 'images/selim-hassan.jpg' }
 ];
 
 function getEncyclopediaBooks() {
@@ -1946,9 +1946,12 @@ function renderEncyclopediaAuthorsList(container, isAr) {
   const authors = encyclopediaAuthors.map(author => {
     const bookCount = getEncyclopediaBooksByAuthor(author.key).length;
     const name = isAr ? author.nameAr : author.nameEn;
+    const avatar = author.img
+      ? `<span class="encyclopedia-author-card__avatar" aria-hidden="true"><img src="${escapeContentHtml(author.img)}" alt="" loading="lazy"></span>`
+      : `<span class="encyclopedia-author-card__avatar" aria-hidden="true">📚</span>`;
     return `
       <button type="button" class="encyclopedia-author-card" data-encyclopedia-author="${escapeContentHtml(author.key)}">
-        <span class="encyclopedia-author-card__avatar" aria-hidden="true">📚</span>
+        ${avatar}
         <span class="encyclopedia-author-card__body">
           <strong>${escapeContentHtml(name)}</strong>
           <small>${bookCount} ${isAr ? 'كتاب' : 'books'}</small>
