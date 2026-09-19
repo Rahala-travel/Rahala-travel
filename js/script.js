@@ -697,7 +697,7 @@ const destinationDetails = {
   "islamic-cairo": {
     titleAr: "القاهرة الإسلامية | جوهرة العمارة والتراث",
     titleEn: "Islamic Cairo | Jewel of Medieval Architecture",
-    img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1000&q=80",
+    img: "images/islamic-cairo.jpg",
     tagAr: "عمارة وتراث",
     tagEn: "Architecture & Heritage",
     descAr: "شارع المعز لدين الله الفاطمي وخان الخليلي، حيث تتجمع أعظم مجموعة من الآثار الإسلامية في العالم، من مساجد ومضائف ومدارس وبوابات أثرية تعود للعصور الفاطمية والمملوكية.",
