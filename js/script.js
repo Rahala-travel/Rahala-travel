@@ -802,7 +802,7 @@ const destinationDetails = {
   nubia: {
     titleAr: "النوبة | أرض الذهب والتراث الحي",
     titleEn: "Nubia | Land of Gold & Living Traditions",
-    img: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=1000&q=80",
+    img: "images/nubia.jpg",
     tagAr: "تراث وألوان",
     tagEn: "Heritage & Living Culture",
     descAr: "قرى غرب سهيل وسهل النوبة، حيث المنازل النوبية الملونة بزخارفها المستوحاة من الطبيعة والبيئة، والتقاليد واللغة النوبية الأصيلة وكرم الضيافة الفريد.",
@@ -823,7 +823,7 @@ const destinationDetails = {
   siwa: {
     titleAr: "واحة سيوة | سحر الصحراء وتاريخ الإسكندر",
     titleEn: "Siwa Oasis | Desert Magic & Oracle Temple",
-    img: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+    img: "images/siwa.jpg",
     tagAr: "واحة الأساطير",
     tagEn: "Oasis of Legends",
     descAr: "واحة منعزلة في قلب الصحراء الغربية تحتفظ بهويتها الأمازيغية الفريدة، وتضم معبد الوحي حيث توج الإسكندر الأكبر، وقلعة شالي التاريخية، وبحيرات الملح الطبيعية.",
@@ -844,7 +844,7 @@ const destinationDetails = {
   fayoum: {
     titleAr: "الفيوم | وادي الحيتان والطبيعة الساحرة",
     titleEn: "Fayoum | Wadi Al-Hitan & Scenic Lakes",
-    img: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=1000&q=80",
+    img: "images/fayoum.jpg",
     tagAr: "طبيعة وحفريات",
     tagEn: "Nature & Fossil Heritage",
     descAr: "أقدم وأقرب واحة للقاهرة، تجمع بين التاريخ والحفريات الجيولوجية النادرة في وادي الحيتان المصنف من اليونسكو، وبحيرة قارون، وشلالات وادي الريان، وقرية تونس للفخار.",
@@ -865,7 +865,7 @@ const destinationDetails = {
   dahab: {
     titleAr: "دهب | جنة الغوص وجبال سيناء",
     titleEn: "Dahab | Diving Haven & Sinai Mountain Vistas",
-    img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80",
+    img: "images/dahab.jpg",
     tagAr: "البحر الأحمر وسينا",
     tagEn: "Red Sea & Sinai",
     descAr: "مدينة الاسترخاء والمغامرة على خليج العقبة، تشتهر بموقع البلو هول والكانيون ومحمية أبو جالوم وراس أبو جالوم وبلو لاجون، وسط طبيعة سيناء الخلابة.",
@@ -907,7 +907,7 @@ const destinationDetails = {
   nuweiba: {
     titleAr: "نويبع | سحر الهدوء والشواطئ البكر",
     titleEn: "Nuweiba | Untamed Tranquility & Colored Canyons",
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80",
+    img: "images/nuweiba.jpg",
     tagAr: "هدوء وطبيعة بكر",
     tagEn: "Pristine Serenity",
     descAr: "شواطئ بكر هادئة ومخيمات بيئية على شاطئ خليج العقبة، مع قلاع تاريخية كقلعة نويبع، وقربها من الكانيون الملون ووادي الوشواشي الأسطوري.",
@@ -928,7 +928,7 @@ const destinationDetails = {
   portsaid: {
     titleAr: "بورسعيد | المدينة الباسلة وبوابة القناة",
     titleEn: "Port Said | Heroic Port & Suez Canal Gateway",
-    img: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1000&q=80",
+    img: "images/portsaid.jpg",
     tagAr: "المدخل الشمالي للقناة",
     tagEn: "Suez Canal Gateway",
     descAr: "المدينة التاريخية الواقعة على المدخل الشمالي لقناة السويس، بطرازها المعماري الكولونيالي الإيطالي والفرنسي الخشبي، ومعديات القناة المجانية وتاريخ نضالها الوطني.",
@@ -949,7 +949,7 @@ const destinationDetails = {
   ismailia: {
     titleAr: "الإسماعيلية | مدينة الحدائق وعبق القناة",
     titleEn: "Ismailia | Garden City & Canal History",
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+    img: "images/ismailia.jpg",
     tagAr: "مدينة السحر والجمال",
     tagEn: "The Garden City",
     descAr: "مدينة الحدائق الغناء والشوارع المشجرة على ضفاف بحيرة التمساح، شُيدت إبان حفر قناة السويس وتضم منزل دي لسبس ومتحف آثار الإسماعيلية العريق.",
@@ -970,7 +970,7 @@ const destinationDetails = {
   wadidegla: {
     titleAr: "وادي دجلة | محمية جيولوجية في قلب القاهرة",
     titleEn: "Wadi Degla | Prehistoric Canyon in Cairo",
-    img: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+    img: "images/wadidegla.jpg",
     tagAr: "محمية جيولوجية",
     tagEn: "Geological Canyon",
     descAr: "محمية طبيعية فريدة تقع في منطقة المعادي بالقاهرة، تمتد لأكثر من 60 كيلومتراً وتضم تكوينات جيرية يعود عمرها لملايين السنين، ومسارات هايكنج مميزة.",
