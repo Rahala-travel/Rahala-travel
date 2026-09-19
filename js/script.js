@@ -2490,9 +2490,25 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
     pdfUrl: 'books/story-of-civilization-part22.pdf'
   },
   {
-    id: 'enc-story-of-civilization-part24',
+    id: 'enc-story-of-civilization-part23',
     authorKey: 'will-ariel-durant',
     order: 23,
+    category: 'encyclopedia',
+    authorAr: 'ول وآريل ديورانت',
+    authorEn: 'Will & Ariel Durant',
+    img: 'images/story-of-civilization-part23-cover.jpg',
+    titleAr: 'قصة وتاريخ الحضارات العربية - ج 23',
+    titleEn: 'The Story and History of Arab Civilizations - Vol. 23',
+    excerptAr: 'الجزء الثالث والعشرون من موسوعة قصة الحضارة بقلم ول وآريل ديورانت، المجلد السادس: الإصلاح الديني، يواصل فيه المؤرخان سردهما الرائد لتاريخ الحضارة الإنسانية.',
+    excerptEn: 'Part Twenty-Three of The Story of Civilization by Will and Ariel Durant, Volume VI: The Reformation, continuing their landmark narrative of human history and culture.',
+    contentAr: '<p>قصة وتاريخ الحضارات العربية — ج 23، من سلسلة قصة الحضارة بقلم ول ديورانت وزوجته آريل ديورانت. يقدّم هذا الجزء متابعةً سردية لحركة الإصلاح الديني وتطور المجتمعات الأوروبية في القرن السادس عشر، حيث يمزج المؤلفان بين الدقة التاريخية والأسلوب الأدبي السلس في تأريخ الحضارة الإنسانية.</p>',
+    contentEn: '<p>The Story and History of Arab Civilizations — Vol. 23, from The Story of Civilization series by Will Durant and his wife Ariel Durant. This part continues the narrative of the Protestant Reformation and the evolution of sixteenth-century European societies, blending scholarly precision with fluent literary style in chronicling human civilization.</p>',
+    pdfUrl: 'books/story-of-civilization-part23.pdf'
+  },
+  {
+    id: 'enc-story-of-civilization-part24',
+    authorKey: 'will-ariel-durant',
+    order: 24,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2508,7 +2524,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part25',
     authorKey: 'will-ariel-durant',
-    order: 24,
+    order: 25,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2524,7 +2540,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part26',
     authorKey: 'will-ariel-durant',
-    order: 25,
+    order: 26,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2540,7 +2556,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part27',
     authorKey: 'will-ariel-durant',
-    order: 26,
+    order: 27,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2556,7 +2572,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part28',
     authorKey: 'will-ariel-durant',
-    order: 27,
+    order: 28,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2572,7 +2588,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part29',
     authorKey: 'will-ariel-durant',
-    order: 28,
+    order: 29,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2588,7 +2604,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part30',
     authorKey: 'will-ariel-durant',
-    order: 29,
+    order: 30,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2604,7 +2620,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part31',
     authorKey: 'will-ariel-durant',
-    order: 30,
+    order: 31,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2620,7 +2636,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part32',
     authorKey: 'will-ariel-durant',
-    order: 31,
+    order: 32,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2636,7 +2652,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part33',
     authorKey: 'will-ariel-durant',
-    order: 32,
+    order: 33,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2652,7 +2668,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part34',
     authorKey: 'will-ariel-durant',
-    order: 33,
+    order: 34,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2668,7 +2684,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part35',
     authorKey: 'will-ariel-durant',
-    order: 34,
+    order: 35,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2684,7 +2700,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part36',
     authorKey: 'will-ariel-durant',
-    order: 35,
+    order: 36,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2700,7 +2716,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part37',
     authorKey: 'will-ariel-durant',
-    order: 36,
+    order: 37,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2716,7 +2732,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part38',
     authorKey: 'will-ariel-durant',
-    order: 37,
+    order: 38,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2732,7 +2748,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part39',
     authorKey: 'will-ariel-durant',
-    order: 38,
+    order: 39,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2748,7 +2764,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part40',
     authorKey: 'will-ariel-durant',
-    order: 39,
+    order: 40,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2762,9 +2778,25 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
     pdfUrl: 'books/story-of-civilization-part40.pdf'
   },
   {
+    id: 'enc-story-of-civilization-part41',
+    authorKey: 'will-ariel-durant',
+    order: 41,
+    category: 'encyclopedia',
+    authorAr: 'ول وآريل ديورانت',
+    authorEn: 'Will & Ariel Durant',
+    img: 'images/story-of-civilization-part41-cover.jpg',
+    titleAr: 'قصة الحضارة - المجلد العاشر - الجزء الثالث: الإسلام والشرق السلافي',
+    titleEn: 'The Story of Civilization - Vol. X (Rousseau and Revolution), Part Three: Islam and the Slavic East',
+    excerptAr: 'الجزء الحادي والأربعون من موسوعة قصة الحضارة بقلم ول وآريل ديورانت، المجلد العاشر: روسو والثورة - الإسلام والشرق السلافي والشمال البروتستانتي.',
+    excerptEn: 'Part Forty-One of The Story of Civilization by Will and Ariel Durant, Volume X: Rousseau and Revolution - Islam, the Slavic East and the Protestant North.',
+    contentAr: '<p>قصة الحضارة — المجلد العاشر - الجزء الثالث: الإسلام والشرق السلافي، من تأليف ول ديورانت وزوجته آريل ديورانت. يعرض هذا الجزء صورة الإسلام وحضارته وتأثيره في العالمين الشرقي والغربي، إلى جانب أحوال أوروبا الشرقية السلافية والشمال البروتستانتي، في سردٍ يجمع بين الدقة العلمية والمتعة الأدبية.</p>',
+    contentEn: '<p>The Story of Civilization — Volume X, Part Three: Islam and the Slavic East, by Will Durant and his wife Ariel Durant. This part portrays Islam, its civilization and its influence in both the Eastern and Western worlds, alongside the conditions of Slavic Eastern Europe and the Protestant North, in a narrative uniting scholarly precision with literary appeal.</p>',
+    pdfUrl: 'books/story-of-civilization-part41.pdf'
+  },
+  {
     id: 'enc-story-of-civilization-part42',
     authorKey: 'will-ariel-durant',
-    order: 40,
+    order: 42,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2780,7 +2812,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part43',
     authorKey: 'will-ariel-durant',
-    order: 41,
+    order: 43,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
@@ -2796,7 +2828,7 @@ pdfUrl: 'books/ancient-egypt-encyclopedia-part18.pdf'
   {
     id: 'enc-story-of-civilization-part44',
     authorKey: 'will-ariel-durant',
-    order: 42,
+    order: 44,
     category: 'encyclopedia',
     authorAr: 'ول وآريل ديورانت',
     authorEn: 'Will & Ariel Durant',
