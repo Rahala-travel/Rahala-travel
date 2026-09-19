@@ -760,7 +760,7 @@ const destinationDetails = {
   luxor: {
     titleAr: "الأقصر | طيبة عاصمة الفراعنة العظام",
     titleEn: "Luxor | Ancient Thebes & The Open-Air Museum",
-    img: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=1000&q=80",
+    img: "images/luxor.jpg",
     tagAr: "أعظم متحف مفتوح",
     tagEn: "World's Greatest Open Museum",
     descAr: "عاصمة مصر في عصر الدولة الحديثة، تضم ثلث آثار العالم. معابد الكرنك العظيمة ومعبد الأقصر بالبر الشرقي، ومقابر وادي الملوك ومعبد حتشبسوت بالبر الغربي.",
