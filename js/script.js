@@ -781,7 +781,7 @@ const destinationDetails = {
   aswan: {
     titleAr: "أسوان | بوابة النيل وسحر الجنوب",
     titleEn: "Aswan | Southern Gateway & Nile Cataracts",
-    img: "https://images.unsplash.com/photo-1544885935-98dd03b09034?auto=format&fit=crop&w=1000&q=80",
+    img: "images/aswan.jpg",
     tagAr: "سحر النيل الهادئ",
     tagEn: "Tranquil Nile Magic",
     descAr: "مدينة الجرانيت ومعبد إيزيس في جزيرة فيلة، وسد أسوان العالي، والجزر النيلية المحاطة بالصخور الطبيعية في مشهد بانورامي هادئ ومبهر.",
