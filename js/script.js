@@ -198,7 +198,7 @@ const translations = {
     dest_cairo_desc: "مدينة الألف مئذنة، مهد الحضارات، وموطن المتاحف القومية وأهرامات الجيزة الخالدة.",
     dest_islamic_cairo_title: "القاهرة الإسلامية",
     dest_islamic_cairo_desc: "شارع المعز، خان الخليلي، وبوابات الفاطميين والمماليك حيث تلتقي أعظم روائع العمارة الإسلامية.",
-    dest_old_cairo_title: "مصر القديمة",
+    dest_old_cairo_title: "مجمع الأديان",
     dest_old_cairo_desc: "مجمع الأديان، الكنيسة المعلقة، جامع عمرو بن العاص، وحصن بابليون في تلاحم تاريخي فريد.",
     dest_alex_title: "الإسكندرية",
     dest_alex_desc: "عروس البحر المتوسط، مكتبة الإسكندرية، قلعة قايتباي، والآثار الغارقة ورائحة البحر العتيقة.",
@@ -716,9 +716,9 @@ const destinationDetails = {
     ]
   },
   "old-cairo": {
-    titleAr: "مصر القديمة | مجمع الأديان والتاريخ المشترك",
+    titleAr: "مجمع الأديان | التلاقي والتاريخ المشترك",
     titleEn: "Old Cairo | The Interfaith Complex & Historic Fort",
-    img: "https://images.unsplash.com/photo-1579606032822-1f7df2bcefa8?auto=format&fit=crop&w=1000&q=80",
+    img: "images/religious-complex.jpg",
     tagAr: "مجمع الأديان",
     tagEn: "Interfaith Heritage",
     descAr: "منطقة مجمع الأديان وحصن بابليون الروماني، حيث تتجاور أقدم الكنائس القبطية وجامع عمرو بن العاص أول جامع في إفريقيا ومعبد بن عزرا، في نموذج فريد للتسامح والتاريخ المشترك.",
