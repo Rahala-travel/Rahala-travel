@@ -739,7 +739,7 @@ const destinationDetails = {
   alexandria: {
     titleAr: "الإسكندرية | عروس البحر المتوسط",
     titleEn: "Alexandria | Pearl of the Mediterranean",
-    img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1000&q=80",
+    img: "images/alexandria.jpg",
     tagAr: "عروس المتوسط",
     tagEn: "Mediterranean Heritage",
     descAr: "مدينة الإسكندر الأكبر، منارة الفكر القديم، وعاصمة مصر الهيلينستية والرومانية. تشتهر بقلعة قايتباي المقامة على أطلال الفنار القديم ومكتبة الإسكندرية الحديثة والآثار الغارقة.",
