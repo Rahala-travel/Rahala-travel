@@ -2935,6 +2935,20 @@ function getBookBlogCategoryInfo(category, lang) {
 
 let activeEncyclopediaAuthor = null;
 
+function getMergedBookList(activeCategory) {
+  const historyAuthorKeys = new Set(['selim-hassan', 'will-ariel-durant']);
+  const encyclopedia = getEncyclopediaBooks();
+  if (activeCategory === 'all') {
+    return getBookBlogPosts().concat(encyclopedia);
+  }
+  if (activeCategory === 'history') {
+    return getBookBlogPosts()
+      .filter(post => post.category === 'history')
+      .concat(encyclopedia.filter(b => historyAuthorKeys.has(b.authorKey)));
+  }
+  return getBookBlogPosts().filter(post => post.category === activeCategory);
+}
+
 function renderBookBlogGrid(activeCategory = 'all') {
   const container = document.getElementById('book-blog-grid');
   if (!container) return;
@@ -2947,7 +2961,7 @@ function renderBookBlogGrid(activeCategory = 'all') {
     }
     return;
   }
-  const localBooks = getBookBlogPosts().filter(post => activeCategory === 'all' || post.category === activeCategory);
+  const localBooks = getMergedBookList(activeCategory);
   renderBookBlogCards(container, localBooks, isAr);
   if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) {
     DataService.getPublishedBooks().then(firebaseBooks => {
@@ -2960,7 +2974,7 @@ function renderBookBlogGrid(activeCategory = 'all') {
       if (extra.length) {
         const all = [...current, ...extra];
         saveBookBlogPosts(all);
-        const posts = all.filter(post => activeCategory === 'all' || post.category === activeCategory);
+        const posts = getMergedBookList(activeCategory);
         renderBookBlogCards(container, posts, isAr);
       }
     }).catch(() => {});
