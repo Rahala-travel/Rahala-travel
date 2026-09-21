@@ -1431,11 +1431,14 @@ function initCurrentYear() {
 }
 
 // --------------------------------------------------------------------------
-// 12b. INTERSTITIAL AD
-// Shows once per session at the center of the screen. The ad video plays
-// alone for 10 seconds (no countdown shown); then the skip button appears.
-// Clicking skip (or when the video ends) hides the video and shows the static
-// image with a 5-second countdown, after which the close (X) button appears.
+// 12b. INTERSTITIAL AD — TWO-STAGE SEQUENCE
+// Stage 1 (Video): plays for 30 seconds total. First 10 seconds are mandatory
+// (no skip, no close, no overlay/Escape dismissal). The "Skip Ad" button
+// appears after 10s; if untouched the video runs the full 30s then advances.
+// Stage 2 (Image): shown for 15 seconds total. First 5 seconds are mandatory
+// with no close control; then the X button appears. Untouched, the ad
+// auto-closes after the full 15s. Overlay clicks / Escape never bypass the
+// mandatory periods.
 // --------------------------------------------------------------------------
 function initInterstitialAd() {
   const modal = document.getElementById('ad-modal');
@@ -1447,19 +1450,38 @@ function initInterstitialAd() {
   const countdownNum = document.getElementById('ad-countdown-num');
   const skipBtn = document.getElementById('ad-modal-skip');
   const closeBtn = document.getElementById('ad-modal-close');
-  const SKIP_AFTER_SECONDS = 10;
-  const IMAGE_WAIT_SECONDS = 5;
+  const overlay = document.getElementById('ad-modal-overlay');
+
+  const VIDEO_TOTAL_SECONDS = 30;
+  const VIDEO_SKIP_AFTER_SECONDS = 10;
+  const IMAGE_TOTAL_SECONDS = 15;
+  const IMAGE_CLOSE_AFTER_SECONDS = 5;
 
   let timer = null;
+  let phaseTimers = [];
+  // True only once the image's mandatory 5 seconds have passed, so overlay /
+  // Escape / X can dismiss. Forces viewing otherwise.
+  let canDismiss = false;
 
-  function clearTimer() {
+  function clearIntervalTimer() {
     if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  function clearPhaseTimers() {
+    phaseTimers.forEach(t => clearTimeout(t));
+    phaseTimers = [];
+  }
+
+  function phaseTimeout(fn, ms) {
+    const t = setTimeout(fn, ms);
+    phaseTimers.push(t);
+    return t;
   }
 
   // Countdown helper. When `showNum` is false the circle stays hidden and
   // only the timer runs (used for the silent video phase).
   function countdown(start, onDone, showNum) {
-    clearTimer();
+    clearIntervalTimer();
     if (showNum) {
       countdownEl.hidden = false;
       countdownNum.textContent = start;
@@ -1473,42 +1495,61 @@ function initInterstitialAd() {
         if (showNum) countdownNum.textContent = remaining;
         return;
       }
-      clearTimer();
+      clearIntervalTimer();
       countdownEl.hidden = true;
       onDone();
     }, 1000);
   }
 
-  // Phase 2: show the static image for 5 seconds, then the close (X) button.
+  // Stage 2 — Image advertisement (15s total). The image is shown for 5
+  // mandatory seconds without any close control, then the X button appears.
+  // If untouched, the ad auto-closes after the full 15 seconds.
   function showImagePhase() {
+    clearIntervalTimer();
+    clearPhaseTimers();
+    canDismiss = false;
     if (video) { video.pause(); video.hidden = true; }
     if (image) image.hidden = false;
     skipBtn.hidden = true;
     closeBtn.hidden = true;
-    countdown(IMAGE_WAIT_SECONDS, () => {
+
+    countdown(IMAGE_CLOSE_AFTER_SECONDS, () => {
       closeBtn.hidden = false;
+      canDismiss = true;
     }, true);
+
+    phaseTimeout(closeAd, IMAGE_TOTAL_SECONDS * 1000);
   }
 
-  // Phase 1: play the video alone for 10 seconds, then reveal the skip button.
+  // Stage 1 — Video advertisement (30s total). The first 10 seconds are
+  // mandatory with no skip and no close. The Skip Ad button appears after 10
+  // seconds; otherwise the video runs the full 30 seconds then moves on.
   function openAd() {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    canDismiss = false;
     if (image) image.hidden = true;
-    if (video) video.hidden = false;
+    if (video) { video.hidden = false; video.loop = true; }
     skipBtn.hidden = true;
     closeBtn.hidden = true;
 
-    if (video) video.play().catch(() => {});
+    if (video) {
+      video.play().catch(() => {});
+    }
 
-    countdown(SKIP_AFTER_SECONDS, () => {
+    // No skip button for the first 10 seconds.
+    countdown(VIDEO_SKIP_AFTER_SECONDS, () => {
       skipBtn.hidden = false;
     }, false);
+
+    // Auto-advance to the image after the full 30 seconds.
+    phaseTimeout(showImagePhase, VIDEO_TOTAL_SECONDS * 1000);
   }
 
   function closeAd() {
-    clearTimer();
+    clearIntervalTimer();
+    clearPhaseTimers();
     if (video) video.pause();
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
@@ -1516,10 +1557,17 @@ function initInterstitialAd() {
   }
 
   if (skipBtn) skipBtn.addEventListener('click', showImagePhase);
-  if (closeBtn) closeBtn.addEventListener('click', closeAd);
-  if (video) {
-    video.addEventListener('ended', showImagePhase);
-  }
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    if (canDismiss) closeAd();
+  });
+  if (overlay) overlay.addEventListener('click', () => {
+    if (canDismiss) closeAd();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open') && canDismiss) {
+      closeAd();
+    }
+  });
 
   // Session guard: show the ad only once per browser tab session.
   const SESSION_KEY = 'rahala_ad_seen_session';

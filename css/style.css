@@ -4141,11 +4141,11 @@ body:not(.ticker-dismissed) .header {
 }
 
 /* --------------------------------------------------------------------------
-   INTERSTITIAL AD MODAL
-   Appears at the center of the screen. The ad video plays alone for 10
-   seconds (no countdown shown); then the skip button appears. Clicking skip
-   (or when the video ends) shows the static image for 5 seconds with a
-   countdown, then the close (X) button appears.
+   INTERSTITIAL AD MODAL — TWO-STAGE SEQUENCE
+   Stage 1 (video): 30s total; first 10s mandatory with no skip/close. The
+   "Skip Ad" button appears after 10s, otherwise the video runs the full 30s.
+   Stage 2 (image): 15s total; first 5s mandatory with no close control, then
+   the close (X) button appears. The ad auto-closes after the full 15s.
 -------------------------------------------------------------------------- */
 .ad-modal {
   position: fixed;
