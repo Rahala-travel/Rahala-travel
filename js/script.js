@@ -337,7 +337,11 @@ const translations = {
 
     // Modal
     modal_highlights_title: "أبرز معالم وتجارب الوجهة:",
-    modal_book_btn: "احجز رحلتك لهذه الوجهة عبر واتساب"
+    modal_book_btn: "احجز رحلتك لهذه الوجهة عبر واتساب",
+
+    // Ad
+    ad_skip: "تخطي الإعلان",
+    ad_close: "إغلاق الإعلان"
   },
 
   en: {
@@ -665,7 +669,11 @@ const translations = {
 
     // Modal
     modal_highlights_title: "Destination Highlights & Key Experiences:",
-    modal_book_btn: "Book Your Trip to this Destination via WhatsApp"
+    modal_book_btn: "Book Your Trip to this Destination via WhatsApp",
+
+    // Ad
+    ad_skip: "Skip Ad",
+    ad_close: "Close Ad"
   }
 };
 
@@ -1007,6 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNewsTicker();
   initAdminDashboard();
   handleOpenBookLink();
+  initInterstitialAd();
 });
 
 // Current active language state ('ar' or 'en')
@@ -1419,6 +1428,78 @@ function initCurrentYear() {
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
+}
+
+// --------------------------------------------------------------------------
+// 12b. INTERSTITIAL AD
+// Shows once per session at the center of the screen. The video starts on a
+// poster image with a mandatory 5-second countdown; after that the skip
+// button appears and playback starts. The close (X) button is only revealed
+// once the ad video has ended.
+// --------------------------------------------------------------------------
+function initInterstitialAd() {
+  const modal = document.getElementById('ad-modal');
+  if (!modal) return;
+
+  const video = document.getElementById('ad-video');
+  const countdownEl = document.getElementById('ad-countdown');
+  const countdownNum = document.getElementById('ad-countdown-num');
+  const skipBtn = document.getElementById('ad-modal-skip');
+  const closeBtn = document.getElementById('ad-modal-close');
+  const AD_DURATION_SECONDS = 5;
+
+  function openAd() {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    countdownEl.hidden = false;
+    skipBtn.hidden = true;
+    closeBtn.hidden = true;
+
+    // 1. Mandatory countdown phase (poster image visible, video paused).
+    countdownNum.textContent = AD_DURATION_SECONDS;
+    let remaining = AD_DURATION_SECONDS;
+    const timer = setInterval(() => {
+      remaining -= 1;
+      if (remaining > 0) {
+        countdownNum.textContent = remaining;
+        return;
+      }
+      clearInterval(timer);
+      // 2. Countdown over -> reveal skip button and start the ad video.
+      skipBtn.hidden = false;
+      countdownEl.hidden = true;
+      if (video) {
+        video.play().catch(() => {});
+      }
+    }, 1000);
+  }
+
+  function closeAd() {
+    if (video) video.pause();
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (skipBtn) skipBtn.addEventListener('click', closeAd);
+  if (closeBtn) closeBtn.addEventListener('click', closeAd);
+  if (video) {
+    video.addEventListener('ended', () => {
+      skipBtn.hidden = true;
+      closeBtn.hidden = false;
+    });
+  }
+
+  // Session guard: show the ad only once per browser tab session.
+  const SESSION_KEY = 'rahala_ad_seen_session';
+  try {
+    if (sessionStorage.getItem(SESSION_KEY)) return;
+    sessionStorage.setItem(SESSION_KEY, '1');
+  } catch (e) {}
+
+  // Show shortly after load so the page paints first.
+  setTimeout(openAd, 800);
 }
 
 // --------------------------------------------------------------------------
