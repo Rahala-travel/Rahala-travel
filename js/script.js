@@ -3584,8 +3584,10 @@ function initArticleReaderModal() {
 // 17b. PDF BOOK READER MODAL
 // --------------------------------------------------------------------------
 // PDF.js CDN (works on static/GitHub Pages; loaded lazily only when reading)
-const PDFJS_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
-const PDFJS_WORKER_URL = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+// PDF.js is served locally (no remote CDN) so the book reader always works even
+// when public CDN hosts (e.g. jsdelivr) are slow or blocked on visitor networks.
+const PDFJS_URL = 'js/vendor/pdfjs/pdf.min.js';
+const PDFJS_WORKER_URL = 'js/vendor/pdfjs/pdf.worker.min.js';
 
 // Module-level reader state shared between openPdfReader and the toolbar wiring.
 const PdfReaderState = {
@@ -3691,12 +3693,13 @@ async function startPdfJsReader(url) {
   if (toolbar) toolbar.hidden = true;
   if (fallback) fallback.hidden = true;
   if (loading) { loading.hidden = false; }
+  const loadTimeout = new Promise((_, reject) => setTimeout(() => reject(new Error('pdfjs load timeout')), 12000));
   try {
-    await loadPdfJs();
+    await Promise.race([loadPdfJs(), loadTimeout]);
     if (st.getDocTask) { try { st.getDocTask.destroy(); } catch (e) {} }
-    loading.hidden = true;
+    if (loading) loading.hidden = true;
     st.getDocTask = window.pdfjsLib.getDocument({ url: url });
-    st.pdf = await st.getDocTask.promise;
+    st.pdf = await Promise.race([st.getDocTask.promise, loadTimeout]);
     st.numPages = st.pdf.numPages;
     st.page = 1;
     st.scale = 0;
@@ -3704,12 +3707,17 @@ async function startPdfJsReader(url) {
     if (scroll) scroll.hidden = false;
     await renderCurrentPdfPage();
   } catch (err) {
-    const msg = isAr
-      ? (i18n && i18n.ar && i18n.ar.book_pdf_error)
-      : (i18n && i18n.en && i18n.en.book_pdf_error);
-    showPdfFallback(msg || 'PDF', url);
+    // Any failure (blocked/slow library, load error, render error): fall back to a
+    // native in-page iframe. GitHub Pages serves the PDF as application/pdf so the
+    // browser's own viewer renders it — this always opens, including on mobile.
+    try { if (st.getDocTask) { st.getDocTask.destroy(); } } catch (e) {}
     st.pdf = null;
     st.numPages = 0;
+    if (loading) loading.hidden = true;
+    if (scroll) scroll.hidden = true;
+    if (toolbar) toolbar.hidden = true;
+    if (fallback) fallback.hidden = true;
+    if (viewer) { viewer.hidden = false; viewer.src = url; }
   }
 }
 
