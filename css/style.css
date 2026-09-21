@@ -4141,11 +4141,14 @@ body:not(.ticker-dismissed) .header {
 }
 
 /* --------------------------------------------------------------------------
-   INTERSTITIAL AD MODAL — TWO-STAGE SEQUENCE
-   Stage 1 (video): 30s total; first 10s mandatory with no skip/close. The
-   "Skip Ad" button appears after 10s, otherwise the video runs the full 30s.
-   Stage 2 (image): 15s total; first 5s mandatory with no close control, then
-   the close (X) button appears. The ad auto-closes after the full 15s.
+   INTERSTITIAL AD MODAL — TWO SEPARATE STAGES, NEVER SIMULTANEOUS
+   Stage 1 (video-only popup): 30s total; first 10s mandatory with no skip or
+   close. The "Skip Ad" button appears after 10s, otherwise the video runs the
+   full 30s then the whole video popup is hidden.
+   Stage 2 (image-only popup): a brand-new separate popup with just the image
+   for 15s; first 5s mandatory with no close control, then the close (X)
+   button appears. The ad auto-closes after the full 15s. Both stages share
+   this styling but never appear together on screen.
 -------------------------------------------------------------------------- */
 .ad-modal {
   position: fixed;
