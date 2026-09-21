@@ -1,0 +1,39 @@
+name: Facebook Posts Import
+
+on:
+  schedule:
+    # Run twice a day (UTC). Github Actions schedules are approximate.
+    - cron: '0 6 * * *'
+    - cron: '0 18 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Import Facebook posts → Firebase
+        run: node scripts/fb-import.js
+        env:
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+          FIREBASE_DB_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FB_GRAPH_VERSION: v22.0
+
+      - name: Print current dashboard hint
+        run: |
+          echo "Imported posts live in Firebase node: facebookImports"
+          echo "Admin approval happens in the website admin panel (manual only)."

@@ -134,6 +134,90 @@ const DataService = (() => {
     }
   }
 
+  // ── Facebook Articles Import (manual approval flow) ──
+  const FB_IMPORTS_NODE = 'facebookImports';
+  const FB_META_NODE = 'facebookImportMeta';
+
+  async function getFacebookPosts() {
+    if (!isReady()) return null;
+    try {
+      let data = {};
+      try {
+        const snapshot = await withTimeout(db.ref(FB_IMPORTS_NODE).once('value'), 10000);
+        data = snapshot.val() || {};
+      } catch (err) {
+        console.warn('[DataService] FB imports read failed:', err.message);
+      }
+      const posts = Object.keys(data).map(key => data[key]).filter(Boolean);
+      posts.sort((a, b) => ((b.createdTime || '') > (a.createdTime || '') ? 1 : -1));
+      return posts;
+    } catch (err) {
+      console.warn('[DataService] getFacebookPosts failed:', err.message);
+      return null;
+    }
+  }
+
+  async function getFbImportMeta() {
+    if (!isReady()) return null;
+    try {
+      const snapshot = await withTimeout(db.ref(FB_META_NODE).once('value'), 5000);
+      return snapshot.val() || null;
+    } catch (err) {
+      console.warn('[DataService] getFbImportMeta failed:', err.message);
+      return null;
+    }
+  }
+
+  async function setFbPostStatus(fbId, status, extra = {}) {
+    if (!isReady()) throw new Error('Firebase غير متاح.');
+    const updates = Object.assign({ status }, extra);
+    if (status === 'published') updates.publishedAt = Date.now();
+    if (status === 'rejected') updates.rejectedAt = Date.now();
+    await withTimeout(db.ref(`${FB_IMPORTS_NODE}/${fbId}`).update(updates), 10000);
+  }
+
+  async function updateFbImportedRecord(fbId, record) {
+    if (!isReady()) return null;
+    await withTimeout(db.ref(`${FB_IMPORTS_NODE}/${fbId}`).update(record), 10000);
+    return record;
+  }
+
+  const FB_PUBLISHED_CACHE_KEY = 'rahala_fb_published_articles_cache';
+
+  // Approved/published FB articles for the public blog grid. Merges the live
+  // Firebase node with a local cache so the site keeps working when Firebase
+  // is slow or offline.
+  async function getPublishedFbArticles() {
+    if (!isReady()) return getFbLocalFallback();
+    try {
+      let data = {};
+      try {
+        const snapshot = await withTimeout(db.ref(FB_IMPORTS_NODE).once('value'), 8000);
+        data = snapshot.val() || {};
+      } catch (err) {
+        console.warn('[DataService] FB published read failed:', err.message);
+      }
+      const posts = Object.keys(data).map(key => data[key]).filter(p => p && p.status === 'published');
+      posts.sort((a, b) => ((b.publishedAt || 0) - (a.publishedAt || 0)));
+      saveFbLocalCache(posts);
+      return posts;
+    } catch (err) {
+      console.warn('[DataService] getPublishedFbArticles failed:', err.message);
+      return getFbLocalFallback();
+    }
+  }
+
+  function getFbLocalFallback() {
+    try {
+      const arr = JSON.parse(localStorage.getItem(FB_PUBLISHED_CACHE_KEY) || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch { return []; }
+  }
+
+  function saveFbLocalCache(posts) {
+    try { localStorage.setItem(FB_PUBLISHED_CACHE_KEY, JSON.stringify(posts)); } catch (e) { /* ignore */ }
+  }
+
   function uploadFile(path, dataUrl) {
     return new Promise((resolve, reject) => {
       try {
@@ -182,6 +266,11 @@ const DataService = (() => {
     getPublishedBooks,
     publishBook,
     unpublishBook,
-    isBookPublished
+    isBookPublished,
+    getFacebookPosts,
+    getFbImportMeta,
+    setFbPostStatus,
+    updateFbImportedRecord,
+    getPublishedFbArticles
   };
 })();

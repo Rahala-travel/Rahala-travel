@@ -1016,6 +1016,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminDashboard();
   handleOpenBookLink();
   initInterstitialAd();
+  setTimeout(() => loadFbPublishedPosts(), 2500);
 });
 
 // Current active language state ('ar' or 'en')
@@ -3301,6 +3302,61 @@ function formatArticleDate(dateStr, lang) {
   }
 }
 
+// Approved Facebook articles merged with defaults for the public pages.
+// Never auto-published; only entries with status==='published' (set manually in
+// the admin panel) are shown. Reads from Firebase with a local cache fallback.
+let fbPublishedPostsCache = [];
+let fbPublishedPostsLoaded = false;
+
+function getMergedBlogPosts() {
+  const defaults = getBlogPosts();
+  const fbToArticle = (post) => ({
+    id: 'fb-' + post.fbId,
+    category: post.category || 'ancient',
+    date: post.date || (post.createdTime ? post.createdTime.slice(0, 10) : ''),
+    authorAr: post.authorAr || 'رحّالة عبر التاريخ',
+    authorEn: post.authorEn || 'Rahala Through History',
+    readTimeAr: post.readTimeAr || '4 دقائق قراءة',
+    readTimeEn: post.readTimeEn || '4 min read',
+    img: post.img || post.imageUrl || 'images/logo.jpg',
+    titleAr: post.titleAr || post.title || 'مقال من فيسبوك',
+    titleEn: post.titleEn || post.title || 'Facebook Article',
+    excerptAr: post.excerptAr || post.excerpt || '',
+    excerptEn: post.excerptEn || post.excerpt || '',
+    contentAr: post.contentAr || '',
+    contentEn: post.contentEn || '',
+    fbId: post.fbId,
+    permalink: post.permalink || ''
+  });
+  const fbArticles = fbPublishedPostsCache
+    .filter(p => p && p.status === 'published')
+    .map(fbToArticle);
+  const seen = new Set(defaults.map(p => p.id));
+  const merged = defaults.slice();
+  fbArticles.forEach(a => { if (!seen.has(a.id)) { merged.push(a); seen.add(a.id); } });
+  return merged;
+}
+
+async function loadFbPublishedPosts() {
+  if (fbPublishedPostsLoaded || typeof DataService === 'undefined' || !DataService.getPublishedFbArticles) return;
+  fbPublishedPostsLoaded = true;
+  try {
+    const posts = await Promise.race([
+      DataService.getPublishedFbArticles(),
+      new Promise(resolve => setTimeout(() => resolve(null), 10000))
+    ]);
+    if (Array.isArray(posts)) fbPublishedPostsCache = posts;
+  } catch (err) {
+    console.warn('loadFbPublishedPosts failed:', err.message);
+  }
+  refreshFbPublishedGrid();
+}
+
+function refreshFbPublishedGrid() {
+  if (typeof renderLatestPosts === 'function') renderLatestPosts();
+  if (typeof renderBlogGrid === 'function') renderBlogGrid('all');
+}
+
 // --------------------------------------------------------------------------
 // 14. RENDER LATEST POSTS SECTION
 // --------------------------------------------------------------------------
@@ -3308,7 +3364,7 @@ function renderLatestPosts() {
   const container = document.getElementById('latest-posts-grid');
   if (!container) return;
 
-  const posts = getBlogPosts();
+  const posts = getMergedBlogPosts();
   // Take top 3 most recent posts
   const latest = posts.slice(0, 3);
   const isAr = currentLang === 'ar';
@@ -3370,7 +3426,7 @@ function renderBlogGrid(activeCategory = 'all') {
   const container = document.getElementById('blog-grid');
   if (!container) return;
 
-  const posts = getBlogPosts();
+  const posts = getMergedBlogPosts();
   const filtered = (activeCategory === 'all') 
     ? posts 
     : posts.filter(p => p.category === activeCategory);
@@ -3458,7 +3514,7 @@ function initBlogCategories() {
 // 17. ARTICLE READER MODAL (Open, Populate & View Full Post)
 // --------------------------------------------------------------------------
 function openArticleReader(postId, sourcePosts, isBookBlog = false) {
-  const posts = sourcePosts || getBlogPosts();
+  const posts = sourcePosts || getMergedBlogPosts();
   const post = posts.find(p => p.id === postId);
   if (!post) return;
 
@@ -4327,6 +4383,172 @@ function initAdminDashboard() {
 
   function refreshTickerFrontend() { if (window.__tickerLangCallback) window.__tickerLangCallback(currentLang); }
 
+  // ── FACEBOOK ARTICLES (MANUAL APPROVAL) ──
+  let fbImportsCache = [];
+  let fbRenderBusy = false;
+
+  function fbStatusBadge(status) {
+    if (status === 'pending') return '<span class="fb-status-badge fb-status-badge--pending">قيد المراجعة</span>';
+    if (status === 'published') return '<span class="fb-status-badge fb-status-badge--published">منشور</span>';
+    if (status === 'rejected') return '<span class="fb-status-badge fb-status-badge--rejected">مرفوض</span>';
+    return '<span class="fb-status-badge">' + escapeHtml(status || '') + '</span>';
+  }
+
+  async function loadFbImports() {
+    if (typeof DataService === 'undefined' || !DataService.getFacebookPosts) { fbImportsCache = []; return fbImportsCache; }
+    try {
+      const posts = await Promise.race([
+        DataService.getFacebookPosts(),
+        new Promise(resolve => setTimeout(() => resolve(null), 12000))
+      ]);
+      fbImportsCache = Array.isArray(posts) ? posts : [];
+    } catch (err) {
+      console.warn('loadFbImports failed:', err.message);
+      fbImportsCache = [];
+    }
+    return fbImportsCache;
+  }
+
+  async function renderFbAdmin() {
+    const panel = document.getElementById('admin-fb-panel');
+    if (!panel) return;
+    if (fbRenderBusy) return;
+    fbRenderBusy = true;
+    panel.innerHTML = '<div class="admin-empty">جارِ تحميل مقالات فيسبوك...</div>';
+    await loadFbImports();
+    const meta = (typeof DataService !== 'undefined' && DataService.getFbImportMeta) ? (await Promise.race([DataService.getFbImportMeta(), new Promise(r => setTimeout(() => r(null), 5000))])) : null;
+
+    if (!fbImportsCache.length) {
+      panel.innerHTML = meta && meta.lastSyncAt
+        ? `<div class="admin-empty">لا توجد منشورات مستوردة حتى الآن.<br><small>آخر مزامنة من فيسبوك: ${formatArticleDate(new Date(meta.lastSyncAt).toISOString(), 'ar')} — المجموع: ${meta.total || 0} منشور.</small></div>`
+        : '<div class="admin-empty">لا توجد منشورات مستوردة حتى الآن. يبدأ الاستيراد التلقائي من فيسبوك على جدول زمني، ويكون أي منشور جديد بحالة "قيد المراجعة" هنا.</div>';
+      fbRenderBusy = false;
+      return;
+    }
+
+    const visible = fbImportsCache.filter(p => p.status === 'pending');
+    const published = fbImportsCache.filter(p => p.status === 'published').length;
+    const rejected = fbImportsCache.filter(p => p.status === 'rejected').length;
+
+    const summaryRow = `<div class="fb-summary-row">
+      <span class="fb-summary-item">قيد المراجعة: <strong>${visible.length}</strong></span>
+      <span class="fb-summary-item">منشور: <strong>${published}</strong></span>
+      <span class="fb-summary-item">مرفوض: <strong>${rejected}</strong></span>
+      <span class="fb-summary-item">المجموع: <strong>${fbImportsCache.length}</strong></span>
+      ${meta && meta.lastSyncAt ? `<span class="fb-summary-item fb-summary-item--muted">آخر مزامنة: ${formatArticleDate(new Date(meta.lastSyncAt).toISOString(), 'ar')}</span>` : ''}
+    </div>`;
+
+    if (!visible.length) {
+      panel.innerHTML = summaryRow + '<div class="admin-empty">لا توجد منشورات بانتظار المراجعة. عند وصول منشورات جديدة من فيسبوك ستظهر هنا تلقائياً.</div>';
+      fbRenderBusy = false;
+      return;
+    }
+
+    panel.innerHTML = summaryRow + '<div class="fb-list">' + visible.map(p => {
+      const img = p.imageUrl ? `<img class="fb-card__img" src="${escapeContentHtml(p.imageUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">` : '<div class="fb-card__img fb-card__img--placeholder">لا صورة</div>';
+      const videoTag = p.videoUrl ? `<a class="fb-card__video" href="${escapeContentHtml(p.videoUrl)}" target="_blank" rel="noopener noreferrer">▶ فيديو</a>` : '';
+      const perma = p.permalink ? `<a class="fb-card__link" href="${escapeContentHtml(p.permalink)}" target="_blank" rel="noopener noreferrer">↗ رابط المنشور الأصلي على فيسبوك</a>` : '';
+      const date = p.createdTime ? formatArticleDate(p.createdTime, 'ar') : '';
+      return `<article class="fb-card">
+        ${img}
+        <div class="fb-card__body">
+          <div class="fb-card__top"><h4>${escapeHtml(p.title || 'منشور فيسبوك')}</h4><span class="fb-card__id">${escapeHtml(p.fbId || '')}</span></div>
+          <p class="fb-card__excerpt">${escapeHtml(p.excerpt || p.message || 'لا يوجد نص')}</p>
+          <div class="fb-card__meta">
+            ${date ? `<span>📅 ${date}</span>` : ''}
+            ${p.hasVideo ? '<span>🎬 فيديو</span>' : ''}
+            ${perma ? `<span>${perma}</span>` : ''}
+            ${videoTag}
+          </div>
+          <div class="fb-card__actions">
+            <button type="button" class="btn btn--success btn--sm" data-fb-publish="${escapeHtml(p.fbId)}">نشر المقال</button>
+            <button type="button" class="btn btn--danger btn--sm" data-fb-reject="${escapeHtml(p.fbId)}">رفض</button>
+            <button type="button" class="btn btn--secondary btn--sm" data-fb-preview="${escapeHtml(p.fbId)}">معاينة</button>
+          </div>
+        </div>
+      </article>`;
+    }).join('') + '</div>';
+
+    panel.querySelectorAll('[data-fb-preview]').forEach(btn => btn.addEventListener('click', () => {
+      const post = fbImportsCache.find(p => String(p.fbId) === btn.dataset.fbPreview);
+      if (post) openFbPreviewModal(post);
+    }));
+    panel.querySelectorAll('[data-fb-publish]').forEach(btn => btn.addEventListener('click', async () => {
+      const post = fbImportsCache.find(p => String(p.fbId) === btn.dataset.fbPublish);
+      if (!post) return;
+      if (!confirm('تأكيد نشر هذا المقال على الموقع؟ سيظهر فوراً في قسم مقالات الموقع.')) return;
+      btn.disabled = true;
+      try {
+        const status = await publishFbPostAsArticle(post);
+        if (status) { showToast('تم نشر المقال بنجاح'); renderFbAdmin(); }
+        else { btn.disabled = false; showToast('تعذر النشر — تأكد من اتصال Firebase'); }
+      } catch (err) { btn.disabled = false; showToast('خطأ في النشر: ' + err.message); }
+    }));
+    panel.querySelectorAll('[data-fb-reject]').forEach(btn => btn.addEventListener('click', async () => {
+      const post = fbImportsCache.find(p => String(p.fbId) === btn.dataset.fbReject);
+      if (!post) return;
+      if (!confirm('تأكيد رفض هذا المنشور؟ لن يظهر في الموقع ولن يعاد اقتراحه للمراجعة.')) return;
+      btn.disabled = true;
+      try {
+        await DataService.setFbPostStatus(post.fbId, 'rejected');
+        showToast('تم رفض المنشور'); renderFbAdmin();
+      } catch (err) { btn.disabled = false; showToast('خطأ: ' + err.message); }
+    }));
+
+    fbRenderBusy = false;
+  }
+
+  function openFbPreviewModal(post) {
+    const existing = document.getElementById('fb-preview-modal');
+    if (existing) existing.remove();
+    const modal = document.createElement('div');
+    modal.id = 'fb-preview-modal';
+    modal.className = 'fb-preview-modal';
+    const img = post.imageUrl ? `<img src="${escapeContentHtml(post.imageUrl)}" alt="" loading="lazy" onerror="this.style.display='none'">` : '';
+    const video = post.videoUrl ? `<video src="${escapeContentHtml(post.videoUrl)}" controls preload="metadata"></video>` : '';
+    modal.innerHTML = `<div class="fb-preview-modal__backdrop" data-fb-close></div>
+      <div class="fb-preview-modal__box">
+        <button type="button" class="fb-preview-modal__close" data-fb-close aria-label="إغلاق">×</button>
+        <h3>${escapeHtml(post.title || 'منشور فيسبوك')}</h3>
+        <div class="fb-preview-modal__date">${post.createdTime ? '📅 ' + formatArticleDate(post.createdTime, 'ar') : ''}</div>
+        ${img}
+        ${video}
+        <div class="fb-preview-modal__body">${escapeHtml(post.message || post.excerpt || '')}</div>
+        ${post.permalink ? `<a class="fb-card__link" href="${escapeContentHtml(post.permalink)}" target="_blank" rel="noopener noreferrer">↗ فتح المنشور على فيسبوك</a>` : ''}
+      </div>`;
+    document.body.appendChild(modal);
+    modal.querySelectorAll('[data-fb-close]').forEach(el => el.addEventListener('click', () => modal.remove()));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    document.addEventListener('keydown', function escFb(e) { if (e.key === 'Escape' && document.getElementById('fb-preview-modal')) { document.getElementById('fb-preview-modal').remove(); document.removeEventListener('keydown', escFb); } });
+  }
+
+  async function publishFbPostAsArticle(post) {
+    if (typeof DataService === 'undefined' || !DataService.setFbPostStatus) throw new Error('Firebase غير متاح');
+    const now = new Date().toISOString().slice(0, 10);
+    const articleId = 'fb-' + post.fbId;
+    const contentHtml = `<p>${escapeHtml(post.message || post.excerpt || post.title || '')}</p>`;
+    await DataService.updateFbImportedRecord(post.fbId, {
+      category: 'ancient',
+      date: now,
+      authorAr: 'رحّالة عبر التاريخ',
+      authorEn: 'Rahala Through History',
+      readTimeAr: '4 دقائق قراءة',
+      readTimeEn: '4 min read',
+      img: post.imageUrl || 'images/logo.jpg',
+      titleAr: post.title || 'مقال من فيسبوك',
+      titleEn: post.title || 'Facebook Article',
+      excerptAr: post.excerpt || '',
+      excerptEn: post.excerpt || '',
+      contentAr: contentHtml,
+      contentEn: contentHtml
+    });
+    await DataService.setFbPostStatus(post.fbId, 'published');
+    const published = await (typeof DataService.getPublishedFbArticles === 'function' ? DataService.getPublishedFbArticles() : Promise.resolve([]));
+    try { localStorage.setItem('rahala_fb_published_articles_cache', JSON.stringify(published)); } catch (e) { /* ignore */ }
+    if (typeof refreshFbPublishedGrid === 'function') refreshFbPublishedGrid();
+    return true;
+  }
+
   function populateUserSelect() {
     const sel = document.getElementById('admin-username');
     if (!sel) return;
@@ -4462,7 +4684,7 @@ function initAdminDashboard() {
   }
   document.getElementById('admin-toggle').addEventListener('click', openDashboard);
   document.getElementById('admin-login-close').addEventListener('click', closeDashboard); document.getElementById('admin-close').addEventListener('click', closeDashboard); document.getElementById('admin-back').addEventListener('click', closeDashboard); document.getElementById('admin-overlay').addEventListener('click', closeDashboard);
-  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { const view = button.dataset.adminView; if (view === 'settings' && !isSuperAdmin()) return; if (view === 'sections' && !isSuperAdmin()) return; if (view === 'users' && !isSuperAdmin()) return; document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'sixbooks' ? 'إضافة 6 كتب' : view === 'sections' ? 'أقسام الموقع' : view === 'users' ? 'إدارة المستخدمين' : 'إعدادات الموقع'; }));
+  document.querySelectorAll('[data-admin-view]').forEach(button => button.addEventListener('click', () => { const view = button.dataset.adminView; if (view === 'settings' && !isSuperAdmin()) return; if (view === 'sections' && !isSuperAdmin()) return; if (view === 'users' && !isSuperAdmin()) return; document.querySelectorAll('[data-admin-view]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); document.querySelectorAll('.admin-view').forEach(item => item.hidden = item.id !== `admin-${view}-view`); document.getElementById('admin-view-title').textContent = view === 'overview' ? 'نظرة عامة' : view === 'content' ? 'إدارة المحتوى' : view === 'facebook' ? 'مقالات فيسبوك' : view === 'sixbooks' ? 'إضافة 6 كتب' : view === 'sections' ? 'أقسام الموقع' : view === 'users' ? 'إدارة المستخدمين' : 'إعدادات الموقع'; if (view === 'facebook') renderFbAdmin(); }));
   document.querySelectorAll('[data-admin-create]').forEach(button => button.addEventListener('click', () => { document.querySelector('[data-admin-view="content"]').click(); openForm(button.dataset.adminCreate); }));
   document.getElementById('admin-add-record').addEventListener('click', () => { const selectedType = document.querySelector('[data-admin-type].is-active')?.dataset.adminType || activeType; openForm(selectedType === 'all' ? 'post' : selectedType); });
   document.querySelectorAll('[data-admin-type]').forEach(button => button.addEventListener('click', () => { activeType = button.dataset.adminType; document.querySelectorAll('[data-admin-type]').forEach(item => item.classList.remove('is-active')); button.classList.add('is-active'); renderRecords(); }));

@@ -1705,6 +1705,7 @@
         <nav class="admin-nav" aria-label="أقسام لوحة التحكم">
           <button type="button" class="admin-nav__item is-active" data-admin-view="overview"><span>◈</span> نظرة عامة</button>
           <button type="button" class="admin-nav__item" data-admin-view="content" data-rbac-content><span>▤</span> المحتوى</button>
+          <button type="button" class="admin-nav__item" data-admin-view="facebook" data-rbac-content><span>↥</span> مقالات فيسبوك</button>
           <button type="button" class="admin-nav__item" data-admin-view="sections" data-rbac-sections><span>◫</span> أقسام الموقع</button>
           <button type="button" class="admin-nav__item" data-admin-view="settings" data-rbac-settings><span>⚙</span> إعدادات الموقع</button>
           <button type="button" class="admin-nav__item" data-admin-view="users" data-rbac-users><span>♟</span> إدارة المستخدمين</button>
@@ -1740,6 +1741,11 @@
             <div class="admin-ticker-heading"><div><h3>شريط الأخبار (News Ticker)</h3><p class="admin-muted">إدارة عناصر شريط الأخبار المتحرك في أعلى الصفحة. التغييرات تظهر فوراً.</p></div><button type="button" class="btn btn--primary btn--sm" id="admin-add-ticker">＋ إضافة خبر</button></div>
             <div class="admin-ticker-list" id="admin-ticker-list"></div>
           </div>
+        </div>
+
+        <div class="admin-view" id="admin-facebook-view" hidden>
+          <div class="admin-content-heading"><span>FACEBOOK IMPORT</span><h3>مقالات فيسبوك قيد المراجعة</h3><p>منشورات الصفحة تُستورد تلقائياً بحالة "قيد المراجعة" ولا تُنشر أبداً تلقائياً. وافق يدوياً على كل مقال لنشره، أو ارفضه.</p></div>
+          <div id="admin-fb-panel"></div>
         </div>
 
         <div class="admin-view" id="admin-sections-view" hidden>
