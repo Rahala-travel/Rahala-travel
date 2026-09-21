@@ -1433,9 +1433,9 @@ function initCurrentYear() {
 // --------------------------------------------------------------------------
 // 12b. INTERSTITIAL AD
 // Shows once per session at the center of the screen. The ad video plays
-// first; the skip button only appears after 10 seconds. Clicking skip (or
-// when the video ends) switches to the static image, which stays for 5
-// seconds before the close (X) button is revealed.
+// alone for 10 seconds (no countdown shown); then the skip button appears.
+// Clicking skip (or when the video ends) hides the video and shows the static
+// image with a 5-second countdown, after which the close (X) button appears.
 // --------------------------------------------------------------------------
 function initInterstitialAd() {
   const modal = document.getElementById('ad-modal');
@@ -1456,15 +1456,21 @@ function initInterstitialAd() {
     if (timer) { clearInterval(timer); timer = null; }
   }
 
-  function countdown(start, onDone) {
+  // Countdown helper. When `showNum` is false the circle stays hidden and
+  // only the timer runs (used for the silent video phase).
+  function countdown(start, onDone, showNum) {
     clearTimer();
-    countdownNum.textContent = start;
-    countdownEl.hidden = false;
+    if (showNum) {
+      countdownEl.hidden = false;
+      countdownNum.textContent = start;
+    } else {
+      countdownEl.hidden = true;
+    }
     let remaining = start;
     timer = setInterval(() => {
       remaining -= 1;
       if (remaining > 0) {
-        countdownNum.textContent = remaining;
+        if (showNum) countdownNum.textContent = remaining;
         return;
       }
       clearTimer();
@@ -1473,7 +1479,7 @@ function initInterstitialAd() {
     }, 1000);
   }
 
-  // Phase 2: show the static image, then reveal the close (X) button.
+  // Phase 2: show the static image for 5 seconds, then the close (X) button.
   function showImagePhase() {
     if (video) { video.pause(); video.hidden = true; }
     if (image) image.hidden = false;
@@ -1481,10 +1487,10 @@ function initInterstitialAd() {
     closeBtn.hidden = true;
     countdown(IMAGE_WAIT_SECONDS, () => {
       closeBtn.hidden = false;
-    });
+    }, true);
   }
 
-  // Phase 1: play the video. Skip button appears after 10 seconds.
+  // Phase 1: play the video alone for 10 seconds, then reveal the skip button.
   function openAd() {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
@@ -1498,7 +1504,7 @@ function initInterstitialAd() {
 
     countdown(SKIP_AFTER_SECONDS, () => {
       skipBtn.hidden = false;
-    });
+    }, false);
   }
 
   function closeAd() {

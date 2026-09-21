@@ -4142,10 +4142,10 @@ body:not(.ticker-dismissed) .header {
 
 /* --------------------------------------------------------------------------
    INTERSTITIAL AD MODAL
-   Appears at the center of the screen. The ad video plays first; the skip
-   button is revealed only after 10 seconds. Clicking skip (or when the video
-   ends) shows the static image for 5 seconds, then the close (X) button
-   appears.
+   Appears at the center of the screen. The ad video plays alone for 10
+   seconds (no countdown shown); then the skip button appears. Clicking skip
+   (or when the video ends) shows the static image for 5 seconds with a
+   countdown, then the close (X) button appears.
 -------------------------------------------------------------------------- */
 .ad-modal {
   position: fixed;
