@@ -4142,10 +4142,10 @@ body:not(.ticker-dismissed) .header {
 
 /* --------------------------------------------------------------------------
    INTERSTITIAL AD MODAL
-   Appears at the center of the screen. First 5 seconds are mandatory (the
-   poster image shows with a live countdown). After that the skip button is
-   revealed, and the ad video starts playing. The close (X) button is shown
-   only once the ad video has finished.
+   Appears at the center of the screen. The ad video plays first; the skip
+   button is revealed only after 10 seconds. Clicking skip (or when the video
+   ends) shows the static image for 5 seconds, then the close (X) button
+   appears.
 -------------------------------------------------------------------------- */
 .ad-modal {
   position: fixed;
@@ -4190,6 +4190,14 @@ body:not(.ticker-dismissed) .header {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  background: #000;
+}
+
+.ad-modal__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
   background: #000;
 }
 

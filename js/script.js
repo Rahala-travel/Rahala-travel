@@ -1432,63 +1432,87 @@ function initCurrentYear() {
 
 // --------------------------------------------------------------------------
 // 12b. INTERSTITIAL AD
-// Shows once per session at the center of the screen. The video starts on a
-// poster image with a mandatory 5-second countdown; after that the skip
-// button appears and playback starts. The close (X) button is only revealed
-// once the ad video has ended.
+// Shows once per session at the center of the screen. The ad video plays
+// first; the skip button only appears after 10 seconds. Clicking skip (or
+// when the video ends) switches to the static image, which stays for 5
+// seconds before the close (X) button is revealed.
 // --------------------------------------------------------------------------
 function initInterstitialAd() {
   const modal = document.getElementById('ad-modal');
   if (!modal) return;
 
   const video = document.getElementById('ad-video');
+  const image = document.getElementById('ad-image');
   const countdownEl = document.getElementById('ad-countdown');
   const countdownNum = document.getElementById('ad-countdown-num');
   const skipBtn = document.getElementById('ad-modal-skip');
   const closeBtn = document.getElementById('ad-modal-close');
-  const AD_DURATION_SECONDS = 5;
+  const SKIP_AFTER_SECONDS = 10;
+  const IMAGE_WAIT_SECONDS = 5;
 
-  function openAd() {
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+  let timer = null;
+
+  function clearTimer() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  function countdown(start, onDone) {
+    clearTimer();
+    countdownNum.textContent = start;
     countdownEl.hidden = false;
-    skipBtn.hidden = true;
-    closeBtn.hidden = true;
-
-    // 1. Mandatory countdown phase (poster image visible, video paused).
-    countdownNum.textContent = AD_DURATION_SECONDS;
-    let remaining = AD_DURATION_SECONDS;
-    const timer = setInterval(() => {
+    let remaining = start;
+    timer = setInterval(() => {
       remaining -= 1;
       if (remaining > 0) {
         countdownNum.textContent = remaining;
         return;
       }
-      clearInterval(timer);
-      // 2. Countdown over -> reveal skip button and start the ad video.
-      skipBtn.hidden = false;
+      clearTimer();
       countdownEl.hidden = true;
-      if (video) {
-        video.play().catch(() => {});
-      }
+      onDone();
     }, 1000);
   }
 
+  // Phase 2: show the static image, then reveal the close (X) button.
+  function showImagePhase() {
+    if (video) { video.pause(); video.hidden = true; }
+    if (image) image.hidden = false;
+    skipBtn.hidden = true;
+    closeBtn.hidden = true;
+    countdown(IMAGE_WAIT_SECONDS, () => {
+      closeBtn.hidden = false;
+    });
+  }
+
+  // Phase 1: play the video. Skip button appears after 10 seconds.
+  function openAd() {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (image) image.hidden = true;
+    if (video) video.hidden = false;
+    skipBtn.hidden = true;
+    closeBtn.hidden = true;
+
+    if (video) video.play().catch(() => {});
+
+    countdown(SKIP_AFTER_SECONDS, () => {
+      skipBtn.hidden = false;
+    });
+  }
+
   function closeAd() {
+    clearTimer();
     if (video) video.pause();
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  if (skipBtn) skipBtn.addEventListener('click', closeAd);
+  if (skipBtn) skipBtn.addEventListener('click', showImagePhase);
   if (closeBtn) closeBtn.addEventListener('click', closeAd);
   if (video) {
-    video.addEventListener('ended', () => {
-      skipBtn.hidden = true;
-      closeBtn.hidden = false;
-    });
+    video.addEventListener('ended', showImagePhase);
   }
 
   // Session guard: show the ad only once per browser tab session.
