@@ -18,7 +18,7 @@ const https = require('https');
 const crypto = require('crypto');
 
 const PAGE_ID = process.env.FB_PAGE_ID || '61551718626171';
-const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN;
 const DB_URL = (process.env.FIREBASE_DB_URL || '').replace(/\/+$/, '');
 const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
