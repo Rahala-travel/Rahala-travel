@@ -17,8 +17,14 @@
 const https = require('https');
 const crypto = require('crypto');
 
+const APP_ID = process.env.FB_APP_ID || '';
+const APP_SECRET = process.env.FB_APP_SECRET || '';
 const PAGE_ID = process.env.FB_PAGE_ID || '61551718626171';
-const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN;
+
+// The token is resolved lazily in resolveToken(): app credentials mint a
+// long-lived user token, which is then exchanged for a never-expiring page
+// token. Only an explicitly provided token overrides that.
+let TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN || '';
 const DB_URL = (process.env.FIREBASE_DB_URL || '').replace(/\/+$/, '');
 const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
@@ -28,9 +34,48 @@ const MAX_PAGES = Number(process.env.FB_MAX_PAGES || 30);
 const IMPORTS_NODE = 'facebookImports';
 const META_NODE = 'facebookImportMeta';
 
-if (!TOKEN || !DB_URL) {
-  console.error('[fb-import] Missing required env: FB_PAGE_ACCESS_TOKEN and FIREBASE_DB_URL.');
+if ((!TOKEN && !(APP_ID && APP_SECRET)) || !DB_URL) {
+  console.error('[fb-import] Missing required env: FB_APP_ID + FB_APP_SECRET (or FB_PAGE_ACCESS_TOKEN) and FIREBASE_DB_URL.');
   process.exit(1);
+}
+
+// ── Token resolution ────────────────────────────────────────────────────────
+// Preferred path: derive a page access token from the app's own credentials so
+// nothing ever has to be copied by hand and nothing is stored outside GitHub.
+//   1) long-lived user token  = oauth/access_token?grant_type=fb_exchange_token
+//   2) page token             = /{app_id}/accounts?fields=access_token
+async function resolveToken() {
+  if (TOKEN) return TOKEN;
+  if (!APP_ID || !APP_SECRET) {
+    throw new Error('No usable Facebook token: set FB_APP_ID + FB_APP_SECRET, or FB_PAGE_ACCESS_TOKEN.');
+  }
+  const short = await httpJson(`https://graph.facebook.com/oauth/access_token?client_id=${encodeURIComponent(APP_ID)}&client_secret=${encodeURIComponent(APP_SECRET)}`);
+  if (!short.access_token) throw new Error(`App token exchange failed: ${short.error ? short.error.message : 'no access_token returned'}`);
+  const longRes = await httpJson(`https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=${encodeURIComponent(APP_ID)}&client_secret=${encodeURIComponent(APP_SECRET)}&fb_exchange_token=${encodeURIComponent(short.access_token)}`);
+  const userToken = longRes.access_token;
+  if (!userToken) throw new Error(`Long-lived token exchange failed: ${longRes.error ? longRes.error.message : 'no access_token returned'}`);
+
+  const acc = await httpJson(`https://graph.facebook.com/${GRAPH_VERSION}/me/accounts?fields=id,name,access_token&access_token=${encodeURIComponent(userToken)}`);
+  if (!acc.data || !acc.data.length) {
+    const msg = acc.error ? `${acc.error.message} (code=${acc.error.code})` : 'no pages returned';
+    throw new Error(`me/accounts returned nothing: ${msg}`);
+  }
+  // Prefer the configured page; otherwise fall back to the first page.
+  let page = acc.data.find(p => String(p.id) === String(PAGE_ID));
+  if (!page) {
+    page = acc.data[0];
+    console.log(`[fb-import] Configured FB_PAGE_ID not accessible; using discovered page id=${page.id} name=${page.name}`);
+  }
+  if (!page.access_token) throw new Error('Page access_token missing from me/accounts.');
+  TOKEN = page.access_token;
+  console.log(`[fb-import] Using page '${page.name}' (id=${page.id})`);
+  return TOKEN;
+}
+
+function httpJson(url) {
+  return httpsRequest(url).then(res => {
+    try { return JSON.parse(res.body || '{}'); } catch (e) { return { error: { message: `HTTP ${res.status}: ${res.body.slice(0, 200)}` } }; }
+  });
 }
 
 // ── HTTPS helpers ───────────────────────────────────────────────────────────
@@ -187,6 +232,7 @@ function calcStats(records) {
 }
 
 async function main() {
+  await resolveToken();
   console.log(`[fb-import] Fetching posts for page ${PAGE_ID} (max ${MAX_PAGES} pages)...`);
   const posts = await fetchAllPosts();
   console.log(`[fb-import] Fetched ${posts.length} posts.`);
