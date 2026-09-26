@@ -25,7 +25,6 @@ const PAGE_ID = process.env.FB_PAGE_ID || '61551718626171';
 // long-lived user token, which is then exchanged for a never-expiring page
 // token. Only an explicitly provided token overrides that.
 let TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN || '';
-const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
 
 function parseSa() {
@@ -52,19 +51,24 @@ function looksLikeUrl(v) {
 }
 
 const ENV_DB_URL = String(process.env.FIREBASE_DB_URL || '').trim().replace(/\s+/g, '');
+const ENV_DB_SECRET = String(process.env.FIREBASE_DB_SECRET || '').trim().replace(/\s+/g, '');
 const SA = parseSa();
 const SA_PROJECT_ID = SA && SA.project_id ? String(SA.project_id) : '';
-// A Firebase project id is not a secret; anything else in the DB URL slot is treated
-// as untrusted and never logged.
-const DB_URL_SOURCE = looksLikeUrl(ENV_DB_URL)
-  ? 'FIREBASE_DB_URL'
-  : (SA_PROJECT_ID ? 'FIREBASE_SERVICE_ACCOUNT.project_id' : 'none');
-const DB_URL = looksLikeUrl(ENV_DB_URL)
-  ? ENV_DB_URL.replace(/\/+$/, '')
-  : (SA_PROJECT_ID ? `https://${SA_PROJECT_ID}.firebaseio.com` : '');
 
-// Prefer the service-account (Bearer) auth: it is self-contained and does not depend
-// on the legacy database secret, which is a common source of swapped secrets.
+// The two Firebase secrets are very easy to enter in each other's slot. If the
+// DB_URL slot does not look like a URL but the DB_SECRET slot does, they are swapped:
+// use the URL from the secret slot and the secret from the url slot. No value is logged.
+const SECRETS_SWAPPED = Boolean(ENV_DB_URL) && Boolean(ENV_DB_SECRET) && !looksLikeUrl(ENV_DB_URL) && looksLikeUrl(ENV_DB_SECRET);
+
+const RESOLVED_DB_URL = SECRETS_SWAPPED
+  ? ENV_DB_SECRET
+  : (looksLikeUrl(ENV_DB_URL) ? ENV_DB_URL : (SA_PROJECT_ID ? `https://${SA_PROJECT_ID}.firebaseio.com` : ''));
+
+const DB_URL = RESOLVED_DB_URL.replace(/\/+$/, '');
+const DB_SECRET = SECRETS_SWAPPED ? ENV_DB_URL : ENV_DB_SECRET;
+
+// Bearer auth is only possible with a complete, parsable service account; otherwise
+// fall back to the legacy ?auth= database secret.
 const USE_SA = Boolean(SA_PROJECT_ID);
 
 const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v22.0';
@@ -73,10 +77,12 @@ const MAX_PAGES = Number(process.env.FB_MAX_PAGES || 30);
 const IMPORTS_NODE = 'facebookImports';
 const META_NODE = 'facebookImportMeta';
 
-console.log(`[fb-import] Firebase db url source: ${DB_URL_SOURCE} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
+const urlSource = SECRETS_SWAPPED ? 'FIREBASE_DB_SECRET (swapped)' : (looksLikeUrl(ENV_DB_URL) ? 'FIREBASE_DB_URL' : (SA_PROJECT_ID ? 'service account project_id' : 'none'));
+console.log(`[fb-import] Firebase db url source: ${urlSource} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
 console.log(`[fb-import] FIREBASE_SERVICE_ACCOUNT: ${describeSa(SA)}`);
-console.log(`[fb-import] FIREBASE_DB_URL: ${ENV_DB_URL ? (looksLikeUrl(ENV_DB_URL) ? 'looks like a URL' : `NOT a URL (${ENV_DB_URL.length} chars, ignored)`) : 'missing'}`);
+console.log(`[fb-import] FIREBASE_DB_URL: ${ENV_DB_URL ? `present (${ENV_DB_URL.length} chars, ${looksLikeUrl(ENV_DB_URL) ? 'is a URL' : 'NOT a URL'})` : 'missing'}`);
 console.log(`[fb-import] FIREBASE_DB_SECRET: ${DB_SECRET ? `present (${DB_SECRET.length} chars)` : 'missing'}`);
+if (SECRETS_SWAPPED) console.log('[fb-import] NOTE: FIREBASE_DB_URL and FIREBASE_DB_SECRET appear to be swapped; corrected automatically. Consider re-saving them in the right slots.');
 
 if ((!TOKEN && !(APP_ID && APP_SECRET)) || !DB_URL) {
   console.error('[fb-import] Missing required env: FB_APP_ID + FB_APP_SECRET (or FB_PAGE_ACCESS_TOKEN) and a usable Firebase database URL.');
