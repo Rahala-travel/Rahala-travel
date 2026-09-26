@@ -28,9 +28,23 @@ let TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN || '
 const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
 
-function saProjectId() {
-  if (!SA_JSON) return '';
-  try { return JSON.parse(SA_JSON).project_id || ''; } catch { return ''; }
+function parseSa() {
+  if (!SA_JSON) return null;
+  try {
+    let v = JSON.parse(SA_JSON);
+    if (typeof v === 'string') { try { v = JSON.parse(v); } catch { return null; } }
+    return v && typeof v === 'object' ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+// Shape only: key names and lengths, never values.
+function describeSa(sa) {
+  if (!SA_JSON) return 'missing';
+  if (!sa) return `unparsable (${SA_JSON.length} chars)`;
+  const has = k => (sa[k] ? `yes(${String(sa[k]).length})` : 'NO');
+  return `ok project_id=${has('project_id')} client_email=${has('client_email')} private_key=${has('private_key')}`;
 }
 
 function looksLikeUrl(v) {
@@ -38,7 +52,8 @@ function looksLikeUrl(v) {
 }
 
 const ENV_DB_URL = String(process.env.FIREBASE_DB_URL || '').trim().replace(/\s+/g, '');
-const SA_PROJECT_ID = saProjectId();
+const SA = parseSa();
+const SA_PROJECT_ID = SA && SA.project_id ? String(SA.project_id) : '';
 // A Firebase project id is not a secret; anything else in the DB URL slot is treated
 // as untrusted and never logged.
 const DB_URL_SOURCE = looksLikeUrl(ENV_DB_URL)
@@ -140,7 +155,7 @@ async function getRtdbToken() {
   if (!SA_JSON) throw new Error('Provide FIREBASE_DB_SECRET or FIREBASE_SERVICE_ACCOUNT.');
   if (cachedToken && cachedTokenExp > Math.floor(Date.now() / 1000) + 60) return cachedToken;
 
-  const sa = typeof SA_JSON === 'string' ? JSON.parse(SA_JSON) : SA_JSON;
+  const sa = SA;
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };
   const claims = {
@@ -275,6 +290,7 @@ function calcStats(records) {
 
 async function main() {
   console.log(`[fb-import] Firebase db url source: ${DB_URL_SOURCE} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
+  console.log(`[fb-import] FIREBASE_SERVICE_ACCOUNT: ${describeSa(SA)}`);
   await resolveToken();
   console.log(`[fb-import] Fetching posts for page ${PAGE_ID} (max ${MAX_PAGES} pages)...`);
   const posts = await fetchAllPosts();
