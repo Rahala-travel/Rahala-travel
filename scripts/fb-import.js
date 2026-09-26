@@ -272,7 +272,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function fetchAllPosts() {
   const posts = [];
-  let url = `${PAGE_ID}/posts?fields=id,created_time,message,permalink_url,full_picture&limit=100`;
+  let url = `${PAGE_ID}/posts?fields=id,message,created_time,full_picture,permalink_url&limit=100`;
   let pages = 0;
   while (url && pages < MAX_PAGES) {
     pages++;
