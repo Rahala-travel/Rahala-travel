@@ -73,8 +73,13 @@ const MAX_PAGES = Number(process.env.FB_MAX_PAGES || 30);
 const IMPORTS_NODE = 'facebookImports';
 const META_NODE = 'facebookImportMeta';
 
+console.log(`[fb-import] Firebase db url source: ${DB_URL_SOURCE} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
+console.log(`[fb-import] FIREBASE_SERVICE_ACCOUNT: ${describeSa(SA)}`);
+console.log(`[fb-import] FIREBASE_DB_URL: ${ENV_DB_URL ? (looksLikeUrl(ENV_DB_URL) ? 'looks like a URL' : `NOT a URL (${ENV_DB_URL.length} chars, ignored)`) : 'missing'}`);
+console.log(`[fb-import] FIREBASE_DB_SECRET: ${DB_SECRET ? `present (${DB_SECRET.length} chars)` : 'missing'}`);
+
 if ((!TOKEN && !(APP_ID && APP_SECRET)) || !DB_URL) {
-  console.error('[fb-import] Missing required env: FB_APP_ID + FB_APP_SECRET (or FB_PAGE_ACCESS_TOKEN) and FIREBASE_DB_URL.');
+  console.error('[fb-import] Missing required env: FB_APP_ID + FB_APP_SECRET (or FB_PAGE_ACCESS_TOKEN) and a usable Firebase database URL.');
   process.exit(1);
 }
 
@@ -289,8 +294,6 @@ function calcStats(records) {
 }
 
 async function main() {
-  console.log(`[fb-import] Firebase db url source: ${DB_URL_SOURCE} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
-  console.log(`[fb-import] FIREBASE_SERVICE_ACCOUNT: ${describeSa(SA)}`);
   await resolveToken();
   console.log(`[fb-import] Fetching posts for page ${PAGE_ID} (max ${MAX_PAGES} pages)...`);
   const posts = await fetchAllPosts();
