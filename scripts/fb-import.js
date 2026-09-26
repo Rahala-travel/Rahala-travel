@@ -50,7 +50,10 @@ async function resolveToken() {
     throw new Error('No usable Facebook token: set FB_APP_ID + FB_APP_SECRET, or FB_PAGE_ACCESS_TOKEN.');
   }
   const short = await httpJson(`https://graph.facebook.com/oauth/access_token?client_id=${encodeURIComponent(APP_ID)}&client_secret=${encodeURIComponent(APP_SECRET)}`);
-  if (!short.access_token) throw new Error(`App token exchange failed: ${short.error ? short.error.message : 'no access_token returned'}`);
+  if (!short.access_token) {
+    const detail = short.error ? `${short.error.message} (code=${short.error.code})` : 'no access_token returned';
+    throw new Error(`App token exchange failed: ${detail}. App credentials cannot mint a token on their own — a page token from FB_PAGE_ACCESS_TOKEN is required.`);
+  }
   const longRes = await httpJson(`https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=${encodeURIComponent(APP_ID)}&client_secret=${encodeURIComponent(APP_SECRET)}&fb_exchange_token=${encodeURIComponent(short.access_token)}`);
   const userToken = longRes.access_token;
   if (!userToken) throw new Error(`Long-lived token exchange failed: ${longRes.error ? longRes.error.message : 'no access_token returned'}`);
