@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install --no-save --no-audit --no-fund firebase-admin@12
+
       - name: Import Facebook posts → Firebase
         run: node scripts/fb-import.js
         env:
@@ -34,6 +37,7 @@ jobs:
           FIREBASE_DB_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           FB_GRAPH_VERSION: v22.0
+          FB_COPY_IMAGES: 'true'
 
       - name: Print current dashboard hint
         run: |

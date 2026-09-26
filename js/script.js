@@ -4482,6 +4482,7 @@ function initAdminDashboard() {
       if (post) openFbPreviewModal(post);
     }));
     panel.querySelectorAll('[data-fb-publish]').forEach(btn => btn.addEventListener('click', async () => {
+      if (!hasPermission('content.edit')) { showToast('ليس لديك صلاحية نشر المحتوى'); return; }
       const post = fbImportsCache.find(p => String(p.fbId) === btn.dataset.fbPublish);
       if (!post) return;
       if (!confirm('تأكيد نشر هذا المقال على الموقع؟ سيظهر فوراً في قسم مقالات الموقع.')) return;
@@ -4493,6 +4494,7 @@ function initAdminDashboard() {
       } catch (err) { btn.disabled = false; showToast('خطأ في النشر: ' + err.message); }
     }));
     panel.querySelectorAll('[data-fb-reject]').forEach(btn => btn.addEventListener('click', async () => {
+      if (!hasPermission('content.edit')) { showToast('ليس لديك صلاحية رفض المحتوى'); return; }
       const post = fbImportsCache.find(p => String(p.fbId) === btn.dataset.fbReject);
       if (!post) return;
       if (!confirm('تأكيد رفض هذا المنشور؟ لن يظهر في الموقع ولن يعاد اقتراحه للمراجعة.')) return;
@@ -4537,12 +4539,12 @@ function initAdminDashboard() {
     const contentHtml = `<p>${escapeHtml(post.message || post.excerpt || post.title || '')}</p>`;
     await DataService.updateFbImportedRecord(post.fbId, {
       category: 'ancient',
-      date: now,
+      date: post.createdTime ? String(post.createdTime).slice(0, 10) : now,
       authorAr: 'رحّالة عبر التاريخ',
       authorEn: 'Rahala Through History',
       readTimeAr: '4 دقائق قراءة',
       readTimeEn: '4 min read',
-      img: post.imageUrl || 'images/logo.jpg',
+      img: post.imageStored || post.imageUrl || 'images/logo.jpg',
       titleAr: post.title || 'مقال من فيسبوك',
       titleEn: post.title || 'Facebook Article',
       excerptAr: post.excerpt || '',

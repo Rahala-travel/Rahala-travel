@@ -260,12 +260,89 @@ function normalizeRecord(post) {
     title: deriveTitle(post),
     excerpt: deriveExcerpt(post),
     message: post.message || '',
-    imageUrl: pickImage(post),
+    imageUrl: post.imageStored || pickImage(post),
+    imageStored: post.imageStored || '',
+    imageCdnUrl: pickImage(post),
     videoUrl: pickVideo(post),
     permalink: post.permalink_url || `https://www.facebook.com/${post.id}`,
     createdTime: post.created_time || '',
     hasVideo: Boolean(pickVideo(post))
   };
+}
+
+// ── Permanent image copies ──────────────────────────────────────────────────
+// Facebook CDN links (scontent.*.fbcdn.net) are signed and expire, so a published
+// article would end up with a broken image. Copy each picture into Firebase Storage
+// once and store the permanent URL. Best-effort: any problem keeps the CDN link.
+let storageBucket = null;
+let storageChecked = false;
+
+function extFromContentType(ct) {
+  const t = String(ct || '').toLowerCase();
+  if (t.includes('png')) return 'png';
+  if (t.includes('gif')) return 'gif';
+  if (t.includes('webp')) return 'webp';
+  return 'jpg';
+}
+
+async function getStorageBucket() {
+  if (storageChecked) return storageBucket;
+  storageChecked = true;
+  if (!SA) return null;
+  if (process.env.FB_COPY_IMAGES === 'false') return null;
+  try {
+    const admin = require('firebase-admin');
+    if (!admin.apps.length) {
+      admin.initializeApp({ credential: admin.credential.cert(SA), databaseURL: DB_URL });
+    }
+    storageBucket = admin.storage().bucket();
+    console.log(`[fb-import] image mirroring: enabled (bucket ${storageBucket.name})`);
+  } catch (err) {
+    console.log(`[fb-import] image mirroring: unavailable (${err.message.split('\n')[0]}) — keeping Facebook CDN links`);
+    storageBucket = null;
+  }
+  return storageBucket;
+}
+
+function downloadBinary(url) {
+  return new Promise(resolve => {
+    https.get(url, res => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        return resolve(downloadBinary(res.headers.location));
+      }
+      if (res.statusCode !== 200) { res.resume(); return resolve(null); }
+      const chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => resolve({ body: Buffer.concat(chunks), type: res.headers['content-type'] || '' }));
+      res.on('error', () => resolve(null));
+    }).on('error', () => resolve(null));
+  });
+}
+
+async function mirrorImage(post) {
+  const bucket = await getStorageBucket();
+  if (!bucket) return '';
+  const src = pickImage(post);
+  if (!src) return '';
+  try {
+    const ext = (src.match(/\.(jpe?g|png|webp|gif)(?:$|\?)/i) || [, 'jpg'])[1].toLowerCase();
+    const dest = `facebook-images/${String(post.id).replace(/[^\w-]/g, '_')}.${ext}`;
+    const file = bucket.file(dest);
+    const [exists] = await file.exists();
+    if (exists) {
+      await file.makePublic();
+      return `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/${encodeURI(dest)}`;
+    }
+    const bin = await downloadBinary(src);
+    if (!bin || !bin.body.length) return '';
+    await file.save(bin.body, { resumable: false, contentType: bin.type || 'image/jpeg', metadata: { contentType: bin.type || 'image/jpeg' } });
+    await file.makePublic();
+    return `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/${encodeURI(dest)}`;
+  } catch (err) {
+    console.log(`[fb-import] image mirror failed for ${post.id}: ${err.message.split('\n')[0]}`);
+    return '';
+  }
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -318,6 +395,8 @@ async function main() {
   for (const post of posts) {
     const id = String(post.id);
     const current = existing[id];
+    post.imageStored = (current && current.imageStored) || '';
+    if (!post.imageStored) post.imageStored = await mirrorImage(post);
     const record = normalizeRecord(post);
     if (!current) {
       record.status = 'pending'; // never auto-publish
