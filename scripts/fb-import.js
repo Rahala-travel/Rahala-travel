@@ -97,8 +97,15 @@ function httpsRequest(url, options = {}, body = null) {
 }
 
 function fbRequest(path, params = {}) {
-  const qs = new URLSearchParams({ ...params, access_token: TOKEN }).toString();
-  return httpsRequest(`https://graph.facebook.com/${GRAPH_VERSION}/${path}?${qs}`);
+  // `path` may already carry a query string (fields/limit, or a paging.next URL).
+  // Merge into it instead of appending a second "?" which would swallow the token.
+  const [rawPath, rawQuery] = String(path).split('?');
+  const query = new URLSearchParams(rawQuery || '');
+  query.delete('access_token');
+  query.delete('appsecret_proof');
+  for (const [k, v] of Object.entries(params)) query.set(k, v);
+  query.set('access_token', TOKEN);
+  return httpsRequest(`https://graph.facebook.com/${GRAPH_VERSION}/${rawPath}?${query.toString()}`);
 }
 
 let cachedToken = null;
@@ -221,7 +228,16 @@ async function fetchAllPosts() {
     if (body.error) throw new Error(`Graph API error: ${body.error.message} (${body.error.type || '#'}) code=${body.error.code}`);
     if (!body.data) break;
     posts.push(...body.data);
-    url = body.paging && body.paging.next ? body.paging.next.replace(`https://graph.facebook.com/${GRAPH_VERSION}/`, '') : null;
+    const next = body.paging && body.paging.next;
+    if (!next) { url = null; break; }
+    try {
+      const u = new URL(next);
+      const prefix = `/${GRAPH_VERSION}/`;
+      const p = u.pathname.startsWith(prefix) ? u.pathname.slice(prefix.length) : u.pathname.replace(/^\//, '');
+      url = u.search ? `${p}?${u.searchParams.toString()}` : p;
+    } catch {
+      url = String(next).replace(`https://graph.facebook.com/${GRAPH_VERSION}/`, '');
+    }
     if (!url) break;
     await sleep(350); // be gentle with rate limits
   }
