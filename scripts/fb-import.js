@@ -225,8 +225,9 @@ async function fetchAllPosts() {
     pages++;
     const res = await fbRequest(url);
     const body = JSON.parse(res.body || '{}');
-    if (body.error) throw new Error(`Graph API error: ${body.error.message} (${body.error.type || '#'}) code=${body.error.code}`);
+    if (body.error) throw new Error(`Graph API error on page ${pages}: ${body.error.message} (${body.error.type || '#'}) code=${body.error.code}`);
     if (!body.data) break;
+    console.log(`[fb-import] page ${pages}: HTTP ${res.status}, ${body.data.length} posts (total ${posts.length + body.data.length})`);
     posts.push(...body.data);
     const next = body.paging && body.paging.next;
     if (!next) { url = null; break; }
