@@ -25,27 +25,33 @@ const PAGE_ID = process.env.FB_PAGE_ID || '61551718626171';
 // long-lived user token, which is then exchanged for a never-expiring page
 // token. Only an explicitly provided token overrides that.
 let TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN || '';
-const DB_URL = normalizeDbUrl(process.env.FIREBASE_DB_URL || '');
-
-function normalizeDbUrl(value) {
-  const raw = String(value).trim().replace(/\s+/g, '');
-  if (!raw) return '';
-  const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw.replace(/^\/+/, '')}`;
-  return withScheme.replace(/\/+$/, '');
-}
-
-// Logs scheme+host+path only, so a misconfigured secret is debuggable without leaking it.
-function describeUrl(u) {
-  try {
-    const p = new URL(u);
-    return `${p.protocol}//${p.host}${p.pathname}`;
-  } catch {
-    return `INVALID(${String(u).replace(/[^a-z0-9.:/_-]/gi, '').slice(0, 40)})`;
-  }
-}
-
 const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
+
+function saProjectId() {
+  if (!SA_JSON) return '';
+  try { return JSON.parse(SA_JSON).project_id || ''; } catch { return ''; }
+}
+
+function looksLikeUrl(v) {
+  return /^https?:\/\//i.test(v) || /^[\w-]+(?:\.[\w-]+)+(?::\d+)?(?:\/.+)?$/.test(v);
+}
+
+const ENV_DB_URL = String(process.env.FIREBASE_DB_URL || '').trim().replace(/\s+/g, '');
+const SA_PROJECT_ID = saProjectId();
+// A Firebase project id is not a secret; anything else in the DB URL slot is treated
+// as untrusted and never logged.
+const DB_URL_SOURCE = looksLikeUrl(ENV_DB_URL)
+  ? 'FIREBASE_DB_URL'
+  : (SA_PROJECT_ID ? 'FIREBASE_SERVICE_ACCOUNT.project_id' : 'none');
+const DB_URL = looksLikeUrl(ENV_DB_URL)
+  ? ENV_DB_URL.replace(/\/+$/, '')
+  : (SA_PROJECT_ID ? `https://${SA_PROJECT_ID}.firebaseio.com` : '');
+
+// Prefer the service-account (Bearer) auth: it is self-contained and does not depend
+// on the legacy database secret, which is a common source of swapped secrets.
+const USE_SA = Boolean(SA_PROJECT_ID);
+
 const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v22.0';
 const MAX_PAGES = Number(process.env.FB_MAX_PAGES || 30);
 
@@ -130,7 +136,7 @@ let cachedToken = null;
 let cachedTokenExp = 0;
 
 async function getRtdbToken() {
-  if (DB_SECRET) return null; // legacy ?auth= secret path
+  if (!USE_SA) return null; // legacy ?auth= secret path
   if (!SA_JSON) throw new Error('Provide FIREBASE_DB_SECRET or FIREBASE_SERVICE_ACCOUNT.');
   if (cachedToken && cachedTokenExp > Math.floor(Date.now() / 1000) + 60) return cachedToken;
 
@@ -171,21 +177,21 @@ async function getRtdbToken() {
 }
 
 async function rtdbRead(path) {
-  const url = `${DB_URL}/${path}.json${DB_SECRET ? `?auth=${encodeURIComponent(DB_SECRET)}` : ''}`;
+  const url = `${DB_URL}/${path}.json${USE_SA || !DB_SECRET ? '' : `?auth=${encodeURIComponent(DB_SECRET)}`}`;
   const options = { method: 'GET', headers: {} };
-  if (!DB_SECRET) options.headers.Authorization = `Bearer ${await getRtdbToken()}`;
+  if (USE_SA) options.headers.Authorization = `Bearer ${await getRtdbToken()}`;
   const res = await httpsRequest(url, options);
-  if (res.status >= 400) throw new Error(`RTDB GET ${path} → ${res.status}: ${res.body}`);
+  if (res.status >= 400) throw new Error(`RTDB GET ${path} → ${res.status}: ${String(res.body).slice(0, 300)}`);
   try { return JSON.parse(res.body || 'null'); } catch { return null; }
 }
 
 async function rtdbPut(path, data) {
-  const url = `${DB_URL}/${path}.json${DB_SECRET ? `?auth=${encodeURIComponent(DB_SECRET)}` : ''}`;
+  const url = `${DB_URL}/${path}.json${USE_SA || !DB_SECRET ? '' : `?auth=${encodeURIComponent(DB_SECRET)}`}`;
   const body = JSON.stringify(data);
   const options = { method: 'PUT', headers: { 'Content-Type': 'application/json' } };
-  if (!DB_SECRET) options.headers.Authorization = `Bearer ${await getRtdbToken()}`;
+  if (USE_SA) options.headers.Authorization = `Bearer ${await getRtdbToken()}`;
   const res = await httpsRequest(url, options, body);
-  if (res.status >= 400) throw new Error(`RTDB PUT ${path} → ${res.status}: ${res.body}`);
+  if (res.status >= 400) throw new Error(`RTDB PUT ${path} → ${res.status}: ${String(res.body).slice(0, 300)}`);
   return res;
 }
 
@@ -268,7 +274,7 @@ function calcStats(records) {
 }
 
 async function main() {
-  console.log(`[fb-import] Firebase target: ${describeUrl(`${DB_URL}/${IMPORTS_NODE}.json`)} (auth: ${DB_SECRET ? 'db secret' : SA_JSON ? 'service account' : 'NONE'})`);
+  console.log(`[fb-import] Firebase db url source: ${DB_URL_SOURCE} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
   await resolveToken();
   console.log(`[fb-import] Fetching posts for page ${PAGE_ID} (max ${MAX_PAGES} pages)...`);
   const posts = await fetchAllPosts();
