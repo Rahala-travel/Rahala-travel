@@ -25,7 +25,25 @@ const PAGE_ID = process.env.FB_PAGE_ID || '61551718626171';
 // long-lived user token, which is then exchanged for a never-expiring page
 // token. Only an explicitly provided token overrides that.
 let TOKEN = process.env.FB_PAGE_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN || '';
-const DB_URL = (process.env.FIREBASE_DB_URL || '').replace(/\/+$/, '');
+const DB_URL = normalizeDbUrl(process.env.FIREBASE_DB_URL || '');
+
+function normalizeDbUrl(value) {
+  const raw = String(value).trim().replace(/\s+/g, '');
+  if (!raw) return '';
+  const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw.replace(/^\/+/, '')}`;
+  return withScheme.replace(/\/+$/, '');
+}
+
+// Logs scheme+host+path only, so a misconfigured secret is debuggable without leaking it.
+function describeUrl(u) {
+  try {
+    const p = new URL(u);
+    return `${p.protocol}//${p.host}${p.pathname}`;
+  } catch {
+    return `INVALID(${String(u).replace(/[^a-z0-9.:/_-]/gi, '').slice(0, 40)})`;
+  }
+}
+
 const DB_SECRET = process.env.FIREBASE_DB_SECRET || '';
 const SA_JSON = process.env.FIREBASE_SERVICE_ACCOUNT || '';
 const GRAPH_VERSION = process.env.FB_GRAPH_VERSION || 'v22.0';
@@ -250,6 +268,7 @@ function calcStats(records) {
 }
 
 async function main() {
+  console.log(`[fb-import] Firebase target: ${describeUrl(`${DB_URL}/${IMPORTS_NODE}.json`)} (auth: ${DB_SECRET ? 'db secret' : SA_JSON ? 'service account' : 'NONE'})`);
   await resolveToken();
   console.log(`[fb-import] Fetching posts for page ${PAGE_ID} (max ${MAX_PAGES} pages)...`);
   const posts = await fetchAllPosts();
