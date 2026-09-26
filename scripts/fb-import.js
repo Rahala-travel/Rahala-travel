@@ -60,9 +60,12 @@ const SA_PROJECT_ID = SA && SA.project_id ? String(SA.project_id) : '';
 // use the URL from the secret slot and the secret from the url slot. No value is logged.
 const SECRETS_SWAPPED = Boolean(ENV_DB_URL) && Boolean(ENV_DB_SECRET) && !looksLikeUrl(ENV_DB_URL) && looksLikeUrl(ENV_DB_SECRET);
 
+// Last-resort fallback: the site's own public config already ships the RTDB host.
+const SITE_DB_URL = 'https://rhala-a3d4c-default-rtdb.asia-southeast1.firebasedatabase.app';
+
 const RESOLVED_DB_URL = SECRETS_SWAPPED
   ? ENV_DB_SECRET
-  : (looksLikeUrl(ENV_DB_URL) ? ENV_DB_URL : (SA_PROJECT_ID ? `https://${SA_PROJECT_ID}.firebaseio.com` : ''));
+  : (looksLikeUrl(ENV_DB_URL) ? ENV_DB_URL : (SA_PROJECT_ID ? `https://${SA_PROJECT_ID}.firebaseio.com` : SITE_DB_URL));
 
 const DB_URL = RESOLVED_DB_URL.replace(/\/+$/, '');
 const DB_SECRET = SECRETS_SWAPPED ? ENV_DB_URL : ENV_DB_SECRET;
@@ -77,7 +80,9 @@ const MAX_PAGES = Number(process.env.FB_MAX_PAGES || 30);
 const IMPORTS_NODE = 'facebookImports';
 const META_NODE = 'facebookImportMeta';
 
-const urlSource = SECRETS_SWAPPED ? 'FIREBASE_DB_SECRET (swapped)' : (looksLikeUrl(ENV_DB_URL) ? 'FIREBASE_DB_URL' : (SA_PROJECT_ID ? 'service account project_id' : 'none'));
+const urlSource = SECRETS_SWAPPED ? 'FIREBASE_DB_SECRET (swapped)'
+  : (looksLikeUrl(ENV_DB_URL) ? 'FIREBASE_DB_URL'
+    : (SA_PROJECT_ID ? 'service account project_id' : 'js/firebase-config.js (built-in fallback)'));
 console.log(`[fb-import] Firebase db url source: ${urlSource} | project_id: ${SA_PROJECT_ID || 'unknown'} | auth: ${USE_SA ? 'service account (Bearer)' : DB_SECRET ? 'db secret' : 'NONE'}`);
 console.log(`[fb-import] FIREBASE_SERVICE_ACCOUNT: ${describeSa(SA)}`);
 console.log(`[fb-import] FIREBASE_DB_URL: ${ENV_DB_URL ? `present (${ENV_DB_URL.length} chars, ${looksLikeUrl(ENV_DB_URL) ? 'is a URL' : 'NOT a URL'})` : 'missing'}`);
