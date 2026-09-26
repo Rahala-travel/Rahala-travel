@@ -172,19 +172,17 @@ async function rtdbPut(path, data) {
 }
 
 // ── Business helpers ────────────────────────────────────────────────────────
+// NOTE: the `attachments` expansion is not requestable for this app (Graph returns
+// #10 "Page Public Content Access"), so media is derived from full_picture and
+// from video links present in the post message.
 function pickImage(post) {
-  if (post.full_picture) return post.full_picture;
-  const attach = post.attachments && post.attachments.data && post.attachments.data[0];
-  if (attach) {
-    if (attach.media && attach.media.image && attach.media.image.src) return attach.media.image.src;
-    if (attach.url && /\.(jpe?g|png|webp|gif)(\?|$)/.test(attach.url)) return attach.url;
-  }
-  return '';
+  return post.full_picture || '';
 }
 
 function pickVideo(post) {
-  const attach = post.attachments && post.attachments.data && post.attachments.data[0];
-  if (attach && attach.media && attach.media.source) return attach.media.source;
+  const msg = post.message || '';
+  const link = msg.match(/https?:\/\/[^\s]+/);
+  if (link && /\.(mp4|mov|webm)(\?|$)|\/watch\?v=|youtu\.be\//i.test(link[0])) return link[0];
   return '';
 }
 
@@ -211,7 +209,7 @@ function normalizeRecord(post) {
     videoUrl: pickVideo(post),
     permalink: post.permalink_url || `https://www.facebook.com/${post.id}`,
     createdTime: post.created_time || '',
-    hasVideo: Boolean(post.attachments && post.attachments.data && post.attachments.data.some(a => a.media_type === 'video'))
+    hasVideo: Boolean(pickVideo(post))
   };
 }
 
@@ -219,7 +217,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function fetchAllPosts() {
   const posts = [];
-  let url = `${PAGE_ID}/posts?fields=id,created_time,message,permalink_url,full_picture,attachments{media_type,title,url,media{image,source}}&limit=100`;
+  let url = `${PAGE_ID}/posts?fields=id,created_time,message,permalink_url,full_picture&limit=100`;
   let pages = 0;
   while (url && pages < MAX_PAGES) {
     pages++;
