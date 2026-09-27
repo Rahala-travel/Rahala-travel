@@ -31,6 +31,9 @@ const DB_URL = (looksLikeUrl(ENV_DB_URL) ? ENV_DB_URL : SITE_DB_URL).replace(/\/
 const DB_SECRET = ENV_DB_SECRET;
 const DB_URL_SOURCE = looksLikeUrl(ENV_DB_URL) ? 'FIREBASE_DB_URL' : 'built-in site host';
 
+const AUTHOR_LABELS = ['Author', 'الكاتب', 'بقلم', 'كتابة', 'إعداد', 'اعداد'];
+// "كتابة: ..." and "كتابة/ ..." are both used in the source notebooks.
+const AUTHOR_SEP = '[:：/]';
 const CATEGORY_MAP = {
   'تاريخ مصري قديم': 'ancient',
   'تاريخ اسلامي': 'islamic',
@@ -90,10 +93,11 @@ function stripMarkers(line) {
   return line.replace(/^\s*[*_#>\-]+\s*/, '').replace(/[*_`]+/g, '').trim();
 }
 
-function headerField(line, labels) {
+function headerField(line, labels, seps) {
   const clean = stripMarkers(line);
+  const group = seps || '[:：]';
   for (const label of labels) {
-    const re = new RegExp(`^${label}\\s*[:：]\\s*(.+)$`, 'i');
+    const re = new RegExp(`^${label}\\s*(?:${group})\\s*(.+)$`, 'i');
     const m = clean.match(re);
     if (m) return m[1].trim();
   }
@@ -108,7 +112,7 @@ function parseHeader(lines) {
   for (let i = 0; i < lines.length; i++) {
     const t = headerField(lines[i], ['Title', 'العنوان', 'اسم المقال']);
     const d = headerField(lines[i], ['Publication Date', 'Publish Date', 'Date', 'تاريخ النشر', 'تاريخ']);
-    const a = headerField(lines[i], ['Author', 'الكاتب', 'بقلم', 'كتابة', 'إعداد', 'اعداد']);
+    const a = headerField(lines[i], AUTHOR_LABELS, AUTHOR_SEP);
     if (t) { title = t; bodyStart = i + 1; continue; }
     if (d) { date = d; bodyStart = i + 1; continue; }
     if (a) { author = a; bodyStart = i + 1; continue; }
@@ -125,7 +129,7 @@ function splitTrailingAuthor(body) {
     const clean = stripMarkers(lines[i]);
     if (!clean) continue;
     if (/^[.ـ\-–—\s]+$/.test(clean)) { lines.splice(i, 1); continue; }
-    const author = headerField(lines[i], ['Author', 'الكاتب', 'بقلم', 'كتابة', 'إعداد', 'اعداد']);
+    const author = headerField(lines[i], AUTHOR_LABELS, AUTHOR_SEP);
     if (author) { lines.splice(i, 1); return { author, body: lines.join('\n') }; }
     break;
   }
