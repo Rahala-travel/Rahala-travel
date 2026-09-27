@@ -19,8 +19,17 @@ const IMAGE_OUT_DIR = path.join(ROOT, 'images', 'posts');
 const RTDB_NODE = 'blogPosts';
 const DRY_RUN = process.argv.includes('--dry-run');
 
-const DB_URL = (String(process.env.FIREBASE_DB_URL || '').trim().replace(/\s+/g, '').replace(/\/+$/, ''));
-const DB_SECRET = String(process.env.FIREBASE_DB_SECRET || '').trim().replace(/\s+/g, '');
+const ENV_DB_URL = String(process.env.FIREBASE_DB_URL || '').trim().replace(/\s+/g, '');
+const ENV_DB_SECRET = String(process.env.FIREBASE_DB_SECRET || '').trim().replace(/\s+/g, '');
+
+// The repository's FIREBASE_DB_URL secret holds a non-URL value, so the same
+// resolution scripts/fb-import.js uses is applied here: only accept the secret
+// when it really looks like a URL, otherwise use the site's known RTDB host.
+const SITE_DB_URL = 'https://rhala-a3d4c-default-rtdb.asia-southeast1.firebasedatabase.app';
+const looksLikeUrl = v => /^https?:\/\/[\w.-]+/i.test(v);
+const DB_URL = (looksLikeUrl(ENV_DB_URL) ? ENV_DB_URL : SITE_DB_URL).replace(/\/+$/, '');
+const DB_SECRET = ENV_DB_SECRET;
+const DB_URL_SOURCE = looksLikeUrl(ENV_DB_URL) ? 'FIREBASE_DB_URL' : 'built-in site host';
 
 const CATEGORY_MAP = {
   'تاريخ مصري قديم': 'ancient',
@@ -204,6 +213,7 @@ async function main() {
   // Verify the database credentials up front, so a bad secret fails immediately
   // with a clear message instead of looking like "nothing to import".
   if (!DRY_RUN) {
+    console.log(`[fas] db host source: ${DB_URL_SOURCE} | auth: ${DB_SECRET ? 'db secret' : 'NONE'}`);
     const before = await rtdbRead(RTDB_NODE);
     console.log(`[fas] ${RTDB_NODE} currently holds ${before ? Object.keys(before).length : 0} record(s)`);
   }
