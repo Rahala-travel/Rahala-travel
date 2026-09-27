@@ -1445,6 +1445,14 @@ function initCurrentYear() {
 // The two stages never coexist on screen: Video alone -> gone -> Image alone.
 // --------------------------------------------------------------------------
 function initInterstitialAd() {
+  // ── AD TOGGLES ────────────────────────────────────────────────────────────
+  // Flip these two lines to switch a stage on or off. Nothing is deleted: the
+  // markup in index.html, the video file, and every line of the stage code stay
+  // in place, so re-enabling is just setting the flag back to true.
+  const AD_VIDEO_ENABLED = false; // Stage 1 — the mp4 advert
+  const AD_IMAGE_ENABLED = true;  // Stage 2 — the jpeg advert
+  // ───────────────────────────────────────────────────────────────────────────
+
   const videoModal = document.getElementById('ad-modal');
   const imageModal = document.getElementById('ad-image-modal');
   if (!videoModal || !imageModal) return;
@@ -1548,6 +1556,18 @@ function initInterstitialAd() {
 
   // Stage 1 — Video ONLY. Plays 30s; first 10s mandatory, then Skip Ad.
   function openAd() {
+    // Disabled stage: skip straight past it without touching the stage code.
+    if (!AD_VIDEO_ENABLED) {
+      if (AD_IMAGE_ENABLED) { startImageStage(); return; }
+      unlockBodyScroll();
+      return;
+    }
+    if (!AD_IMAGE_ENABLED) {
+      // Video only: never advance to an image stage that is switched off.
+      showVideoModal();
+      if (video) video.play().catch(() => {});
+      return;
+    }
     clearAllTimers();
     skipBtn.hidden = true;
     imgCloseBtn.hidden = true;
@@ -1585,6 +1605,12 @@ function initInterstitialAd() {
       dismissImage();
     }
   });
+
+  // While stage 1 is off, stop the browser downloading the file. This is a runtime
+  // setting only — the preload="auto" attribute in index.html is left untouched.
+  if (video) video.preload = AD_VIDEO_ENABLED ? 'auto' : 'none';
+
+  if (!AD_VIDEO_ENABLED && !AD_IMAGE_ENABLED) return;
 
   // Session guard: show the ad only once per browser tab session.
   const SESSION_KEY = 'rahala_ad_seen_session';
