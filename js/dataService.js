@@ -184,6 +184,41 @@ const DataService = (() => {
 
   const FB_PUBLISHED_CACHE_KEY = 'rahala_fb_published_articles_cache';
 
+  const FAS_NODE = 'blogPosts';
+  const FAS_CACHE_KEY = 'rahala_fas_articles_cache';
+
+  // Articles imported from the "post fas" folder by scripts/import-fas-posts.js.
+  // They are already in final site shape (titleAr/contentAr/date/...), so the blog
+  // grid uses them as-is. Cached locally so the site still works offline.
+  async function getFasArticles() {
+    if (!isReady()) return getFasLocalFallback();
+    try {
+      let data = {};
+      try {
+        const snapshot = await withTimeout(db.ref(FAS_NODE).once('value'), 8000);
+        data = snapshot.val() || {};
+      } catch (err) {
+        console.warn('[DataService] post fas read failed:', err.message);
+      }
+      const posts = Object.keys(data).map(key => data[key]).filter(p => p && p.id);
+      posts.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+      try { localStorage.setItem(FAS_CACHE_KEY, JSON.stringify(posts)); } catch (e) {}
+      return posts;
+    } catch (err) {
+      console.warn('[DataService] getFasArticles failed:', err.message);
+      return getFasLocalFallback();
+    }
+  }
+
+  function getFasLocalFallback() {
+    try {
+      const arr = JSON.parse(localStorage.getItem(FAS_CACHE_KEY) || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   // Approved/published FB articles for the public blog grid. Merges the live
   // Firebase node with a local cache so the site keeps working when Firebase
   // is slow or offline.
@@ -271,6 +306,7 @@ const DataService = (() => {
     getFbImportMeta,
     setFbPostStatus,
     updateFbImportedRecord,
-    getPublishedFbArticles
+    getPublishedFbArticles,
+    getFasArticles
   };
 })();

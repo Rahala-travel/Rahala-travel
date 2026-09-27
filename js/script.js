@@ -1017,6 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleOpenBookLink();
   initInterstitialAd();
   setTimeout(() => loadFbPublishedPosts(), 2500);
+setTimeout(() => loadFasPosts(), 3000);
 });
 
 // Current active language state ('ar' or 'en')
@@ -3318,7 +3319,16 @@ function getCategoryInfo(catKey, lang) {
 // Format Date Helper
 function formatArticleDate(dateStr, lang) {
   if (!dateStr) return '';
-  const dateObj = new Date(dateStr);
+  // A plain YYYY-MM-DD is treated as a local calendar date. Passing it straight to
+  // new Date() makes it UTC midnight, which renders as the previous day for anyone
+  // west of Greenwich and would alter the original publication date.
+  let dateObj;
+  const plain = String(dateStr).trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (plain) {
+    dateObj = new Date(Number(plain[1]), Number(plain[2]) - 1, Number(plain[3]));
+  } else {
+    dateObj = new Date(dateStr);
+  }
   if (isNaN(dateObj.getTime())) return dateStr;
   
   if (lang === 'ar') {
@@ -3360,7 +3370,51 @@ function getMergedBlogPosts() {
   const seen = new Set(defaults.map(p => p.id));
   const merged = defaults.slice();
   fbArticles.forEach(a => { if (!seen.has(a.id)) { merged.push(a); seen.add(a.id); } });
+  // Articles imported from the "post fas" folder. Already in site shape, and their
+  // date is the original publication date supplied by the author.
+  fasPostsCache.forEach(a => {
+    if (!a || !a.id || seen.has(a.id)) return;
+    merged.push({
+      id: a.id,
+      category: a.category || 'ancient',
+      date: a.date || '',
+      dateOriginal: a.dateOriginal || '',
+      authorAr: a.authorAr || 'رحّالة عبر التاريخ',
+      authorEn: a.authorEn || 'Rahala Through History',
+      readTimeAr: a.readTimeAr || '4 دقائق قراءة',
+      readTimeEn: a.readTimeEn || '4 min read',
+      img: a.img || 'images/logo.jpg',
+      titleAr: a.titleAr || '',
+      titleEn: a.titleEn || a.titleAr || '',
+      excerptAr: a.excerptAr || '',
+      excerptEn: a.excerptEn || a.excerptAr || '',
+      contentAr: a.contentAr || '',
+      contentEn: a.contentEn || a.contentAr || '',
+      source: 'post-fas'
+    });
+    seen.add(a.id);
+  });
   return merged;
+}
+
+// Articles from the "post fas" folder, stored in Firebase by
+// scripts/import-fas-posts.js. Public for every visitor, with a local cache fallback.
+let fasPostsCache = [];
+
+async function loadFasPosts() {
+  if (typeof DataService === 'undefined' || !DataService.getFasArticles) return;
+  try {
+    const posts = await Promise.race([
+      DataService.getFasArticles(),
+      new Promise(resolve => setTimeout(() => resolve(null), 10000))
+    ]);
+    if (Array.isArray(posts) && posts.length) {
+      fasPostsCache = posts;
+      refreshFbPublishedGrid();
+    }
+  } catch (err) {
+    console.warn('loadFasPosts failed:', err.message);
+  }
 }
 
 async function loadFbPublishedPosts() {
