@@ -103,16 +103,33 @@ function headerField(line, labels) {
 function parseHeader(lines) {
   let title = '';
   let date = '';
+  let author = '';
   let bodyStart = 0;
   for (let i = 0; i < lines.length; i++) {
     const t = headerField(lines[i], ['Title', 'العنوان', 'اسم المقال']);
     const d = headerField(lines[i], ['Publication Date', 'Publish Date', 'Date', 'تاريخ النشر', 'تاريخ']);
+    const a = headerField(lines[i], ['Author', 'الكاتب', 'بقلم', 'كتابة', 'إعداد', 'اعداد']);
     if (t) { title = t; bodyStart = i + 1; continue; }
     if (d) { date = d; bodyStart = i + 1; continue; }
-    if (stripMarkers(lines[i]) !== '' && (title || date)) break;
-    if (stripMarkers(lines[i]) === '' && (title || date)) { bodyStart = i + 1; }
+    if (a) { author = a; bodyStart = i + 1; continue; }
+    if (stripMarkers(lines[i]) !== '' && (title || date || author)) break;
+    if (stripMarkers(lines[i]) === '' && (title || date || author)) { bodyStart = i + 1; }
   }
-  return { title, date, bodyStart };
+  return { title, date, author, bodyStart };
+}
+
+// A trailing "كتابة : ..." / "بقلم ..." line names the author rather than body text.
+function splitTrailingAuthor(body) {
+  const lines = body.split(/\r?\n/);
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const clean = stripMarkers(lines[i]);
+    if (!clean) continue;
+    if (/^[.ـ\-–—\s]+$/.test(clean)) { lines.splice(i, 1); continue; }
+    const author = headerField(lines[i], ['Author', 'الكاتب', 'بقلم', 'كتابة', 'إعداد', 'اعداد']);
+    if (author) { lines.splice(i, 1); return { author, body: lines.join('\n') }; }
+    break;
+  }
+  return { author: '', body };
 }
 
 // Accepts "15 September 2024", "15/09/2024", "2024-09-15" and Arabic digits.
@@ -233,7 +250,9 @@ async function main() {
       const lines = raw.split(/\r?\n/);
       const head = parseHeader(lines);
       const title = head.title || stem;
-      const body = lines.slice(head.bodyStart).join('\n').trim();
+      const split = splitTrailingAuthor(lines.slice(head.bodyStart).join('\n').trim());
+      const author = head.author || split.author;
+      const body = split.body.trim();
 
       if (!body) { problems.push(`${catName}/${file}: file has no article text`); continue; }
 
@@ -267,8 +286,8 @@ async function main() {
         categoryFolder: catName,
         date: dateParsed.iso,
         dateOriginal: head.date,
-        authorAr: 'رحّالة عبر التاريخ',
-        authorEn: 'Rahala Through History',
+        authorAr: author || 'رحّالة عبر التاريخ',
+        authorEn: author || 'Rahala Through History',
         readTimeAr: '4 دقائق قراءة',
         readTimeEn: '4 min read',
         img,
@@ -296,7 +315,11 @@ async function main() {
 
   const ids = built.map(r => r.id);
   for (const r of built) {
-    console.log(`[fas]   [${r.category}] ${r.dateOriginal} -> ${r.date}  ${r.titleAr}  (img: ${r.img})`);
+    console.log(`[fas]   [${r.category}] ${r.dateOriginal} -> ${r.date}`);
+    console.log(`[fas]     title : ${r.titleAr}`);
+    console.log(`[fas]     author: ${r.authorAr}`);
+    console.log(`[fas]     image : ${r.img}`);
+    console.log(`[fas]     file  : ${r.sourceFile}  (${r.contentAr.length} chars of HTML)`);
   }
 
   if (DRY_RUN) {
