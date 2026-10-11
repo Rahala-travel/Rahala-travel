@@ -3394,6 +3394,9 @@ function getMergedBlogPosts() {
     });
     seen.add(a.id);
   });
+  // Newest first, so a freshly imported article lands at the top of the grid and
+  // inside the "latest posts" section instead of being appended to the end.
+  merged.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
   return merged;
 }
 
@@ -3401,8 +3404,28 @@ function getMergedBlogPosts() {
 // scripts/import-fas-posts.js. Public for every visitor, with a local cache fallback.
 let fasPostsCache = [];
 
+// Firebase loads its SDKs and signs in anonymously AFTER this script runs, so a
+// fixed delay can fire before the database is usable. Poll instead of guessing,
+// otherwise a first-time visitor gets the empty cache and sees no articles.
+function whenDataReady(maxMs) {
+  const limit = maxMs || 20000;
+  const started = Date.now();
+  return new Promise((resolve) => {
+    const tick = () => {
+      if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) return resolve(true);
+      if (Date.now() - started > limit) return resolve(false);
+      setTimeout(tick, 300);
+    };
+    tick();
+  });
+}
+
 async function loadFasPosts() {
   if (typeof DataService === 'undefined' || !DataService.getFasArticles) return;
+  if (!(await whenDataReady())) {
+    console.warn('loadFasPosts: Firebase did not become ready in time; keeping cached articles.');
+    return;
+  }
   try {
     const posts = await Promise.race([
       DataService.getFasArticles(),
@@ -3420,14 +3443,16 @@ async function loadFasPosts() {
 async function loadFbPublishedPosts() {
   if (fbPublishedPostsLoaded || typeof DataService === 'undefined' || !DataService.getPublishedFbArticles) return;
   fbPublishedPostsLoaded = true;
-  try {
-    const posts = await Promise.race([
-      DataService.getPublishedFbArticles(),
-      new Promise(resolve => setTimeout(() => resolve(null), 10000))
-    ]);
-    if (Array.isArray(posts)) fbPublishedPostsCache = posts;
-  } catch (err) {
-    console.warn('loadFbPublishedPosts failed:', err.message);
+  if (await whenDataReady()) {
+    try {
+      const posts = await Promise.race([
+        DataService.getPublishedFbArticles(),
+        new Promise(resolve => setTimeout(() => resolve(null), 10000))
+      ]);
+      if (Array.isArray(posts)) fbPublishedPostsCache = posts;
+    } catch (err) {
+      console.warn('loadFbPublishedPosts failed:', err.message);
+    }
   }
   refreshFbPublishedGrid();
 }
