@@ -4,7 +4,25 @@
 const DataService = (() => {
   let db = null;
   let storage = null;
-  let firebaseReady = false;
+  let firebaseReady = false; // auth (anonymous) completed — required for writes
+  let dbReady = false;       // database handle available — enough for reads
+
+  // Resolves as soon as the database handle is available (reads can start), or
+  // when init() finishes if it fails. Callers await ready() instead of polling.
+  let initSettled = false;
+  let resolveInit;
+  const initPromise = new Promise((resolve) => { resolveInit = resolve; });
+  function settleInit() {
+    if (initSettled) return;
+    initSettled = true;
+    resolveInit(dbReady);
+  }
+  function ready() {
+    return initPromise;
+  }
+  function onReady(cb) {
+    initPromise.then(cb);
+  }
 
   const FIREBASE_SDK_URLS = [
     'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
@@ -24,9 +42,9 @@ const DataService = (() => {
   }
 
   async function loadFirebaseSDKs() {
-    for (const url of FIREBASE_SDK_URLS) {
-      await loadScript(url);
-    }
+    // Load all SDK scripts at once instead of one after another — the four files
+    // are independent, so waiting for each in turn just multiplied the delay.
+    await Promise.all(FIREBASE_SDK_URLS.map(loadScript));
   }
 
   async function init() {
@@ -48,6 +66,12 @@ const DataService = (() => {
       firebase.initializeApp(FIREBASE_CONFIG);
       db = firebase.database();
       storage = firebase.storage();
+      dbReady = true;
+      // Reads only need the database reference — resolve now instead of waiting
+      // for the anonymous sign-in, so the blog is never held up by (or broken by)
+      // a slow/auth-failed sign-in. Public reads work without auth.
+      settleInit();
+      console.log('[DataService] Database ready (reads may start).');
       console.log('[DataService] Trying anonymous auth...');
       try {
         await firebase.auth().signInAnonymously();
@@ -58,11 +82,17 @@ const DataService = (() => {
       }
     } catch (err) {
       console.warn('[DataService] Firebase init FAILED:', err.message);
+    } finally {
+      settleInit();
     }
   }
 
   function isReady() {
     return firebaseReady && db !== null;
+  }
+
+  function isDbReady() {
+    return dbReady && db !== null;
   }
 
   function withTimeout(promise, ms) {
@@ -73,7 +103,7 @@ const DataService = (() => {
   }
 
   async function getPublishedBooks() {
-    if (!isReady()) return getLocalFallback();
+    if (!isDbReady()) return getLocalFallback();
     try {
       const snapshot = await withTimeout(db.ref('publishedBooks').once('value'), 10000);
       const data = snapshot.val();
@@ -191,7 +221,7 @@ const DataService = (() => {
   // They are already in final site shape (titleAr/contentAr/date/...), so the blog
   // grid uses them as-is. Cached locally so the site still works offline.
   async function getFasArticles() {
-    if (!isReady()) return getFasLocalFallback();
+    if (!isDbReady()) return getFasLocalFallback();
     try {
       let data = {};
       try {
@@ -223,7 +253,7 @@ const DataService = (() => {
   // Firebase node with a local cache so the site keeps working when Firebase
   // is slow or offline.
   async function getPublishedFbArticles() {
-    if (!isReady()) return getFbLocalFallback();
+    if (!isDbReady()) return getFbLocalFallback();
     try {
       let data = {};
       try {
@@ -294,10 +324,15 @@ const DataService = (() => {
     localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(cache));
   }
 
-  setTimeout(() => init(), 1500);
+  // Start immediately — every millisecond before init begins is a millisecond a
+  // visitor stares at "No articles found".
+  init();
 
   return {
     isReady,
+    isDbReady,
+    ready,
+    onReady,
     getPublishedBooks,
     publishBook,
     unpublishBook,

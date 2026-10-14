@@ -21,6 +21,14 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://rahala-travel.github.io/Rahala-travel/">
 
+  <!-- Warm up the connections used for Firebase articles (SDKs, auth, database).
+       Saves a DNS + TLS handshake on the critical path so articles load sooner. -->
+  <link rel="preconnect" href="https://www.gstatic.com">
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
+  <link rel="dns-prefetch" href="https://rhala-a3d4c-default-rtdb.asia-southeast1.firebasedatabase.app">
+  <link rel="dns-prefetch" href="https://identitytoolkit.googleapis.com">
+  <link rel="dns-prefetch" href="https://securetoken.googleapis.com">
+
   <!-- Open Graph / Facebook / WhatsApp / Messenger / Telegram / LinkedIn -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="رحالة عبر التاريخ">
@@ -1818,8 +1826,8 @@
   </div>
 
   <!-- JavaScript -->
-<script src="js/script.js?v=5"></script>
+<script src="js/script.js?v=6"></script>
 <script src="js/firebase-config.js?v=3"></script>
-<script src="js/dataService.js?v=4"></script>
+<script src="js/dataService.js?v=5"></script>
 </body>
 </html>

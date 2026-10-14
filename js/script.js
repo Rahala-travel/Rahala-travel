@@ -1002,6 +1002,7 @@ const destinationDetails = {
 // 3. APPLICATION STATE & INITIALIZATION
 // --------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+  seedBlogCachesFromLocal();
   initTheme();
   initLanguage();
   initNavigation();
@@ -1016,8 +1017,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminDashboard();
   handleOpenBookLink();
   initInterstitialAd();
-  setTimeout(() => loadFbPublishedPosts(), 2500);
-setTimeout(() => loadFasPosts(), 3000);
+  // Kick off the Firebase-backed article load immediately — no artificial delay.
+  // The grid shows a "loading" state until this resolves, then swaps in articles.
+  loadBlogData();
 });
 
 // Current active language state ('ar' or 'en')
@@ -3166,7 +3168,9 @@ function renderBookBlogGrid(activeCategory = 'all') {
   }
   const localBooks = getMergedBookList(activeCategory);
   renderBookBlogCards(container, localBooks, isAr);
-  if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) {
+  if (typeof DataService !== 'undefined' &&
+      ((DataService.isDbReady && DataService.isDbReady()) ||
+       (DataService.isReady && DataService.isReady()))) {
     DataService.getPublishedBooks().then(firebaseBooks => {
       const current = getBookBlogPosts();
       const localIds = new Set(current.map(b => b.id));
@@ -3342,7 +3346,32 @@ function formatArticleDate(dateStr, lang) {
 // Never auto-published; only entries with status==='published' (set manually in
 // the admin panel) are shown. Reads from Firebase with a local cache fallback.
 let fbPublishedPostsCache = [];
-let fbPublishedPostsLoaded = false;
+
+// Tracks whether the Firebase-backed articles are still loading, finished loading,
+// or failed. The grid uses this to distinguish "still loading" from a genuinely
+// empty category, so it never flashes "No articles found" while data is in flight.
+let blogDataState = 'loading'; // 'loading' | 'ready' | 'error'
+
+// The category the visitor currently has selected in the blog filter, so a data
+// refresh never yanks them back to the "all" tab.
+function currentBlogCategory() {
+  const btn = document.querySelector('.blog-filter-btn.active');
+  return btn ? (btn.getAttribute('data-blog-category') || 'all') : 'all';
+}
+
+// Paint the previous visit's articles straight from localStorage so returning
+// visitors see content instantly, before Firebase answers. loadBlogData() then
+// replaces them with the fresh copy.
+function seedBlogCachesFromLocal() {
+  try {
+    const fas = JSON.parse(localStorage.getItem('rahala_fas_articles_cache') || '[]');
+    if (Array.isArray(fas)) fasPostsCache = fas;
+  } catch (e) { /* ignore */ }
+  try {
+    const fb = JSON.parse(localStorage.getItem('rahala_fb_published_articles_cache') || '[]');
+    if (Array.isArray(fb)) fbPublishedPostsCache = fb;
+  } catch (e) { /* ignore */ }
+}
 
 function getMergedBlogPosts() {
   const defaults = getBlogPosts();
@@ -3404,62 +3433,82 @@ function getMergedBlogPosts() {
 // scripts/import-fas-posts.js. Public for every visitor, with a local cache fallback.
 let fasPostsCache = [];
 
-// Firebase loads its SDKs and signs in anonymously AFTER this script runs, so a
-// fixed delay can fire before the database is usable. Poll instead of guessing,
-// otherwise a first-time visitor gets the empty cache and sees no articles.
-function whenDataReady(maxMs) {
-  const limit = maxMs || 20000;
-  const started = Date.now();
-  return new Promise((resolve) => {
-    const tick = () => {
-      if (typeof DataService !== 'undefined' && DataService.isReady && DataService.isReady()) return resolve(true);
-      if (Date.now() - started > limit) return resolve(false);
-      setTimeout(tick, 300);
-    };
-    tick();
-  });
+// Wait until DataService.init() has settled (success OR failure). Falls back to
+// the old isReady() check for older cached copies of dataService.js, and gives up
+// after maxMs so a hung network never leaves the grid stuck on "Loading".
+function waitForDataService(maxMs) {
+  if (typeof DataService === 'undefined') return Promise.resolve(false);
+  if (typeof DataService.ready === 'function') {
+    return Promise.race([
+      DataService.ready(),
+      new Promise(resolve => setTimeout(() => resolve(DataService.isReady ? DataService.isReady() : false), maxMs || 15000))
+    ]);
+  }
+  if (typeof DataService.isReady === 'function') return Promise.resolve(DataService.isReady());
+  return Promise.resolve(false);
+}
+
+// Fetch one data source with a hard timeout. Never rejects in a way that blocks
+// the grid: a failed/timeout source simply leaves its cache untouched.
+async function fetchSource(getter) {
+  if (typeof DataService === 'undefined' || typeof getter !== 'function') return null;
+  try {
+    return await Promise.race([
+      getter(),
+      new Promise(resolve => setTimeout(() => resolve(null), 12000))
+    ]);
+  } catch (err) {
+    console.warn('[Blog] source fetch failed:', err && err.message);
+    return null;
+  }
 }
 
 async function loadFasPosts() {
-  if (typeof DataService === 'undefined' || !DataService.getFasArticles) return;
-  if (!(await whenDataReady())) {
-    console.warn('loadFasPosts: Firebase did not become ready in time; keeping cached articles.');
-    return;
-  }
-  try {
-    const posts = await Promise.race([
-      DataService.getFasArticles(),
-      new Promise(resolve => setTimeout(() => resolve(null), 10000))
-    ]);
-    if (Array.isArray(posts) && posts.length) {
-      fasPostsCache = posts;
-      refreshFbPublishedGrid();
-    }
-  } catch (err) {
-    console.warn('loadFasPosts failed:', err.message);
-  }
+  const posts = await fetchSource(DataService && DataService.getFasArticles);
+  if (Array.isArray(posts)) fasPostsCache = posts;
 }
 
 async function loadFbPublishedPosts() {
-  if (fbPublishedPostsLoaded || typeof DataService === 'undefined' || !DataService.getPublishedFbArticles) return;
-  fbPublishedPostsLoaded = true;
-  if (await whenDataReady()) {
-    try {
-      const posts = await Promise.race([
-        DataService.getPublishedFbArticles(),
-        new Promise(resolve => setTimeout(() => resolve(null), 10000))
-      ]);
-      if (Array.isArray(posts)) fbPublishedPostsCache = posts;
-    } catch (err) {
-      console.warn('loadFbPublishedPosts failed:', err.message);
-    }
-  }
-  refreshFbPublishedGrid();
+  const posts = await fetchSource(DataService && DataService.getPublishedFbArticles);
+  if (Array.isArray(posts)) fbPublishedPostsCache = posts;
 }
 
-function refreshFbPublishedGrid() {
+// Single entry point for the Firebase-backed articles. It shows the loading state,
+// waits for Firebase, loads both sources, then flips to ready/error and re-renders
+// exactly once. Repeated calls reuse the same in-flight promise (no duplicate reads).
+let blogLoadPromise = null;
+async function loadBlogData() {
+  if (blogLoadPromise) return blogLoadPromise;
+  blogLoadPromise = (async () => {
+    blogDataState = 'loading';
+    const readyReached = await waitForDataService(15000);
+
+    await Promise.all([loadFasPosts(), loadFbPublishedPosts()]);
+
+    const hasCached = (Array.isArray(fasPostsCache) && fasPostsCache.length > 0) ||
+                      (Array.isArray(fbPublishedPostsCache) && fbPublishedPostsCache.length > 0);
+    // Only treat this as a hard failure when Firebase never became usable AND we
+    // have nothing cached to show. Otherwise we consider the data loaded (possibly
+    // empty), which is what lets the UI show the real empty state.
+    blogDataState = (!readyReached && !hasCached) ? 'error' : 'ready';
+
+    refreshBlogGrid();
+    return blogDataState;
+  })();
+  return blogLoadPromise;
+}
+
+function retryBlogData() {
+  blogLoadPromise = null;
+  blogDataState = 'loading';
+  refreshBlogGrid();
+  return loadBlogData();
+}
+
+// Re-render the blog views without resetting the visitor's chosen category.
+function refreshBlogGrid() {
   if (typeof renderLatestPosts === 'function') renderLatestPosts();
-  if (typeof renderBlogGrid === 'function') renderBlogGrid('all');
+  if (typeof renderBlogGrid === 'function') renderBlogGrid(currentBlogCategory());
 }
 
 // --------------------------------------------------------------------------
@@ -3527,6 +3576,34 @@ function renderLatestPosts() {
 // --------------------------------------------------------------------------
 // 15. RENDER MAIN BLOG GRID (With 4 Category Filtering)
 // --------------------------------------------------------------------------
+// Message shown inside the blog grid when the current filter has no cards. It
+// separates the three states: still loading, load failed, and genuinely empty.
+function renderBlogStatus() {
+  const isAr = currentLang === 'ar';
+  if (blogDataState === 'loading') {
+    return `
+      <div class="blog-status blog-status--loading" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+        <span class="blog-status__spinner" aria-hidden="true"></span>
+        <p style="font-size: 1.05rem; font-weight: 700; margin-top: 0.85rem;">${isAr ? 'جاري تحميل المقالات...' : 'Loading articles…'}</p>
+      </div>
+    `;
+  }
+  if (blogDataState === 'error') {
+    return `
+      <div class="blog-status blog-status--error" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+        <p style="font-size: 1.1rem; font-weight: 700;">${isAr ? 'تعذّر تحميل المقالات.' : 'Could not load articles.'}</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">${isAr ? 'تأكّد من اتصالك بالإنترنت ثم حاول مرة أخرى.' : 'Please check your connection and try again.'}</p>
+        <button type="button" class="btn btn--secondary btn--sm" data-blog-retry style="margin-top: 1rem;">${isAr ? 'إعادة المحاولة' : 'Retry'}</button>
+      </div>
+    `;
+  }
+  return `
+    <div class="blog-status blog-status--empty" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+      <p style="font-size: 1.1rem; font-weight: 700;">${isAr ? 'لا توجد مقالات في هذا التصنيف حالياً.' : 'No articles found in this category yet.'}</p>
+    </div>
+  `;
+}
+
 function renderBlogGrid(activeCategory = 'all') {
   const container = document.getElementById('blog-grid');
   if (!container) return;
@@ -3539,12 +3616,9 @@ function renderBlogGrid(activeCategory = 'all') {
   const isAr = currentLang === 'ar';
 
   if (filtered.length === 0) {
-    container.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
-        <p style="font-size: 1.1rem; font-weight: 700;">${isAr ? 'لا توجد مقالات في هذا التصنيف حالياً.' : 'No articles found in this category yet.'}</p>
-        <p style="font-size: 0.9rem; margin-top: 0.5rem;">${isAr ? 'انقر على "إضافة مقال جديد" لنشر أول مقال في هذا العصر التاريخي!' : 'Click "+ Publish New Article" to add the first article in this category!'}</p>
-      </div>
-    `;
+    container.innerHTML = renderBlogStatus();
+    const retryBtn = container.querySelector('[data-blog-retry]');
+    if (retryBtn) retryBtn.addEventListener('click', () => retryBlogData());
     return;
   }
 
@@ -4659,8 +4733,9 @@ function initAdminDashboard() {
     });
     await DataService.setFbPostStatus(post.fbId, 'published');
     const published = await (typeof DataService.getPublishedFbArticles === 'function' ? DataService.getPublishedFbArticles() : Promise.resolve([]));
+    if (Array.isArray(published)) fbPublishedPostsCache = published;
     try { localStorage.setItem('rahala_fb_published_articles_cache', JSON.stringify(published)); } catch (e) { /* ignore */ }
-    if (typeof refreshFbPublishedGrid === 'function') refreshFbPublishedGrid();
+    if (typeof refreshBlogGrid === 'function') refreshBlogGrid();
     return true;
   }
 
